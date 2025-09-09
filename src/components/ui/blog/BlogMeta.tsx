@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Text, Stack } from '@/components/ui';
 import { Tag } from './Tag';
 
@@ -40,17 +41,21 @@ export const BlogMeta: React.FC<BlogMetaProps> = ({
           <div className="flex items-center space-x-3">
             {author.avatar && (
               <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--secondary)] p-0.5">
-                <img 
-                  src={author.avatar} 
-                  alt={author.name}
-                  className="w-full h-full rounded-full object-cover bg-[color:var(--background)]"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const fallback = target.nextElementSibling as HTMLElement;
-                    if (fallback) fallback.style.display = 'flex';
-                  }}
-                />
+                <div className="relative w-full h-full">
+                  <Image 
+                    src={author.avatar} 
+                    alt={author.name}
+                    width={40}
+                    height={40}
+                    className="w-full h-full rounded-full object-cover bg-[color:var(--background)]"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const fallback = target.parentElement?.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
+                  />
+                </div>
                 <div 
                   className="w-full h-full rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--secondary)] text-white font-title font-bold text-sm items-center justify-center hidden"
                   style={{ display: 'none' }}

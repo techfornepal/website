@@ -1,8 +1,15 @@
-import { getPostBySlug } from '@/lib/mdx';
+import { getPostBySlug, listPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Container, PageMain, GradientHeading, Prose, Stack, BlogMeta } from '@/components/ui';
 import remarkGfm from 'remark-gfm';
+
+export async function generateStaticParams() {
+  const posts = await listPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

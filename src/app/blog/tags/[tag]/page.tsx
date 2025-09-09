@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { getPostsByTag, getAllTags } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import { Container, PageMain, GradientHeading, Text, Stack, BlogPostCard, NavigationLink } from '@/components/ui';
