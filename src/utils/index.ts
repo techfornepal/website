@@ -83,3 +83,34 @@ export function debounce<TArgs extends unknown[]>(
 export const generateId = (length: number = 8): string => {
   return Math.random().toString(36).substring(2, length + 2);
 };
+
+/**
+ * Normalize a path by removing trailing slash (except for root)
+ */
+export const normalizePath = (path: string): string => {
+  if (path === '/' || path === '') return path;
+  return path.endsWith('/') ? path.slice(0, -1) : path;
+};
+
+/**
+ * Check if current pathname matches target route with normalization
+ */
+export const isPathActive = (pathname: string, targetRoute: string): boolean => {
+  const normalizedPathname = normalizePath(pathname);
+  const normalizedTarget = normalizePath(targetRoute);
+  
+  if (normalizedTarget === '/') {
+    // for home: exact match only
+    return normalizedPathname === normalizedTarget;
+  }
+  
+  return normalizedPathname === normalizedTarget || normalizedPathname.startsWith(normalizedTarget + '/');
+};
+
+/**
+ * Check if current pathname matches blog route with special logic
+ * Highlights for base blog page and tag filtering, but not individual posts
+ */
+export const isBlogPathActive = (pathname: string): boolean => {
+  return pathname === '/blog/' || pathname.startsWith('/blog/tags/');
+};
