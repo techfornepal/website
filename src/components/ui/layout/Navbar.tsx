@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Container } from './Container';
 import { cn } from '@/utils/cn';
+import { isPathActive, isBlogPathActive } from '@/utils';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -73,20 +74,26 @@ export const Navbar: React.FC = () => {
           </Link>
           
           <nav className="hidden md:flex items-center space-x-8">
-            {nav.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={cn(
-                  "text-base font-medium transition-colors duration-300",
-                  pathname === href 
-                    ? "text-[color:var(--secondary)]" 
-                    : "text-[color:var(--text-secondary)] hover:text-[color:var(--primary)]"
-                )}
-              >
-                {label}
-              </Link>
-            ))}
+            {nav.map(({ href, label }) => {
+              const isActive = href === '/blog' 
+                ? isBlogPathActive(pathname)
+                : isPathActive(pathname, href);
+              
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={cn(
+                    "text-base font-medium transition-colors duration-300",
+                    isActive
+                      ? "text-[color:var(--secondary)]" 
+                      : "text-[color:var(--text-secondary)] hover:text-[color:var(--primary)]"
+                  )}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </nav>
 
           <button className="md:hidden p-2 text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] transition-colors duration-200">

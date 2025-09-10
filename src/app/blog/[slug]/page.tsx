@@ -1,7 +1,8 @@
 import { getPostBySlug, listPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { Container, PageMain, GradientHeading, Prose, Stack, BlogMeta } from '@/components/ui';
+import { Container, PageMain, GradientHeading, Prose, Stack, BlogMeta, NavigationLink } from '@/components/ui';
+import { ArrowLeft } from 'lucide-react';
 import remarkGfm from 'remark-gfm';
 
 export async function generateStaticParams() {
@@ -19,13 +20,24 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <PageMain>
       <Container size="md">
-        <article>
-          <Stack spacing="2xl">
-            <header>
-              <Stack spacing="lg">
-                <GradientHeading as="h1" size="4xl">
-                  {String(post.frontmatter.title ?? slug)}
-                </GradientHeading>
+        <Stack spacing="xl">
+          <NavigationLink
+            href="/blog"
+            icon={<ArrowLeft size={16} />}
+            iconPosition="left"
+            variant="secondary"
+            className="text-sm font-medium tracking-wide uppercase"
+          >
+            Back to the main blog
+          </NavigationLink>
+          
+          <article>
+            <Stack spacing="2xl">
+              <header>
+                <Stack spacing="lg">
+                  <GradientHeading as="h1" size="4xl">
+                    {String(post.frontmatter.title ?? slug)}
+                  </GradientHeading>
                 
                 <BlogMeta
                   author={post.frontmatter.author as { name: string; avatar?: string }}
@@ -45,9 +57,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                   }
                 }}
               />
-            </Prose>
-          </Stack>
-        </article>
+              </Prose>
+            </Stack>
+          </article>
+        </Stack>
       </Container>
     </PageMain>
   );
