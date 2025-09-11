@@ -23,7 +23,7 @@ export default function Contact() {
               If you want to send us your writing for the blog, you can do one of the following:
               <ul className="list-disc list-inside">
                 <li>
-                  read our <a href="https://github.com/techfornepal/techfornepal/blob/main/CONTRIBUTING.md" className="hover:text-[color:var:primary)] font-bold hover:underline">CONTRIBUTING.md</a> file on our GitHub repository and follow the instructions.
+                  read our <a href="https://github.com/techfornepal/website/blob/main/CONTRIBUTING.md" className="hover:text-[color:var:primary)] font-bold hover:underline">CONTRIBUTING.md</a> file on our GitHub repository and follow the instructions.
                 </li>
                 <li>
                   send us your writing via email (alongside with your name, email, and your photo if you&apos;re comfortable with that). We can do the uploading for you. The blog posts will look something like <Link href="/blog/gen-z" className="text-[color:var:primary)] font-bold hover:underline">this</Link>.
