@@ -8,14 +8,14 @@ export default async function Blog() {
     <PageMain>
       <Container size="md">
         <Stack spacing="xl">
-          <GradientHeading as="h1" size="4xl">
+          <GradientHeading as="h1" size="2xl">
             Blog
           </GradientHeading>
           
           {posts.length === 0 ? (
-            <Text color="muted" size="lg">No posts yet. Coming soon.</Text>
+            <Text color="muted" size="base">No posts yet. Coming soon.</Text>
           ) : (
-            <Stack spacing="2xl">
+            <Stack spacing="lg">
               {posts.map((post) => (
                 <BlogPostCard 
                   key={post.slug} 

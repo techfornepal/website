@@ -14,7 +14,7 @@ export const PageMain: React.FC<PageMainProps> = ({
 }) => {
   return (
     <main className={cn(
-      'pt-32 pb-8',
+      'pt-24 md:pt-32 pb-8',
       fullHeight && 'min-h-screen flex items-center justify-center',
       className
     )}>

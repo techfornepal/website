@@ -13,10 +13,10 @@ interface TagProps {
 }
 
 const variantClasses = {
-  default: 'inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-[color:var(--primary)]/10 text-[color:var(--primary)] border border-[color:var(--primary)]/20 hover:bg-[color:var(--primary)]/20 hover:border-[color:var(--primary)]/40',
-  large: 'inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-[color:var(--primary)]/10 text-[color:var(--primary)] border border-[color:var(--primary)]/20 hover:bg-[color:var(--primary)]/20 hover:border-[color:var(--primary)]/40',
-  outline: 'inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium border-2 border-[color:var(--primary)] text-[color:var(--primary)] hover:bg-[color:var(--primary)] hover:text-white',
-  subtle: 'inline-flex items-center text-sm font-medium text-[color:var(--text-secondary)] hover:text-[color:var(--primary)] hover:underline underline-offset-2'
+  default: 'inline-flex items-center px-2.5 py-1 rounded-md text-xs font-[var(--font-weight-medium)] bg-[color:var(--primary)]/10 text-[color:var(--primary)] border border-[color:var(--primary)]/20 hover:bg-[color:var(--primary)]/20 hover:border-[color:var(--primary)]/40',
+  large: 'inline-flex items-center px-4 py-2 rounded-lg text-sm font-[var(--font-weight-medium)] bg-[color:var(--primary)]/10 text-[color:var(--primary)] border border-[color:var(--primary)]/20 hover:bg-[color:var(--primary)]/20 hover:border-[color:var(--primary)]/40',
+  outline: 'inline-flex items-center px-3 py-1.5 rounded-md text-sm font-[var(--font-weight-medium)] border-2 border-[color:var(--primary)] text-[color:var(--primary)] hover:bg-[color:var(--primary)] hover:text-white',
+  subtle: 'inline-flex items-center text-sm font-[var(--font-weight-medium)] text-[color:var(--text-muted)] hover:text-[color:var(--primary)] hover:underline underline-offset-2'
 };
 
 export const Tag: React.FC<TagProps> = ({ 

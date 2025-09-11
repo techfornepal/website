@@ -1,5 +1,5 @@
 :root {
-  /* authentic Nepal flag colors */
+  /* Authentic 🇳🇵 flag colors */
   --nepal-red: #DC143C;
   --nepal-blue: #003893;
   --nepal-white: #ffffff;
@@ -13,13 +13,31 @@
   --border: #e2e8f0;
   --border-light: #edf2f7;
   
-  /* Nepal-inspired accent colors - Blue primary, Crimson secondary */
+  /* 🇳🇵 inspired accent colors - Blue primary, Crimson secondary */
   --primary: #003893;
   --primary-hover: #002c75;
   --primary-light: #dbeafe;
   --secondary: #DC143C;
   --secondary-hover: #b91c1c;
   --secondary-light: #fecaca;
+  
+  /* semantic colors for component states */
+  --success: #059669;
+  --success-hover: #047857;
+  --success-light: #d1fae5;
+  --success-dark: #064e3b;
+  --warning: #d97706;
+  --warning-hover: #b45309;
+  --warning-light: #fef3c7;
+  --warning-dark: #92400e;
+  --error: #dc2626;
+  --error-hover: #b91c1c;
+  --error-light: #fee2e2;
+  --error-dark: #991b1b;
+  --info: #2563eb;
+  --info-hover: #1d4ed8;
+  --info-light: #dbeafe;
+  --info-dark: #1e40af;
   
   /* refined text hierarchy */
   --text-primary: #2d3748;
@@ -35,9 +53,31 @@
   --navbar-border: #f7fafc;
   --footer-bg: #fafafa;
   --footer-border: #edf2f7;
+
+  /* typography scale - consistent line heights */
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  /* semantic font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* additional semantic colors for enhanced system */
+  --accent: var(--surface-hover);
+  --focus: var(--primary);
+  --focus-ring: var(--primary);
+  --divider: var(--border);
+  --overlay: rgba(45, 55, 72, 0.4);
+  --backdrop: rgba(255, 255, 255, 0.95);
 }
 
 /* light-focused design - disabling dark mode for now */
+/* TODO: implement dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     /* keeping light theme even in dark mode preference for now */
@@ -57,6 +97,24 @@
     --secondary-hover: #b91c1c;
     --secondary-light: #fecaca;
     
+    /* semantic colors for component states */
+    --success: #059669;
+    --success-hover: #047857;
+    --success-light: #d1fae5;
+    --success-dark: #064e3b;
+    --warning: #d97706;
+    --warning-hover: #b45309;
+    --warning-light: #fef3c7;
+    --warning-dark: #92400e;
+    --error: #dc2626;
+    --error-hover: #b91c1c;
+    --error-light: #fee2e2;
+    --error-dark: #991b1b;
+    --info: #2563eb;
+    --info-hover: #1d4ed8;
+    --info-light: #dbeafe;
+    --info-dark: #1e40af;
+    
     --text-primary: #2d3748;
     --text-secondary: #4a5568;
     --text-muted: #718096;
@@ -70,5 +128,26 @@
     --navbar-border: #f7fafc;
     --footer-bg: #fafafa;
     --footer-border: #edf2f7;
+
+    /* typography scale - consistent line heights */
+    --line-height-tight: 1.25;
+    --line-height-snug: 1.375;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
+    --line-height-loose: 2;
+
+    /* semantic font weights */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* additional semantic colors for enhanced system */
+    --accent: var(--surface-hover);
+    --focus: var(--primary);
+    --focus-ring: var(--primary);
+    --divider: var(--border);
+    --overlay: rgba(45, 55, 72, 0.4);
+    --backdrop: rgba(255, 255, 255, 0.95);
   }
 }

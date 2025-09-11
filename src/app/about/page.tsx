@@ -5,19 +5,19 @@ export default function About() {
     <PageMain>
       <Container size="md">
         <Stack spacing="xl">
-          <GradientHeading as="h1" size="4xl" gradient='diagonal'>
+          <GradientHeading as="h1" size="2xl" gradient='diagonal'>
             About Tech For Nepal
           </GradientHeading>
           <Stack spacing="lg">
-            <Text color="muted">
+            <Text size="base" color="muted">
               Tech For Nepal is a community-driven platform dedicated to showcasing Nepal&apos;s 
               tech talent and fostering innovation through collaboration.
             </Text>
-            <Text>
+            <Text size="base">
               We believe that by bringing together developers, designers, entrepreneurs, and tech 
               enthusiasts, we can create something truly remarkable for our country.
             </Text>
-            <Text>
+            <Text size="base">
               Our mission is to put Nepal on the global tech map by building a vibrant ecosystem 
               that supports innovation, knowledge sharing, and professional growth.
             </Text>

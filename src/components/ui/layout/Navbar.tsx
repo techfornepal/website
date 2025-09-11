@@ -1,108 +1,127 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Container } from './Container';
+import { MobileMenu } from '../navigation/MobileMenu';
+import { useNavigation } from '../../../hooks/useNavigation';
+import { useIsDesktop } from '../../../hooks/useMediaQuery';
 import { cn } from '@/utils/cn';
 import { isPathActive, isBlogPathActive } from '@/utils';
 
 export const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
+  const isDesktop = useIsDesktop();
+  
+  const { 
+    isScrolled, 
+    isVisible, 
+    isMobileMenuOpen, 
+    toggleMobileMenu, 
+    closeMobileMenu 
+  } = useNavigation();
 
-  const nav = [
+  const navItems = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contact' },
   ];
 
-  useEffect(() => {
-    let ticking = false;
-
-    const updateScrollDirection = () => {
-      const scrollY = window.scrollY;
-
-      if (Math.abs(scrollY - lastScrollY) < 5) {
-        ticking = false;
-        return;
-      }
-
-      setIsVisible(scrollY > lastScrollY ? false : true);
-      setIsScrolled(scrollY > 50);
-      setLastScrollY(scrollY > 0 ? scrollY : 0);
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateScrollDirection);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [lastScrollY]);
-
   return (
-    <nav className={cn(
-      "fixed left-0 right-0 z-50 transition-all duration-300 ease-in-out",
-      "top-4",
-      isVisible ? "translate-y-0" : "-translate-y-full",
-      isHomePage 
-        ? (isScrolled 
-            ? "bg-[color:var(--background)]/95 backdrop-blur-lg" 
-            : "bg-transparent"
-          )
-        : "bg-[color:var(--background)]/95 backdrop-blur-lg"
-    )}>
-      <Container>
-        <div className="flex h-16 items-center justify-between">
-          <Link 
-            href="/" 
-            className="group flex items-center font-semibold text-xl text-[color:var(--text-primary)] transition-all duration-300"
-          >
-            <span className="font-title font-bold tracking-tight">
-              <span className="text-[color:var(--primary)] group-hover:text-[color:var(--secondary)] transition-colors duration-300">Tech For</span>{' '}
-              <span className="text-[color:var(--secondary)] group-hover:text-[color:var(--primary)] transition-colors duration-300">Nepal</span>
-            </span>
-          </Link>
-          
-          <nav className="hidden md:flex items-center space-x-8">
-            {nav.map(({ href, label }) => {
-              const isActive = href === '/blog' 
-                ? isBlogPathActive(pathname)
-                : isPathActive(pathname, href);
-              
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={cn(
-                    "text-base font-medium transition-colors duration-300",
-                    isActive
-                      ? "text-[color:var(--secondary)]" 
-                      : "text-[color:var(--text-secondary)] hover:text-[color:var(--primary)]"
-                  )}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-          </nav>
+    <>
+      <nav className={cn(
+        "fixed left-0 right-0 z-50 transition-all duration-300 ease-in-out",
+        "top-4",
+        isVisible ? "translate-y-0" : "-translate-y-full",
+        isHomePage 
+          ? (isScrolled 
+              ? "bg-[color:var(--background)]/95 backdrop-blur-lg" 
+              : "bg-transparent"
+            )
+          : "bg-[color:var(--background)]/95 backdrop-blur-lg"
+      )}>
+        <Container>
+          <div className="flex h-16 items-center justify-between">
+            <Link 
+              href="/" 
+              className="group flex items-center font-[var(--font-weight-semibold)] text-xl text-[color:var(--text-primary)] transition-all duration-300"
+            >
+              <span className="font-title font-[var(--font-weight-bold)] tracking-tight">
+                <span className="text-[color:var(--primary)] group-hover:text-[color:var(--secondary)] transition-colors duration-300">Tech For</span>{' '}
+                <span className="text-[color:var(--secondary)] group-hover:text-[color:var(--primary)] transition-colors duration-300">Nepal</span>
+              </span>
+            </Link>
+            
+            {isDesktop && (
+              <nav className="flex items-center space-x-8" aria-label="Main navigation">
+                {navItems.map(({ href, label }) => {
+                  const isActive = href === '/blog' 
+                    ? isBlogPathActive(pathname)
+                    : isPathActive(pathname, href);
+                  
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      className={cn(
+                        "text-base font-[var(--font-weight-medium)] transition-colors duration-300",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2 rounded-md px-2 py-1",
+                        isActive
+                          ? "text-[color:var(--secondary)]" 
+                          : "text-[color:var(--text-secondary)] hover:text-[color:var(--primary)]"
+                      )}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      {label}
+                    </Link>
+                  );
+                })}
+              </nav>
+            )}
 
-          <button className="md:hidden p-2 text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] transition-colors duration-200">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </Container>
-    </nav>
+            {!isDesktop && (
+              <button 
+                onClick={toggleMobileMenu}
+                className={cn(
+                  "p-2 rounded-md",
+                  "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
+                  "hover:bg-[color:var(--accent)] transition-colors duration-200",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2"
+                )}
+                aria-label="Toggle mobile menu"
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
+                type="button"
+              >
+                <svg 
+                  className="w-5 h-5" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <span className="sr-only">
+                  {isMobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
+                </span>
+              </button>
+            )}
+          </div>
+        </Container>
+      </nav>
+
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={closeMobileMenu}
+        navItems={navItems}
+        pathname={pathname}
+        isPathActive={isPathActive}
+        isBlogPathActive={isBlogPathActive}
+      />
+    </>
   );
 };

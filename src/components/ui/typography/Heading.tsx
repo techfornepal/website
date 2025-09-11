@@ -1,50 +1,52 @@
 import React from 'react';
 import { cn } from '../../../utils/cn';
+import { responsiveTextSizes, type ResponsiveTextSize } from '../../../utils/responsive';
+import { semanticHeadingSizes } from '../types';
 
-type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl';
+type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'div';
+type HeadingSize = ResponsiveTextSize;
+
+type TextAlign = 'left' | 'center' | 'right';
 
 interface HeadingProps {
   as?: HeadingLevel;
   size?: HeadingSize;
   children: React.ReactNode;
   className?: string;
-  color?: 'default' | 'muted' | 'primary' | 'white';
+  color?: 'default' | 'muted' | 'primary' | 'secondary' | 'white' | 'success' | 'warning' | 'error' | 'info';
   weight?: 'normal' | 'medium' | 'semibold' | 'bold';
+  align?: TextAlign;
 }
-
-const sizeClasses: Record<HeadingSize, string> = {
-  xs: 'text-xs',
-  sm: 'text-sm', 
-  md: 'text-base',
-  lg: 'text-lg',
-  xl: 'text-xl',
-  '2xl': 'text-2xl',
-  '3xl': 'text-3xl',
-  '4xl': 'text-4xl lg:text-5xl',
-  '5xl': 'text-5xl lg:text-6xl',
-  '6xl': 'text-4xl lg:text-6xl'
-};
 
 const colorClasses = {
   default: 'text-[color:var(--text-primary)]',
   muted: 'text-[color:var(--text-secondary)]',
   primary: 'text-[color:var(--primary)]',
-  white: 'text-[color:var(--nepal-white)]'
+  secondary: 'text-[color:var(--secondary)]',
+  white: 'text-[color:var(--nepal-white)]',
+  success: 'text-[color:var(--success)]',
+  warning: 'text-[color:var(--warning)]',
+  error: 'text-[color:var(--error)]',
+  info: 'text-[color:var(--info)]'
+};
+
+const alignClasses: Record<TextAlign, string> = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right'
 };
 
 const weightClasses = {
-  normal: 'font-normal',
-  medium: 'font-medium',
-  semibold: 'font-semibold',
-  bold: 'font-bold'
+  normal: 'font-[var(--font-weight-normal)]',
+  medium: 'font-[var(--font-weight-medium)]',
+  semibold: 'font-[var(--font-weight-semibold)]',
+  bold: 'font-[var(--font-weight-bold)]'
 };
 
 /**
- * Heading component for displaying semantic heading elements with consistent typography.
- * 
+ * Enhanced Heading component with responsive typography support.
  * @param as - The HTML heading element to render (h1-h6). Defaults to h2
- * @param size - Visual size of the heading, independent of semantic level
+ * @param size - Visual size using centralized responsive text system (automatically scales across breakpoints)
  * @param children - The heading content
  * @param className - Additional CSS classes to apply
  * @param color - Color variant for the heading text
@@ -52,29 +54,35 @@ const weightClasses = {
  * 
  * @example
  * ```tsx
+ * // Hero heading with responsive scaling (4xl -> 5xl -> 6xl -> 7xl -> 8xl across breakpoints)
  * <Heading as="h1" size="4xl" color="primary">
- *   Welcome to our site
+ *   Hero Title
  * </Heading>
  * 
- * <Heading as="h3" size="lg" weight="medium">
- *   Section title
+ * // Section heading with responsive scaling (xl -> 2xl -> 3xl across breakpoints)
+ * <Heading as="h2" size="xl" weight="medium">
+ *   Section Title
  * </Heading>
  * ```
  */
 export const Heading: React.FC<HeadingProps> = ({
   as: Component = 'h2',
-  size = 'xl',
+  size,
   children,
   className,
   color = 'default',
-  weight = 'bold'
+  weight = 'bold',
+  align = 'left'
 }) => {
+  const resolvedSize = size || (Component in semanticHeadingSizes ? semanticHeadingSizes[Component as keyof typeof semanticHeadingSizes] : 'xl');
+  
   return (
     <Component
       className={cn(
-        sizeClasses[size],
+        responsiveTextSizes[resolvedSize],
         colorClasses[color],
         weightClasses[weight],
+        alignClasses[align],
         className
       )}
     >
