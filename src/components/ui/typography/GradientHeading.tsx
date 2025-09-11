@@ -1,17 +1,18 @@
 import React from 'react';
 import { cn } from '@/utils/cn';
 import { Heading } from './Heading';
+import { type ResponsiveTextSize } from '../../../utils/responsive';
 
 type GradientHeadingProps = {
   children: React.ReactNode;
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl';
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'div';
+  size?: ResponsiveTextSize;
   className?: string;
   gradient?: 'primary-secondary' | 'primary-only' | 'secondary-only' | 'diagonal';
 };
 
 /**
- * Heading component with Nepal flag-inspired gradient text effect.
+ * Heading component with Nepal flag-inspired gradient text effect.\
  * Extends the base Heading component with gradient styling.
  */
 export const GradientHeading: React.FC<GradientHeadingProps> = ({
@@ -33,7 +34,7 @@ export const GradientHeading: React.FC<GradientHeadingProps> = ({
       as={as}
       size={size}
       className={cn(
-        'font-title bg-clip-text text-transparent pb-2',
+        'font-title bg-clip-text text-transparent pb-4 overflow-visible',
         gradientClasses[gradient],
         className
       )}

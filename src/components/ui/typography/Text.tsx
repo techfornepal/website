@@ -1,53 +1,38 @@
 import React from 'react';
 import { cn } from '../../../utils/cn';
+import { responsiveTextSizes } from '../../../utils/responsive';
+import { type TypographyComponentProps, type ColorVariant } from '../types';
 
-type TextSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl';
-type TextAlign = 'left' | 'center' | 'right';
+type TextProps = TypographyComponentProps;
 
-interface TextProps {
-  size?: TextSize;
-  children: React.ReactNode;
-  className?: string;
-  color?: 'default' | 'muted' | 'primary' | 'white' | 'error' | 'success';
-  weight?: 'normal' | 'medium' | 'semibold' | 'bold';
-  align?: TextAlign;
-  as?: React.ElementType;
-}
-
-const sizeClasses: Record<TextSize, string> = {
-  xs: 'text-xs',
-  sm: 'text-sm',
-  base: 'text-base',
-  lg: 'text-lg',
-  xl: 'text-xl'
-};
-
-const colorClasses = {
+const colorClasses: Record<ColorVariant, string> = {
   default: 'text-[color:var(--text-primary)]',
   muted: 'text-[color:var(--text-secondary)]',
   primary: 'text-[color:var(--primary)]',
+  secondary: 'text-[color:var(--secondary)]',
   white: 'text-[color:var(--nepal-white)]',
-  error: 'text-[color:var(--nepal-red)]',
-  success: 'text-[color:var(--nepal-blue)]'
+  success: 'text-[color:var(--success)]',
+  warning: 'text-[color:var(--warning)]',
+  error: 'text-[color:var(--error)]',
+  info: 'text-[color:var(--info)]'
 };
 
 const weightClasses = {
-  normal: 'font-normal',
-  medium: 'font-medium',
-  semibold: 'font-semibold',
-  bold: 'font-bold'
+  normal: 'font-[var(--font-weight-normal)]',
+  medium: 'font-[var(--font-weight-medium)]',
+  semibold: 'font-[var(--font-weight-semibold)]',
+  bold: 'font-[var(--font-weight-bold)]'
 };
 
-const alignClasses: Record<TextAlign, string> = {
+const alignClasses = {
   left: 'text-left',
   center: 'text-center',
   right: 'text-right'
 };
 
 /**
- * Text component for consistent body text with various styling options.
- * 
- * @param size - Text size variant
+ * Enhanced Text component with responsive typography support.
+ * @param size - Text size using centralized responsive text system (automatically scales across breakpoints)
  * @param children - The text content to display
  * @param className - Additional CSS classes
  * @param color - Color variant for the text
@@ -57,12 +42,14 @@ const alignClasses: Record<TextAlign, string> = {
  * 
  * @example
  * ```tsx
+ * // Responsive large text (lg -> xl -> 2xl across breakpoints)
  * <Text size="lg" color="muted">
- *   This is a large muted paragraph
+ *   This is a responsive large paragraph
  * </Text>
  * 
+ * // Responsive inline text (sm -> base across breakpoints)
  * <Text as="span" size="sm" weight="semibold">
- *   Inline bold text
+ *   Responsive inline text
  * </Text>
  * ```
  */
@@ -78,7 +65,7 @@ export const Text: React.FC<TextProps> = ({
   return (
     <Component
       className={cn(
-        sizeClasses[size],
+        responsiveTextSizes[size],
         colorClasses[color],
         weightClasses[weight],
         alignClasses[align],

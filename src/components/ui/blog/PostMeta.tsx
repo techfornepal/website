@@ -20,17 +20,17 @@ export const PostMeta: React.FC<PostMetaProps> = ({ author, date, className }) =
   if (!author && !date) return null;
 
   return (
-    <div className={`flex flex-wrap items-center gap-3 text-sm ${className || ''}`}>
+    <div className={`flex items-center gap-2 text-xs ${className || ''}`}>
       {author && (
-        <Text size="sm" color="muted">
+        <Text size="xs" color="muted">
           by {author.name}
         </Text>
       )}
       {author && date && (
-        <span className="text-[color:var(--text-muted)]">•</span>
+        <span className="text-[color:var(--text-muted)] opacity-50">•</span>
       )}
       {formattedDate && (
-        <Text size="sm" color="muted" className="opacity-70">
+        <Text size="xs" color="muted" className="opacity-70">
           {formattedDate}
         </Text>
       )}

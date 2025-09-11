@@ -1,6 +1,14 @@
 import { getPostsByTag, getAllTags } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
-import { Container, PageMain, GradientHeading, Text, Stack, BlogPostCard, NavigationLink } from '@/components/ui';
+import {
+  Container,
+  PageMain,
+  Heading,
+  Text,
+  Stack,
+  BlogPostCard,
+  NavigationLink,
+} from '@/components/ui';
 import { ArrowLeft } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -25,19 +33,22 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
   return (
     <PageMain>
       <Container size="md">
-        <Stack spacing="2xl">
+        <Stack spacing="xl">
           <header>
             <Stack spacing="sm">
-              <GradientHeading as="h1" size="4xl">
-                Posts tagged with &ldquo;#{originalTag}&rdquo;
-              </GradientHeading>
-              <Text color="muted">
+              <Heading as="h1" size="xl">
+                Posts tagged with{' '}
+                <span className="text-[color:var(--primary)]">
+                  &ldquo;#{originalTag}&rdquo;
+                </span>
+              </Heading>
+              <Text color="muted" size="sm">
                 {posts.length} {posts.length === 1 ? 'post' : 'posts'} found
               </Text>
             </Stack>
           </header>
 
-          <Stack spacing="2xl">
+          <Stack spacing="lg">
             {posts.map((post) => (
               <BlogPostCard 
                 key={post!.slug} 

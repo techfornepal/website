@@ -57,7 +57,7 @@ export const BlogMeta: React.FC<BlogMetaProps> = ({
                   />
                 </div>
                 <div 
-                  className="w-full h-full rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--secondary)] text-white font-title font-bold text-sm items-center justify-center hidden"
+                  className="w-full h-full rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--secondary)] text-white font-title font-[var(--font-weight-bold)] text-sm items-center justify-center hidden"
                   style={{ display: 'none' }}
                 >
                   {author.name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2)}
@@ -65,7 +65,7 @@ export const BlogMeta: React.FC<BlogMetaProps> = ({
               </div>
             )}
             <div>
-              <Text size="sm" className="font-medium text-[color:var(--text-primary)]">
+              <Text size="sm" weight="medium" className="text-[color:var(--text-primary)]">
                 {author.name}
               </Text>
               <Text size="xs" color="muted">

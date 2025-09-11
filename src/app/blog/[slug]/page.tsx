@@ -26,37 +26,38 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             icon={<ArrowLeft size={16} />}
             iconPosition="left"
             variant="secondary"
-            className="text-sm font-medium tracking-wide uppercase"
+            className="text-sm font-[var(--font-weight-medium)] tracking-wide uppercase"
           >
             Back to the main blog
           </NavigationLink>
           
           <article>
-            <Stack spacing="2xl">
+            <Stack spacing="xl">
               <header>
-                <Stack spacing="lg">
-                  <GradientHeading as="h1" size="4xl">
+                <Stack spacing="md">
+                  <GradientHeading as="h1" size="2xl">
                     {String(post.frontmatter.title ?? slug)}
                   </GradientHeading>
                 
-                <BlogMeta
-                  author={post.frontmatter.author as { name: string; avatar?: string }}
-                  publishDate={post.frontmatter.publishDate as string}
-                  readingTime={post.readingTime}
-                  tags={post.frontmatter.tags as string[]}
+                  <BlogMeta
+                    author={post.frontmatter.author as { name: string; avatar?: string }}
+                    publishDate={post.frontmatter.publishDate as string}
+                    readingTime={post.readingTime}
+                    tags={post.frontmatter.tags as string[]}
+                  />
+                </Stack>
+              </header>
+              
+              <Prose>
+                <MDXRemote 
+                  source={post.content}
+                  options={{
+                    mdxOptions: {
+                      remarkPlugins: [remarkGfm],
+                      rehypePlugins: [],
+                    }
+                  }}
                 />
-              </Stack>
-            </header>
-            <Prose>
-              <MDXRemote 
-                source={post.content}
-                options={{
-                  mdxOptions: {
-                    remarkPlugins: [remarkGfm],
-                    rehypePlugins: [],
-                  }
-                }}
-              />
               </Prose>
             </Stack>
           </article>

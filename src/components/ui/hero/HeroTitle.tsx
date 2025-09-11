@@ -1,14 +1,26 @@
 import React from 'react';
+import { GradientHeading } from '../typography/GradientHeading';
+import { responsiveSpacing } from '../../../utils/responsive';
+import { cn } from '../../../utils/cn';
 
 export const HeroTitle: React.FC = () => {
   return (
-    <div className="space-y-3">
-      <div className="font-title text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-[color:var(--primary)]">
+    <h1 className={cn(responsiveSpacing.sm)}>
+      <GradientHeading 
+        as="span" 
+        size="2xl" 
+        gradient="primary-only"
+      >
         Empowering Nepal through
-      </div>
-      <div className="font-title text-5xl sm:text-7xl lg:text-8xl font-bold leading-tight bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--secondary)] bg-clip-text text-transparent pb-2">
+      </GradientHeading>
+      <br />
+      <GradientHeading 
+        as="span" 
+        size="3xl" 
+        gradient="primary-secondary"
+      >
         Technology
-      </div>
-    </div>
+      </GradientHeading>
+    </h1>
   );
 };
