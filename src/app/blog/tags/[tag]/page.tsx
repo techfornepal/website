@@ -13,7 +13,7 @@ import { ArrowLeft } from 'lucide-react';
 
 export async function generateStaticParams() {
   const tags = await getAllTags();
-  return tags.map((tagData) => ({
+  return tags.map(tagData => ({
     tag: tagData.tag.toLowerCase().replace(/\s+/g, '-'),
   }));
 }
@@ -21,13 +21,13 @@ export async function generateStaticParams() {
 export default async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   const { tag: tagSlug } = await params;
   const allTags = await getAllTags();
-  
+
   const tagData = allTags.find(t => t.tag.toLowerCase().replace(/\s+/g, '-') === tagSlug);
   if (!tagData) return notFound();
-  
+
   const originalTag = tagData.tag;
   const posts = await getPostsByTag(originalTag);
-  
+
   if (posts.length === 0) return notFound();
 
   return (
@@ -38,9 +38,7 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
             <Stack spacing="sm">
               <Heading as="h1" size="xl">
                 Posts tagged with{' '}
-                <span className="text-[color:var(--primary)]">
-                  &ldquo;#{originalTag}&rdquo;
-                </span>
+                <span className="text-[color:var(--primary)]">&ldquo;#{originalTag}&rdquo;</span>
               </Heading>
               <Text color="muted" size="sm">
                 {posts.length} {posts.length === 1 ? 'post' : 'posts'} found
@@ -49,10 +47,10 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
           </header>
 
           <Stack spacing="lg">
-            {posts.map((post) => (
-              <BlogPostCard 
-                key={post!.slug} 
-                post={post!} 
+            {posts.map(post => (
+              <BlogPostCard
+                key={post!.slug}
+                post={post!}
                 showDivider={true}
                 maxTags={4}
                 activeTag={originalTag}
@@ -60,12 +58,8 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
             ))}
           </Stack>
 
-          <div className="text-center pt-8">
-            <NavigationLink 
-              href="/blog"
-              icon={<ArrowLeft size={16} />}
-              iconPosition="left"
-            >
+          <div className="pt-8 text-center">
+            <NavigationLink href="/blog" icon={<ArrowLeft size={16} />} iconPosition="left">
               Back to all posts
             </NavigationLink>
           </div>

@@ -1,13 +1,21 @@
 import { getPostBySlug, listPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { Container, PageMain, GradientHeading, Prose, Stack, BlogMeta, NavigationLink } from '@/components/ui';
+import {
+  Container,
+  PageMain,
+  GradientHeading,
+  Prose,
+  Stack,
+  BlogMeta,
+  NavigationLink,
+} from '@/components/ui';
 import { ArrowLeft } from 'lucide-react';
 import remarkGfm from 'remark-gfm';
 
 export async function generateStaticParams() {
   const posts = await listPosts();
-  return posts.map((post) => ({
+  return posts.map(post => ({
     slug: post.slug,
   }));
 }
@@ -16,7 +24,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return notFound();
-  
+
   return (
     <PageMain>
       <Container size="md">
@@ -30,7 +38,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           >
             Back to the main blog
           </NavigationLink>
-          
+
           <article>
             <Stack spacing="xl">
               <header>
@@ -38,7 +46,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                   <GradientHeading as="h1" size="2xl">
                     {String(post.frontmatter.title ?? slug)}
                   </GradientHeading>
-                
+
                   <BlogMeta
                     author={post.frontmatter.author as { name: string; avatar?: string }}
                     publishDate={post.frontmatter.publishDate as string}
@@ -47,15 +55,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                   />
                 </Stack>
               </header>
-              
+
               <Prose>
-                <MDXRemote 
+                <MDXRemote
                   source={post.content}
                   options={{
                     mdxOptions: {
                       remarkPlugins: [remarkGfm],
                       rehypePlugins: [],
-                    }
+                    },
                   }}
                 />
               </Prose>
@@ -66,5 +74,3 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     </PageMain>
   );
 }
-
-

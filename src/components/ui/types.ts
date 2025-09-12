@@ -8,15 +8,15 @@ import { type ResponsiveTextSize } from '../../utils/responsive';
 /**
  * Standard color variants used across all components
  */
-export type ColorVariant = 
-  | 'default' 
-  | 'muted' 
-  | 'primary' 
-  | 'secondary' 
-  | 'white' 
-  | 'success' 
-  | 'warning' 
-  | 'error' 
+export type ColorVariant =
+  | 'default'
+  | 'muted'
+  | 'primary'
+  | 'secondary'
+  | 'white'
+  | 'success'
+  | 'warning'
+  | 'error'
   | 'info';
 
 /**
@@ -76,27 +76,27 @@ export type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 
  * Semantic heading sizes mapped to visual hierarchy
  */
 export const semanticHeadingSizes = {
-  h1: '4xl' as const,  // Hero/Page titles
-  h2: '2xl' as const,  // Main sections
-  h3: 'xl' as const,   // Subsections
-  h4: 'lg' as const,   // Minor headings
+  h1: '4xl' as const, // Hero/Page titles
+  h2: '2xl' as const, // Main sections
+  h3: 'xl' as const, // Subsections
+  h4: 'lg' as const, // Minor headings
   h5: 'base' as const, // Small headings
-  h6: 'sm' as const    // Caption-style headings
+  h6: 'sm' as const, // Caption-style headings
 };
 
 /**
  * Standard button variants
  */
-export type ButtonVariant = 
-  | 'primary' 
-  | 'secondary' 
-  | 'outline' 
-  | 'ghost' 
-  | 'subtle-primary' 
-  | 'subtle-secondary' 
-  | 'success' 
-  | 'warning' 
-  | 'error' 
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'outline'
+  | 'ghost'
+  | 'subtle-primary'
+  | 'subtle-secondary'
+  | 'success'
+  | 'warning'
+  | 'error'
   | 'info';
 
 /**

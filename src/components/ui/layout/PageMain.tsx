@@ -7,17 +7,15 @@ interface PageMainProps {
   fullHeight?: boolean;
 }
 
-export const PageMain: React.FC<PageMainProps> = ({ 
-  children, 
-  className, 
-  fullHeight = false 
-}) => {
+export const PageMain: React.FC<PageMainProps> = ({ children, className, fullHeight = false }) => {
   return (
-    <main className={cn(
-      'pt-24 md:pt-32 pb-8',
-      fullHeight && 'min-h-screen flex items-center justify-center',
-      className
-    )}>
+    <main
+      className={cn(
+        'pt-24 pb-8 md:pt-32',
+        fullHeight && 'flex min-h-screen items-center justify-center',
+        className
+      )}
+    >
       {children}
     </main>
   );

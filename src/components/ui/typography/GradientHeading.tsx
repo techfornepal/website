@@ -25,8 +25,9 @@ export const GradientHeading: React.FC<GradientHeadingProps> = ({
   const gradientClasses = {
     'primary-secondary': 'bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--secondary)]',
     'primary-only': 'bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-hover)]',
-    'secondary-only': 'bg-gradient-to-r from-[color:var(--secondary)] to-[color:var(--secondary-hover)]',
-    'diagonal': 'bg-gradient-to-br from-[color:var(--primary)] to-[color:var(--secondary)]',
+    'secondary-only':
+      'bg-gradient-to-r from-[color:var(--secondary)] to-[color:var(--secondary-hover)]',
+    diagonal: 'bg-gradient-to-br from-[color:var(--primary)] to-[color:var(--secondary)]',
   };
 
   return (
@@ -34,7 +35,7 @@ export const GradientHeading: React.FC<GradientHeadingProps> = ({
       as={as}
       size={size}
       className={cn(
-        'font-title bg-clip-text text-transparent pb-4 overflow-visible',
+        'font-title overflow-visible bg-clip-text pb-4 text-transparent',
         gradientClasses[gradient],
         className
       )}

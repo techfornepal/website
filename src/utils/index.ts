@@ -1,5 +1,5 @@
 /**
- * Utility functions for Tech For Nepal website
+ * Utility functions for our website
  */
 
 /**
@@ -44,7 +44,7 @@ export const capitalize = (text: string): string => {
  */
 export const isExternalUrl = (url: string): boolean => {
   if (typeof window === 'undefined') return false;
-  
+
   try {
     const urlObj = new URL(url);
     return urlObj.origin !== window.location.origin;
@@ -66,14 +66,14 @@ export const getReadingTime = (content: string): number => {
  * Debounce function to limit the rate of function execution
  */
 export function debounce<TArgs extends unknown[]>(
-  func: (...args: TArgs) => void,
+  func: (..._args: TArgs) => void,
   wait: number
-): (...args: TArgs) => void {
+): (..._args: TArgs) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
-  
-  return (...args: TArgs) => {
+
+  return (..._args: TArgs) => {
     if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
+    timeout = setTimeout(() => func(..._args), wait);
   };
 }
 
@@ -81,7 +81,9 @@ export function debounce<TArgs extends unknown[]>(
  * Generate a random ID
  */
 export const generateId = (length: number = 8): string => {
-  return Math.random().toString(36).substring(2, length + 2);
+  return Math.random()
+    .toString(36)
+    .substring(2, length + 2);
 };
 
 /**
@@ -98,13 +100,15 @@ export const normalizePath = (path: string): string => {
 export const isPathActive = (pathname: string, targetRoute: string): boolean => {
   const normalizedPathname = normalizePath(pathname);
   const normalizedTarget = normalizePath(targetRoute);
-  
+
   if (normalizedTarget === '/') {
     // for home: exact match only
     return normalizedPathname === normalizedTarget;
   }
-  
-  return normalizedPathname === normalizedTarget || normalizedPathname.startsWith(normalizedTarget + '/');
+
+  return (
+    normalizedPathname === normalizedTarget || normalizedPathname.startsWith(normalizedTarget + '/')
+  );
 };
 
 /**

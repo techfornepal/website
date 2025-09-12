@@ -3,7 +3,7 @@ import { Container, PageMain, GradientHeading, Text, Stack, BlogPostCard } from 
 
 export default async function Blog() {
   const posts = await listPosts();
-  
+
   return (
     <PageMain>
       <Container size="md">
@@ -11,18 +11,15 @@ export default async function Blog() {
           <GradientHeading as="h1" size="2xl">
             Blog
           </GradientHeading>
-          
+
           {posts.length === 0 ? (
-            <Text color="muted" size="base">No posts yet. Coming soon.</Text>
+            <Text color="muted" size="base">
+              No posts yet. Coming soon.
+            </Text>
           ) : (
             <Stack spacing="lg">
-              {posts.map((post) => (
-                <BlogPostCard 
-                  key={post.slug} 
-                  post={post} 
-                  showDivider={true}
-                  maxTags={4}
-                />
+              {posts.map(post => (
+                <BlogPostCard key={post.slug} post={post} showDivider={true} maxTags={4} />
               ))}
             </Stack>
           )}
@@ -31,5 +28,3 @@ export default async function Blog() {
     </PageMain>
   );
 }
-
-

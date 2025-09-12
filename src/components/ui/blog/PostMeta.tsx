@@ -14,7 +14,7 @@ export const PostMeta: React.FC<PostMetaProps> = ({ author, date, className }) =
   const formattedDate = date?.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   });
 
   if (!author && !date) return null;
@@ -26,9 +26,7 @@ export const PostMeta: React.FC<PostMetaProps> = ({ author, date, className }) =
           by {author.name}
         </Text>
       )}
-      {author && date && (
-        <span className="text-[color:var(--text-muted)] opacity-50">•</span>
-      )}
+      {author && date && <span className="text-[color:var(--text-muted)] opacity-50">•</span>}
       {formattedDate && (
         <Text size="xs" color="muted" className="opacity-70">
           {formattedDate}

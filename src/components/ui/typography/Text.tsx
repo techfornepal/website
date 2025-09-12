@@ -14,20 +14,20 @@ const colorClasses: Record<ColorVariant, string> = {
   success: 'text-[color:var(--success)]',
   warning: 'text-[color:var(--warning)]',
   error: 'text-[color:var(--error)]',
-  info: 'text-[color:var(--info)]'
+  info: 'text-[color:var(--info)]',
 };
 
 const weightClasses = {
   normal: 'font-[var(--font-weight-normal)]',
   medium: 'font-[var(--font-weight-medium)]',
   semibold: 'font-[var(--font-weight-semibold)]',
-  bold: 'font-[var(--font-weight-bold)]'
+  bold: 'font-[var(--font-weight-bold)]',
 };
 
 const alignClasses = {
   left: 'text-left',
   center: 'text-center',
-  right: 'text-right'
+  right: 'text-right',
 };
 
 /**
@@ -39,14 +39,14 @@ const alignClasses = {
  * @param weight - Font weight variant
  * @param align - Text alignment
  * @param as - HTML element to render as (defaults to 'p')
- * 
+ *
  * @example
  * ```tsx
  * // Responsive large text (lg -> xl -> 2xl across breakpoints)
  * <Text size="lg" color="muted">
  *   This is a responsive large paragraph
  * </Text>
- * 
+ *
  * // Responsive inline text (sm -> base across breakpoints)
  * <Text as="span" size="sm" weight="semibold">
  *   Responsive inline text
@@ -60,7 +60,7 @@ export const Text: React.FC<TextProps> = ({
   color = 'default',
   weight = 'normal',
   align = 'left',
-  as: Component = 'p'
+  as: Component = 'p',
 }) => {
   return (
     <Component

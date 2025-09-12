@@ -35,8 +35,8 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
 
   return (
     <article className={`group relative ${dividerClasses}`}>
-      <div className="absolute inset-0 bg-[color:var(--surface)]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg -m-3"></div>
-      
+      <div className="absolute inset-0 -m-3 rounded-lg bg-[color:var(--surface)]/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+
       <div className="relative z-10">
         <Stack spacing="sm">
           <Link href={`/blog/${post.slug}`} className="block">
@@ -46,7 +46,7 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
                 size="lg"
                 // I'm trying out `secondary-hover` here, but maybe we could use `primary-hover` if this secondary hover
                 // is not a good consistency approach. Leaving this for the future me (or you, if you read this 🇳🇵)
-                className="group-hover:text-[color:var(--secondary-hover)] transition-colors duration-200 leading-[var(--line-height-tight)]"
+                className="leading-[var(--line-height-tight)] transition-colors duration-200 group-hover:text-[color:var(--secondary-hover)]"
                 weight="medium"
               >
                 {post.title}
@@ -59,19 +59,19 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
             </Stack>
           </Link>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-3 pt-1">
+          <div className="flex flex-col items-start gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
             <PostMeta author={post.author} date={post.date} />
-            
+
             {post.tags && post.tags.length > 0 && (
               <div className="flex flex-wrap items-center gap-1.5">
-                {post.tags.slice(0, maxTags).map((tag) => (
+                {post.tags.slice(0, maxTags).map(tag => (
                   <Tag
                     key={tag}
                     tag={tag}
                     variant="subtle"
                     className={`text-xs sm:text-sm ${
                       activeTag === tag
-                        ? 'text-[color:var(--primary)] font-[var(--font-weight-semibold)]'
+                        ? 'font-[var(--font-weight-semibold)] text-[color:var(--primary)]'
                         : ''
                     }`}
                   />
@@ -80,7 +80,7 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
                   <Text
                     size="xs"
                     color="muted"
-                    className="text-xs sm:text-sm text-[color:var(--text-muted)]"
+                    className="text-xs text-[color:var(--text-muted)] sm:text-sm"
                   >
                     +{post.tags.length - maxTags}
                   </Text>

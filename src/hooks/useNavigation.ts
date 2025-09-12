@@ -24,7 +24,7 @@ export const useNavigation = (): UseNavigationReturn => {
     isScrolled: false,
     isVisible: true,
     lastScrollY: 0,
-    isMobileMenuOpen: false
+    isMobileMenuOpen: false,
   });
 
   // mobile menu controls
@@ -55,7 +55,7 @@ export const useNavigation = (): UseNavigationReturn => {
   // scroll direction and navbar visibility logic
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     let ticking = false;
 
     const updateScrollDirection = () => {
@@ -70,9 +70,9 @@ export const useNavigation = (): UseNavigationReturn => {
         ...prev,
         isVisible: scrollY > prev.lastScrollY ? false : true,
         isScrolled: scrollY > 50,
-        lastScrollY: scrollY > 0 ? scrollY : 0
+        lastScrollY: scrollY > 0 ? scrollY : 0,
       }));
-      
+
       ticking = false;
     };
 
@@ -90,7 +90,7 @@ export const useNavigation = (): UseNavigationReturn => {
   // closing mobile menu on escape key
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && state.isMobileMenuOpen) {
         closeMobileMenu();
@@ -116,6 +116,6 @@ export const useNavigation = (): UseNavigationReturn => {
     ...state,
     openMobileMenu,
     closeMobileMenu,
-    toggleMobileMenu
+    toggleMobileMenu,
   };
 };

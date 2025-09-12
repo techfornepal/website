@@ -36,20 +36,20 @@ export function useMediaQuery(query: string): boolean {
  * All components must use these constants instead of hardcoded media queries.
  */
 export const BREAKPOINTS = {
-  xs: '(max-width: 639px)',                                    // 0-639px (mobile)
-  sm: '(min-width: 640px) and (max-width: 767px)',            // 640-767px (large mobile)
-  md: '(min-width: 768px) and (max-width: 1023px)',           // 768-1023px (tablet)
-  lg: '(min-width: 1024px) and (max-width: 1279px)',          // 1024-1279px (small desktop)
-  xl: '(min-width: 1280px) and (max-width: 1535px)',          // 1280-1535px (desktop)
-  '2xl': '(min-width: 1536px)',                               // 1536px+ (large desktop)
-  mobile: '(max-width: 639px)',                               // Mobile devices
-  tablet: '(min-width: 640px) and (max-width: 1023px)',       // Tablet range
-  desktop: '(min-width: 1024px)',                             // Desktop and up
-  'mobile-up': '(min-width: 640px)',                          // Small mobile and up
-  'tablet-up': '(min-width: 768px)',                          // Tablet and up
-  'desktop-up': '(min-width: 1024px)',                        // Desktop and up
-  'large-up': '(min-width: 1280px)',                          // Large desktop and up
-  'xlarge-up': '(min-width: 1536px)'                          // Extra large and up
+  xs: '(max-width: 639px)', // 0-639px (mobile)
+  sm: '(min-width: 640px) and (max-width: 767px)', // 640-767px (large mobile)
+  md: '(min-width: 768px) and (max-width: 1023px)', // 768-1023px (tablet)
+  lg: '(min-width: 1024px) and (max-width: 1279px)', // 1024-1279px (small desktop)
+  xl: '(min-width: 1280px) and (max-width: 1535px)', // 1280-1535px (desktop)
+  '2xl': '(min-width: 1536px)', // 1536px+ (large desktop)
+  mobile: '(max-width: 639px)', // Mobile devices
+  tablet: '(min-width: 640px) and (max-width: 1023px)', // Tablet range
+  desktop: '(min-width: 1024px)', // Desktop and up
+  'mobile-up': '(min-width: 640px)', // Small mobile and up
+  'tablet-up': '(min-width: 768px)', // Tablet and up
+  'desktop-up': '(min-width: 1024px)', // Desktop and up
+  'large-up': '(min-width: 1280px)', // Large desktop and up
+  'xlarge-up': '(min-width: 1536px)', // Extra large and up
 } as const;
 
 /**
@@ -104,6 +104,6 @@ export const useBreakpoints = () => {
     mobile: isMobile,
     tablet: isTablet,
     desktop: isDesktop,
-    current: isXS ? 'xs' : isSM ? 'sm' : isMD ? 'md' : isLG ? 'lg' : isXL ? 'xl' : '2xl'
+    current: isXS ? 'xs' : isSM ? 'sm' : isMD ? 'md' : isLG ? 'lg' : isXL ? 'xl' : '2xl',
   };
 };

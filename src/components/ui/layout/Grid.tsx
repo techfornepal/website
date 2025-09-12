@@ -22,13 +22,13 @@ interface GridProps {
 /**
  * Responsive Grid component for creating flexible layouts.
  * Uses centralized responsive utilities and supports breakpoint-specific column configurations.
- * 
+ *
  * @param children - Grid items to be displayed
  * @param cols - Column configuration per breakpoint (xs, sm, md, lg, xl)
  * @param gap - Gap size using centralized spacing system
  * @param className - Additional CSS classes
  * @param autoFit - Auto-fit configuration with minimum width per item
- * 
+ *
  * @example
  * ```tsx
  * // Responsive grid that adapts per breakpoint
@@ -37,13 +37,13 @@ interface GridProps {
  *   <div>Item 2</div>
  *   <div>Item 3</div>
  * </Grid>
- * 
+ *
  * // Auto-fit grid based on minimum item width
  * <Grid autoFit={{ minWidth: '250px' }} gap="lg">
  *   <div>Auto-sized Item 1</div>
  *   <div>Auto-sized Item 2</div>
  * </Grid>
- * 
+ *
  * // Simple uniform grid
  * <Grid cols={{ xs: 2, md: 4 }}>
  *   <div>Simple Item</div>
@@ -55,7 +55,7 @@ export const Grid: React.FC<GridProps> = ({
   cols = { xs: 1, sm: 2, md: 3 },
   gap = 'md',
   className,
-  autoFit
+  autoFit,
 }) => {
   const generateGridClasses = () => {
     if (autoFit) {
@@ -64,7 +64,7 @@ export const Grid: React.FC<GridProps> = ({
     }
 
     const gridClasses: string[] = [];
-    
+
     if (cols.xs) gridClasses.push(`grid-cols-${cols.xs}`);
     if (cols.sm) gridClasses.push(`sm:grid-cols-${cols.sm}`);
     if (cols.md) gridClasses.push(`md:grid-cols-${cols.md}`);
@@ -75,19 +75,11 @@ export const Grid: React.FC<GridProps> = ({
   };
 
   return (
-    <div
-      className={cn(
-        'grid',
-        generateGridClasses(),
-        responsiveSpacing[gap],
-        className
-      )}
-    >
+    <div className={cn('grid', generateGridClasses(), responsiveSpacing[gap], className)}>
       {children}
     </div>
   );
 };
-
 
 interface GridItemProps {
   children: React.ReactNode;
@@ -104,16 +96,12 @@ interface GridItemProps {
 /**
  * GridItem component for wrapping grid items with consistent styling
  */
-export const GridItem: React.FC<GridItemProps> = ({
-  children,
-  span,
-  className
-}) => {
+export const GridItem: React.FC<GridItemProps> = ({ children, span, className }) => {
   const generateSpanClasses = () => {
     if (!span) return '';
-    
+
     const spanClasses: string[] = [];
-    
+
     if (span.xs) spanClasses.push(`col-span-${span.xs}`);
     if (span.sm) spanClasses.push(`sm:col-span-${span.sm}`);
     if (span.md) spanClasses.push(`md:col-span-${span.md}`);
@@ -123,9 +111,5 @@ export const GridItem: React.FC<GridItemProps> = ({
     return spanClasses.join(' ');
   };
 
-  return (
-    <div className={cn(generateSpanClasses(), className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn(generateSpanClasses(), className)}>{children}</div>;
 };

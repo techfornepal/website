@@ -37,17 +37,9 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
         className
       )}
     >
-      {icon && iconPosition === 'left' && (
-        <span className="w-4 h-4 flex-shrink-0">
-          {icon}
-        </span>
-      )}
+      {icon && iconPosition === 'left' && <span className="h-4 w-4 flex-shrink-0">{icon}</span>}
       <span>{children}</span>
-      {icon && iconPosition === 'right' && (
-        <span className="w-4 h-4 flex-shrink-0">
-          {icon}
-        </span>
-      )}
+      {icon && iconPosition === 'right' && <span className="h-4 w-4 flex-shrink-0">{icon}</span>}
     </Link>
   );
 };

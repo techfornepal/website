@@ -13,8 +13,14 @@
 body {
   background: var(--background);
   color: var(--text-primary);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family:
+    var(--font-geist-sans),
+    ui-sans-serif,
+    system-ui,
+    -apple-system;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .prose {
