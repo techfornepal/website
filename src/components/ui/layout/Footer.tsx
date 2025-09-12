@@ -4,7 +4,7 @@ import { Container } from './Container';
 export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-16 bg-[color:var(--background)] border-t border-[color:var(--border-light)] transition-colors duration-200">
+    <footer className="mt-16 border-t border-[color:var(--border-light)] bg-[color:var(--background)] transition-colors duration-200">
       <Container>
         <div className="py-6">
           <p className="text-center text-xs text-[color:var(--text-muted)]">
@@ -15,5 +15,3 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
-
-

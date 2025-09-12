@@ -1,0 +1,5 @@
+# format and lint only staged files (fast, efficient)
+npx lint-staged
+
+# TypeScript check on entire project (catch type errors)
+npm run typecheck

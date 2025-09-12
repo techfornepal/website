@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    // essential for this project
+    "esbenp.prettier-vscode", // Prettier formatting
+    "dbaeumer.vscode-eslint", // ESLint real-time errors
+    "bradlc.vscode-tailwindcss", // Tailwind CSS IntelliSense
+    "ms-vscode.vscode-typescript-next", // TypeScript support
+
+    // helpful for development
+    "EditorConfig.EditorConfig", // EditorConfig support
+    "ms-vscode.vscode-json", // JSON language support
+    "yzhang.markdown-all-in-one" // Markdown support
+  ]
+}

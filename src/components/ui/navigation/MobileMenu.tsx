@@ -10,14 +10,14 @@ interface MobileMenuProps {
   onClose: () => void;
   navItems: Array<{ href: string; label: string }>;
   pathname: string;
-  isPathActive: (pathname: string, href: string) => boolean;
-  isBlogPathActive?: (pathname: string) => boolean;
+  isPathActive: (_pathname: string, _href: string) => boolean;
+  isBlogPathActive?: (_pathname: string) => boolean;
 }
 
 /**
  * Reusable MobileMenu component for responsive navigation
  * Features smooth animations, backdrop overlay, focus management, and accessibility
- * 
+ *
  * @param isOpen - Whether the mobile menu is open
  * @param onClose - Callback to close the menu
  * @param navItems - Array of navigation items with href and label
@@ -31,11 +31,11 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   navItems,
   pathname,
   isPathActive,
-  isBlogPathActive
+  isBlogPathActive,
 }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const isDesktop = useIsDesktop();
-  
+
   // this closes the menu when desktop breakpoint is reached
   useEffect(() => {
     if (isDesktop && isOpen) {
@@ -70,20 +70,20 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
     <>
       <div
         className={cn(
-          "fixed inset-0 z-50 bg-black/50 backdrop-blur-sm",
-          "animate-in fade-in-0 duration-200"
+          'fixed inset-0 z-50 bg-black/50 backdrop-blur-sm',
+          'animate-in fade-in-0 duration-200'
         )}
         onClick={handleBackdropClick}
         aria-hidden="true"
       />
-      
+
       <div
         ref={menuRef}
         className={cn(
-          "fixed right-0 top-0 z-50 h-full w-72 max-w-[80vw]",
-          "bg-[color:var(--background)] border-l border-[color:var(--border)]",
-          "shadow-lg",
-          "animate-in slide-in-from-right-0 duration-300 ease-out"
+          'fixed top-0 right-0 z-50 h-full w-72 max-w-[80vw]',
+          'border-l border-[color:var(--border)] bg-[color:var(--background)]',
+          'shadow-lg',
+          'animate-in slide-in-from-right-0 duration-300 ease-out'
         )}
         id="mobile-menu"
         role="dialog"
@@ -91,28 +91,33 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
         aria-label="Mobile navigation menu"
       >
         <div className="flex h-16 items-center justify-between border-b border-[color:var(--border)] px-6">
-          <h2 className="font-title font-[var(--font-weight-bold)] text-lg text-[color:var(--text-primary)]">
+          <h2 className="font-title text-lg font-[var(--font-weight-bold)] text-[color:var(--text-primary)]">
             Menu
           </h2>
           <button
             onClick={onClose}
             className={cn(
-              "p-2 rounded-md",
-              "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
-              "hover:bg-[color:var(--accent)] transition-colors duration-200",
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2"
+              'rounded-md p-2',
+              'text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]',
+              'transition-colors duration-200 hover:bg-[color:var(--accent)]',
+              'focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2'
             )}
             aria-label="Close menu"
             type="button"
           >
-            <svg 
-              className="w-5 h-5" 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
             <span className="sr-only">Close mobile menu</span>
           </button>
@@ -121,21 +126,22 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
         <nav className="px-6 py-6" aria-label="Mobile navigation">
           <ul className="space-y-1" role="list">
             {navItems.map(({ href, label }) => {
-              const isActive = href === '/blog' && isBlogPathActive
-                ? isBlogPathActive(pathname)
-                : isPathActive(pathname, href);
-              
+              const isActive =
+                href === '/blog' && isBlogPathActive
+                  ? isBlogPathActive(pathname)
+                  : isPathActive(pathname, href);
+
               return (
                 <li key={href}>
                   <Link
                     href={href}
                     onClick={handleLinkClick}
                     className={cn(
-                      "block px-4 py-3 rounded-md text-base font-[var(--font-weight-medium)] transition-colors duration-200",
-                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2",
+                      'block rounded-md px-4 py-3 text-base font-[var(--font-weight-medium)] transition-colors duration-200',
+                      'focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2',
                       isActive
-                        ? "bg-[color:var(--accent)] text-[color:var(--primary)] font-[var(--font-weight-semibold)]"
-                        : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] hover:bg-[color:var(--accent)]"
+                        ? 'bg-[color:var(--accent)] font-[var(--font-weight-semibold)] text-[color:var(--primary)]'
+                        : 'text-[color:var(--text-secondary)] hover:bg-[color:var(--accent)] hover:text-[color:var(--text-primary)]'
                     )}
                     aria-current={isActive ? 'page' : undefined}
                   >
@@ -147,8 +153,8 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
           </ul>
         </nav>
 
-        <div className="absolute bottom-6 left-6 right-6">
-          <div className="text-xs text-[color:var(--text-muted)] text-center">
+        <div className="absolute right-6 bottom-6 left-6">
+          <div className="text-center text-xs text-[color:var(--text-muted)]">
             <span className="font-title">
               <span className="text-[color:var(--primary)]">Tech For</span>{' '}
               <span className="text-[color:var(--secondary)]">Nepal</span>

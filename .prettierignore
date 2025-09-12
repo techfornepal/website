@@ -1,0 +1,45 @@
+# Ignoring files that should maintain exact formatting or are generated
+
+# dependencies and build outputs
+node_modules/
+.next/
+out/
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# lock files - maintain exact formatting from package managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# generated files
+*.d.ts.map
+*.js.map
+
+# environment and config that should preserve formatting
+.env*
+.gitignore
+
+# IDE files (preserve exact formatting)
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# git and versioning
+.git/
+
+# public assets that shouldn't be formatted
+public/
+static/
+
+# logs
+logs/
+*.log
+
+# documentation that may need manual formatting preservation
+CHANGELOG.md
+LICENSE*

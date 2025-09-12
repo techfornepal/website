@@ -13,7 +13,16 @@ interface HeadingProps {
   size?: HeadingSize;
   children: React.ReactNode;
   className?: string;
-  color?: 'default' | 'muted' | 'primary' | 'secondary' | 'white' | 'success' | 'warning' | 'error' | 'info';
+  color?:
+    | 'default'
+    | 'muted'
+    | 'primary'
+    | 'secondary'
+    | 'white'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | 'info';
   weight?: 'normal' | 'medium' | 'semibold' | 'bold';
   align?: TextAlign;
 }
@@ -27,20 +36,20 @@ const colorClasses = {
   success: 'text-[color:var(--success)]',
   warning: 'text-[color:var(--warning)]',
   error: 'text-[color:var(--error)]',
-  info: 'text-[color:var(--info)]'
+  info: 'text-[color:var(--info)]',
 };
 
 const alignClasses: Record<TextAlign, string> = {
   left: 'text-left',
   center: 'text-center',
-  right: 'text-right'
+  right: 'text-right',
 };
 
 const weightClasses = {
   normal: 'font-[var(--font-weight-normal)]',
   medium: 'font-[var(--font-weight-medium)]',
   semibold: 'font-[var(--font-weight-semibold)]',
-  bold: 'font-[var(--font-weight-bold)]'
+  bold: 'font-[var(--font-weight-bold)]',
 };
 
 /**
@@ -51,14 +60,14 @@ const weightClasses = {
  * @param className - Additional CSS classes to apply
  * @param color - Color variant for the heading text
  * @param weight - Font weight variant
- * 
+ *
  * @example
  * ```tsx
  * // Hero heading with responsive scaling (4xl -> 5xl -> 6xl -> 7xl -> 8xl across breakpoints)
  * <Heading as="h1" size="4xl" color="primary">
  *   Hero Title
  * </Heading>
- * 
+ *
  * // Section heading with responsive scaling (xl -> 2xl -> 3xl across breakpoints)
  * <Heading as="h2" size="xl" weight="medium">
  *   Section Title
@@ -72,10 +81,14 @@ export const Heading: React.FC<HeadingProps> = ({
   className,
   color = 'default',
   weight = 'bold',
-  align = 'left'
+  align = 'left',
 }) => {
-  const resolvedSize = size || (Component in semanticHeadingSizes ? semanticHeadingSizes[Component as keyof typeof semanticHeadingSizes] : 'xl');
-  
+  const resolvedSize =
+    size ||
+    (Component in semanticHeadingSizes
+      ? semanticHeadingSizes[Component as keyof typeof semanticHeadingSizes]
+      : 'xl');
+
   return (
     <Component
       className={cn(

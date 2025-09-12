@@ -10,27 +10,23 @@ interface ContentWrapperProps {
 
 const maxWidthClasses = {
   sm: 'max-w-sm',
-  md: 'max-w-md', 
+  md: 'max-w-md',
   lg: 'max-w-lg',
   xl: 'max-w-xl',
   '2xl': 'max-w-2xl',
   '3xl': 'max-w-3xl',
   '7xl': 'max-w-7xl',
-  full: 'max-w-full'
+  full: 'max-w-full',
 };
 
-export const ContentWrapper: React.FC<ContentWrapperProps> = ({ 
-  children, 
-  className, 
+export const ContentWrapper: React.FC<ContentWrapperProps> = ({
+  children,
+  className,
   maxWidth = '7xl',
-  centered = true
+  centered = true,
 }) => {
   return (
-    <div className={cn(
-      maxWidthClasses[maxWidth],
-      centered && 'mx-auto',
-      className
-    )}>
+    <div className={cn(maxWidthClasses[maxWidth], centered && 'mx-auto', className)}>
       {children}
     </div>
   );

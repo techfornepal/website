@@ -4,10 +4,10 @@ import { twMerge } from 'tailwind-merge';
 /**
  * Combines clsx and tailwind-merge for optimal class merging.
  * Resolves Tailwind CSS class conflicts by merging conflicting classes intelligently.
- * 
+ *
  * @param inputs - Any valid clsx inputs (strings, objects, arrays, conditionals)
  * @returns Merged and deduplicated class string
- * 
+ *
  * @example
  * ```tsx
  * cn('p-4', 'p-6') // Returns 'p-6' (p-4 is overridden)

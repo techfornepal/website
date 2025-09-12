@@ -28,13 +28,13 @@ const spacingClasses = {
   },
   horizontal: {
     xs: 'space-x-1',
-    sm: 'space-x-2', 
+    sm: 'space-x-2',
     md: 'space-x-4',
     lg: 'space-x-6',
     xl: 'space-x-4 md:space-x-8',
     '2xl': 'space-x-6 md:space-x-12',
     '3xl': 'space-x-8 md:space-x-16',
-  }
+  },
 };
 
 const alignClasses = {
@@ -42,14 +42,14 @@ const alignClasses = {
     start: 'items-start',
     center: 'items-center',
     end: 'items-end',
-    stretch: 'items-stretch'
+    stretch: 'items-stretch',
   },
   horizontal: {
     start: 'items-start',
-    center: 'items-center', 
+    center: 'items-center',
     end: 'items-end',
-    stretch: 'items-stretch'
-  }
+    stretch: 'items-stretch',
+  },
 };
 
 const justifyClasses = {
@@ -58,13 +58,13 @@ const justifyClasses = {
   end: 'justify-end',
   between: 'justify-between',
   around: 'justify-around',
-  evenly: 'justify-evenly'
+  evenly: 'justify-evenly',
 };
 
 /**
  * Stack component for laying out child elements with consistent spacing.
  * Provides flexible control over direction, spacing, alignment, and justification.
- * 
+ *
  * @param children - Child elements to be stacked
  * @param direction - Layout direction (vertical = column, horizontal = row)
  * @param spacing - Space between child elements using Tailwind's space utilities
@@ -72,7 +72,7 @@ const justifyClasses = {
  * @param justify - Main-axis justification (justify-*)
  * @param className - Additional CSS classes
  * @param wrap - Whether to allow wrapping (flex-wrap)
- * 
+ *
  * @example
  * ```tsx
  * <Stack direction="vertical" spacing="lg" align="center">
@@ -80,7 +80,7 @@ const justifyClasses = {
  *   <p>Description</p>
  *   <button>Action</button>
  * </Stack>
- * 
+ *
  * <Stack direction="horizontal" spacing="md" justify="between">
  *   <span>Left content</span>
  *   <span>Right content</span>
@@ -94,10 +94,10 @@ export const Stack: React.FC<StackProps> = ({
   align = 'stretch',
   justify = 'start',
   className,
-  wrap = false
+  wrap = false,
 }) => {
   const isVertical = direction === 'vertical';
-  
+
   return (
     <div
       className={cn(
