@@ -1,5 +1,13 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Playfair_Display } from 'next/font/google';
+import {
+  Geist,
+  Geist_Mono,
+  Playfair_Display,
+  Bricolage_Grotesque,
+  Fjalla_One,
+  Open_Sans,
+  Poppins,
+} from 'next/font/google';
 import './globals.css';
 import { Navbar, Footer } from '@/components/ui';
 
@@ -16,7 +24,31 @@ const geistMono = Geist_Mono({
 const titleFont = Playfair_Display({
   variable: '--font-title',
   subsets: ['latin'],
-  weight: ['600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+});
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  variable: '--font-bricolage',
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
+});
+
+const fjallaOne = Fjalla_One({
+  variable: '--font-fjalla',
+  subsets: ['latin'],
+  weight: ['400'],
+});
+
+const openSans = Open_Sans({
+  variable: '--font-opensans',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+});
+
+const poppins = Poppins({
+  variable: '--font-poppins',
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {
@@ -63,10 +95,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} flex min-h-screen flex-col font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} ${bricolageGrotesque.variable} ${fjallaOne.variable} ${openSans.variable} ${poppins.variable} min-h-screen font-sans antialiased`}
       >
         <Navbar />
-        <div className="flex-1">{children}</div>
+        <div className="relative flex-1">{children}</div>
         <Footer />
       </body>
     </html>

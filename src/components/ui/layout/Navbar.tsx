@@ -30,26 +30,27 @@ export const Navbar: React.FC = () => {
       <nav
         className={cn(
           'fixed right-0 left-0 z-50 transition-all duration-300 ease-in-out',
-          'top-4',
+          'top-0',
           isVisible ? 'translate-y-0' : '-translate-y-full',
           isHomePage
             ? isScrolled
-              ? 'bg-[color:var(--background)]/95 backdrop-blur-lg'
+              ? 'bg-black/20 backdrop-blur-lg'
               : 'bg-transparent'
-            : 'bg-[color:var(--background)]/95 backdrop-blur-lg'
+            : 'bg-black/80 backdrop-blur-lg'
         )}
       >
         <Container>
           <div className="flex h-16 items-center justify-between">
             <Link
               href="/"
-              className="group flex items-center text-xl font-[var(--font-weight-semibold)] text-[color:var(--text-primary)] transition-all duration-300"
+              className="group flex items-center text-xl font-semibold text-white transition-all duration-300"
+              style={{ fontFamily: 'var(--font-title)' }}
             >
-              <span className="font-title font-[var(--font-weight-bold)] tracking-tight">
-                <span className="text-[color:var(--primary)] transition-colors duration-300 group-hover:text-[color:var(--secondary)]">
+              <span className="tracking-tight">
+                <span className="text-red-400 transition-colors duration-300 group-hover:text-red-300">
                   Tech For
                 </span>{' '}
-                <span className="text-[color:var(--secondary)] transition-colors duration-300 group-hover:text-[color:var(--primary)]">
+                <span className="text-blue-400 transition-colors duration-300 group-hover:text-blue-300">
                   Nepal
                 </span>
               </span>
@@ -66,12 +67,11 @@ export const Navbar: React.FC = () => {
                       key={href}
                       href={href}
                       className={cn(
-                        'text-base font-[var(--font-weight-medium)] transition-colors duration-300',
-                        'rounded-md px-2 py-1 focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none',
-                        isActive
-                          ? 'text-[color:var(--secondary)]'
-                          : 'text-[color:var(--text-secondary)] hover:text-[color:var(--primary)]'
+                        'text-base font-medium transition-colors duration-300',
+                        'rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:outline-none',
+                        isActive ? 'text-white' : 'text-white/80 hover:text-white'
                       )}
+                      style={{ fontFamily: 'var(--font-opensans)' }}
                       aria-current={isActive ? 'page' : undefined}
                     >
                       {label}

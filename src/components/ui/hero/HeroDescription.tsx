@@ -1,20 +1,16 @@
 import React from 'react';
-import { Text } from '../typography/Text';
 import { Container } from '../layout/Container';
 
 export const HeroDescription: React.FC = () => {
   return (
     <Container size="3xl" mobileSize="lg">
-      <Text
-        size="lg"
-        color="muted"
-        align="center"
-        weight="medium"
-        className="leading-[var(--line-height-relaxed)]"
+      <p
+        className="mx-auto max-w-2xl text-center text-base leading-relaxed font-light text-white/90 md:text-lg lg:text-xl"
+        style={{ fontFamily: 'var(--font-opensans)' }}
       >
-        A community-driven platform dedicated to showcasing Nepal&apos;s tech talent and fostering
-        innovation through collaboration.
-      </Text>
+        We design digital spaces where thinkers and dreamers can focus deeply and create
+        meaningfully. Join Nepal&apos;s thriving tech community and build the future together.
+      </p>
     </Container>
   );
 };

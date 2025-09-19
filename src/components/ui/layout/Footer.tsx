@@ -1,13 +1,35 @@
+'use client';
+
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import { Container } from './Container';
+import { cn } from '@/utils/cn';
 
 export const Footer: React.FC = () => {
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
   const year = new Date().getFullYear();
+
   return (
-    <footer className="mt-16 border-t border-[color:var(--border-light)] bg-[color:var(--background)] transition-colors duration-200">
+    <footer
+      className={cn(
+        'transition-all duration-300',
+        isHomePage
+          ? 'absolute right-0 bottom-0 left-0 z-20 border-none bg-transparent'
+          : 'border-t border-[color:var(--border-light)] bg-[color:var(--background)]/95 backdrop-blur-sm'
+      )}
+    >
       <Container>
-        <div className="py-6">
-          <p className="text-center text-xs text-[color:var(--text-muted)]">
+        <div className={cn(isHomePage ? 'py-6' : 'py-4')}>
+          <p
+            className={cn(
+              'text-center text-sm transition-colors duration-300',
+              isHomePage
+                ? 'font-medium text-white drop-shadow-sm'
+                : 'text-[color:var(--text-muted)]'
+            )}
+            style={{ fontFamily: 'var(--font-opensans)' }}
+          >
             © {year} Tech For Nepal
           </p>
         </div>
