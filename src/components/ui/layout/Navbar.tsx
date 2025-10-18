@@ -26,9 +26,8 @@ export const Navbar: React.FC = () => {
 
   const navItems = [
     { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/get-involved', label: 'Get Involved' },
   ];
 
   const useLightNavColors = isHomePage || isScrolled;

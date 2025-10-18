@@ -17,7 +17,7 @@ export default function NotFound() {
               <GradientHeading as="h1" size="4xl">
                 Page Not Found
               </GradientHeading>
-              <Text size="xl" color="muted" className="mx-auto max-w-md">
+              <Text size="base" color="muted" className="mx-auto">
                 The page you&apos;re looking for doesn&apos;t exist or has been moved.
               </Text>
             </Stack>
