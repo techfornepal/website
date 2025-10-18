@@ -6,6 +6,7 @@ import { responsiveTextSizes, type ResponsiveTextSize } from '@/utils/responsive
 import { type ColorVariant } from '../types';
 
 export interface LocaleDateProps {
+  date?: Date | string;
   format?: 'full' | 'long' | 'medium' | 'short';
   showTime?: boolean;
   timeFormat?: 'short' | 'medium' | 'long';
@@ -29,12 +30,17 @@ const colorClasses: Record<ColorVariant, string> = {
 };
 
 /**
- * LocaleDate - Displays current date in user's locale
+ * LocaleDate - Displays a date in user's locale
  *
  * @example
+ * // Show today's date
  * <LocaleDate prefix="Today:" format="long" color="muted" />
+ *
+ * // Show a specific date
+ * <LocaleDate date="2025-10-18" prefix="Last updated:" format="long" />
  */
 export const LocaleDate: React.FC<LocaleDateProps> = ({
+  date,
   format = 'long',
   showTime = false,
   timeFormat = 'short',
@@ -45,13 +51,15 @@ export const LocaleDate: React.FC<LocaleDateProps> = ({
   color = 'muted',
 }) => {
   const [formattedDate, setFormattedDate] = useState<string>('');
+  const [dateTimeValue, setDateTimeValue] = useState<string>('');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
 
     const userLocale = locale || navigator.language || 'en-US';
-    const now = new Date();
+    const targetDate = date ? (typeof date === 'string' ? new Date(date) : date) : new Date();
+    setDateTimeValue(targetDate.toISOString());
 
     const dateFormatOptions: Record<string, Intl.DateTimeFormatOptions> = {
       full: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
@@ -71,9 +79,9 @@ export const LocaleDate: React.FC<LocaleDateProps> = ({
       ...(showTime ? timeFormatOptions[timeFormat] : {}),
     };
 
-    const formatted = new Intl.DateTimeFormat(userLocale, options).format(now);
+    const formatted = new Intl.DateTimeFormat(userLocale, options).format(targetDate);
     setFormattedDate(formatted);
-  }, [format, showTime, timeFormat, locale]);
+  }, [date, format, showTime, timeFormat, locale]);
 
   if (!mounted) {
     return null;
@@ -82,7 +90,7 @@ export const LocaleDate: React.FC<LocaleDateProps> = ({
   return (
     <span className={cn(responsiveTextSizes[size], colorClasses[color], className)}>
       {prefix && <span className="mr-1">{prefix}</span>}
-      <time dateTime={new Date().toISOString()}>{formattedDate}</time>
+      <time dateTime={dateTimeValue}>{formattedDate}</time>
     </span>
   );
 };
