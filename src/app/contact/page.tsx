@@ -18,9 +18,7 @@ export default function Contact() {
             Contact Us
           </GradientHeading>
           <Stack spacing="lg">
-            <Text size="sm" color="muted">
-              Last updated: October 18, 2025
-            </Text>
+            <LocaleDate date="2025-10-18" prefix="Last updated:" size="sm" color="muted" />
             <LocaleDate prefix="Today's date:" size="sm" />
             <Text size="base">
               We are completely open source, and all we want to do is contribute to our country in
