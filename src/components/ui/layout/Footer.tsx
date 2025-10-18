@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import { Container } from './Container';
 import { cn } from '@/utils/cn';
+import { homepageTextSizes } from '@/utils/responsive';
 
 export const Footer: React.FC = () => {
   const pathname = usePathname();
@@ -23,10 +24,8 @@ export const Footer: React.FC = () => {
         <div className={cn(isHomePage ? 'py-6' : 'py-4')}>
           <p
             className={cn(
-              'text-center text-sm transition-colors duration-300',
-              isHomePage
-                ? 'font-medium text-white drop-shadow-sm'
-                : 'text-[color:var(--text-muted)]'
+              'text-center text-[color:var(--text-muted)] transition-colors duration-300',
+              homepageTextSizes.footerText
             )}
             style={{ fontFamily: 'var(--font-opensans)' }}
           >

@@ -1,14 +1,20 @@
 import React from 'react';
+import { cn } from '@/utils/cn';
+import { ResponsiveButton } from '../buttons/ResponsiveButton';
+import { homepageLayout } from '@/utils/responsive';
 
 export const HeroActions: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-      <button
-        className="rounded-lg border border-white/30 bg-white/20 px-8 py-3 font-medium text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/30"
-        style={{ fontFamily: 'var(--font-opensans)' }}
-      >
-        Start Creating
-      </button>
+    <div
+      className={cn(
+        'flex items-center justify-center',
+        homepageLayout.stackHorizontal,
+        homepageLayout.heroGap
+      )}
+    >
+      <ResponsiveButton href="/contact" variant="hero-primary">
+        Share Your Skills
+      </ResponsiveButton>
     </div>
   );
 };

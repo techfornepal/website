@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { cn } from '../../../utils/cn';
-import { useIsDesktop } from '../../../hooks/useMediaQuery';
+import { AnimatePresence, motion } from 'framer-motion';
+import { X } from 'lucide-react';
+import { cn } from '@/utils/cn';
+import { navigationSizing } from '@/utils/responsive';
+import { NavLink } from './NavLink';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -12,19 +14,10 @@ interface MobileMenuProps {
   pathname: string;
   isPathActive: (_pathname: string, _href: string) => boolean;
   isBlogPathActive?: (_pathname: string) => boolean;
+  anchorRef?: React.RefObject<HTMLElement>;
+  isHomePage?: boolean;
 }
 
-/**
- * Reusable MobileMenu component for responsive navigation
- * Features smooth animations, backdrop overlay, focus management, and accessibility
- *
- * @param isOpen - Whether the mobile menu is open
- * @param onClose - Callback to close the menu
- * @param navItems - Array of navigation items with href and label
- * @param pathname - Current pathname for active state detection
- * @param isPathActive - Function to determine if a path is active
- * @param isBlogPathActive - Optional function for blog-specific active detection
- */
 export const MobileMenu: React.FC<MobileMenuProps> = ({
   isOpen,
   onClose,
@@ -32,136 +25,126 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   pathname,
   isPathActive,
   isBlogPathActive,
+  isHomePage = false,
 }) => {
-  const menuRef = useRef<HTMLDivElement>(null);
-  const isDesktop = useIsDesktop();
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  // this closes the menu when desktop breakpoint is reached
   useEffect(() => {
-    if (isDesktop && isOpen) {
-      onClose();
-    }
-  }, [isDesktop, isOpen, onClose]);
-
-  // this focuses the first link when the menu opens
-  useEffect(() => {
-    if (isOpen && menuRef.current) {
-      const firstLink = menuRef.current.querySelector('a');
-      if (firstLink) {
-        firstLink.focus();
-      }
-    }
+    if (!isOpen) return;
+    const firstLink = cardRef.current?.querySelector<HTMLAnchorElement>('a');
+    firstLink?.focus();
   }, [isOpen]);
 
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
-  const handleLinkClick = () => {
-    onClose();
-  };
-
-  // preventing render on desktop or when closed
-  if (!isOpen) return null;
-
   return (
-    <>
-      <div
-        className={cn(
-          'fixed inset-0 z-50 bg-black/50 backdrop-blur-sm',
-          'animate-in fade-in-0 duration-200'
-        )}
-        onClick={handleBackdropClick}
-        aria-hidden="true"
-      />
-
-      <div
-        ref={menuRef}
-        className={cn(
-          'fixed top-0 right-0 z-50 h-full w-72 max-w-[80vw]',
-          'border-l border-[color:var(--border)] bg-[color:var(--background)]',
-          'shadow-lg',
-          'animate-in slide-in-from-right-0 duration-300 ease-out'
-        )}
-        id="mobile-menu"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Mobile navigation menu"
-      >
-        <div className="flex h-16 items-center justify-between border-b border-[color:var(--border)] px-6">
-          <h2 className="font-title text-lg font-[var(--font-weight-bold)] text-[color:var(--text-primary)]">
-            Menu
-          </h2>
-          <button
-            onClick={onClose}
-            className={cn(
-              'rounded-md p-2',
-              'text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]',
-              'transition-colors duration-200 hover:bg-[color:var(--accent)]',
-              'focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2'
-            )}
-            aria-label="Close menu"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className={cn(
+            'fixed inset-0 flex items-center justify-center',
+            navigationSizing.menuBackdropZIndex,
+            navigationSizing.mobileMenuPadding
+          )}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation menu"
+        >
+          <motion.button
             type="button"
+            className={cn(
+              'absolute inset-0 backdrop-blur-[6px]',
+              isHomePage ? 'bg-slate-950/45' : 'bg-slate-950/35'
+            )}
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            aria-hidden="true"
+          />
+
+          <motion.div
+            ref={cardRef}
+            className={cn(
+              'relative w-full shadow-[0_24px_72px_rgba(15,23,42,0.4)] backdrop-blur-xl',
+              navigationSizing.menuCardZIndex,
+              navigationSizing.mobileMenuMaxWidth,
+              navigationSizing.mobileMenuRadius,
+              isHomePage
+                ? 'border border-white/25 bg-white/15'
+                : 'border border-slate-200/80 bg-white/96'
+            )}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            id="mobile-menu-panel"
+            onClick={event => event.stopPropagation()}
           >
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
+            <div
+              className={cn(
+                'flex items-center justify-between',
+                navigationSizing.mobileMenuHeaderPadding,
+                isHomePage ? 'border-b border-white/20' : 'border-b border-slate-200/70'
+              )}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-            <span className="sr-only">Close mobile menu</span>
-          </button>
-        </div>
+              <h2
+                className={cn(
+                  'font-semibold',
+                  navigationSizing.mobileMenuTitleText,
+                  isHomePage ? 'text-white drop-shadow-sm' : 'text-slate-800'
+                )}
+                style={{ fontFamily: 'var(--font-opensans)' }}
+              >
+                Menu
+              </h2>
+              <button
+                onClick={onClose}
+                className={cn(
+                  'flex items-center justify-center transition-all duration-200',
+                  navigationSizing.closeButtonSize,
+                  navigationSizing.hamburgerButtonRadius,
+                  'focus:outline-none',
+                  isHomePage
+                    ? 'text-white/90 hover:bg-white/20 hover:text-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-[color:var(--primary)] focus-visible:ring-offset-2'
+                )}
+                aria-label="Close menu"
+                type="button"
+              >
+                <X className={cn(navigationSizing.closeIconSize)} strokeWidth={2} />
+                <span className="sr-only">Close mobile menu</span>
+              </button>
+            </div>
 
-        <nav className="px-6 py-6" aria-label="Mobile navigation">
-          <ul className="space-y-1" role="list">
-            {navItems.map(({ href, label }) => {
-              const isActive =
-                href === '/blog' && isBlogPathActive
-                  ? isBlogPathActive(pathname)
-                  : isPathActive(pathname, href);
+            <nav
+              className={cn(navigationSizing.mobileMenuNavPadding)}
+              aria-label="Mobile navigation"
+            >
+              <ul className={cn(navigationSizing.mobileMenuSpacing)} role="list">
+                {navItems.map(({ href, label }, index) => {
+                  const active =
+                    href === '/blog' && isBlogPathActive
+                      ? isBlogPathActive(pathname)
+                      : isPathActive(pathname, href);
 
-              return (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    onClick={handleLinkClick}
-                    className={cn(
-                      'block rounded-md px-4 py-3 text-base font-[var(--font-weight-medium)] transition-colors duration-200',
-                      'focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2',
-                      isActive
-                        ? 'bg-[color:var(--accent)] font-[var(--font-weight-semibold)] text-[color:var(--primary)]'
-                        : 'text-[color:var(--text-secondary)] hover:bg-[color:var(--accent)] hover:text-[color:var(--text-primary)]'
-                    )}
-                    aria-current={isActive ? 'page' : undefined}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <div className="absolute right-6 bottom-6 left-6">
-          <div className="text-center text-xs text-[color:var(--text-muted)]">
-            <span className="font-title">
-              <span className="text-[color:var(--primary)]">Tech For</span>{' '}
-              <span className="text-[color:var(--secondary)]">Nepal</span>
-            </span>
-          </div>
-        </div>
-      </div>
-    </>
+                  return (
+                    <NavLink
+                      key={href}
+                      href={href}
+                      label={label}
+                      isActive={active}
+                      variant={isHomePage ? 'mobile-light' : 'mobile-dark'}
+                      onClick={onClose}
+                      animationIndex={index}
+                      showArrow
+                    />
+                  );
+                })}
+              </ul>
+            </nav>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

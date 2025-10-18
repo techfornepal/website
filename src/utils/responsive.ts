@@ -171,3 +171,95 @@ export const responsiveAlignments = {
 } as const;
 
 export type ResponsiveAlignment = keyof typeof responsiveAlignments;
+
+/**
+ * Homepage-specific responsive text utilities
+ */
+export const homepageTextSizes = {
+  heroTitle: 'text-4xl md:text-5xl lg:text-6xl xl:text-7xl',
+  heroSubtitle: 'text-base md:text-lg lg:text-xl',
+  footerText: 'text-xs sm:text-sm',
+} as const;
+
+export const homepageButtonSpacing = {
+  heroPadding: 'px-4 py-2 sm:px-6 sm:py-2.5 md:px-8 md:py-3',
+  heroTextSize: 'text-sm sm:text-base',
+} as const;
+
+export const homepageLayout = {
+  stackHorizontal: 'flex flex-col sm:flex-row',
+  heroGap: 'gap-4',
+} as const;
+
+/**
+ * Navigation component sizing utilities
+ */
+export const navigationSizing = {
+  navbarHeight: 'h-16',
+  logoSizes: {
+    sm: 'text-base',
+    md: 'text-lg',
+    lg: 'text-xl',
+    xl: 'text-2xl',
+  },
+
+  desktopLinkText: 'text-base',
+  desktopLinkPadding: 'px-3 py-2',
+  desktopLinkSpacing: 'space-x-8',
+  desktopLinkRadius: 'rounded-md',
+
+  hamburgerButtonSize: 'h-10 w-10',
+  hamburgerIconContainer: 'h-5 w-6',
+  hamburgerLineHeight: 'h-[2px]',
+  hamburgerButtonRadius: 'rounded-lg',
+
+  mobileMenuMaxWidth: 'max-w-[320px]',
+  mobileMenuRadius: 'rounded-2xl',
+  mobileMenuPadding: 'p-4',
+  mobileMenuHeaderPadding: 'px-5 py-4',
+  mobileMenuNavPadding: 'px-4 py-4',
+  mobileMenuLinkPadding: 'px-4 py-3',
+  mobileMenuLinkRadius: 'rounded-xl',
+  mobileMenuLinkText: 'text-[15px]',
+  mobileMenuTitleText: 'text-base',
+  mobileMenuSpacing: 'space-y-1',
+
+  closeButtonSize: 'h-8 w-8',
+  closeIconSize: 'h-5 w-5',
+  arrowIconSize: 'h-4 w-4',
+
+  navbarZIndex: 'z-50',
+  hamburgerZIndex: 'z-[60]',
+  menuBackdropZIndex: 'z-40',
+  menuCardZIndex: 'z-50',
+} as const;
+
+/**
+ * Logo color schemes for different contexts
+ */
+export const logoColorSchemes = {
+  'hero-overlay': {
+    techFor: 'text-[rgba(245,112,130,0.92)] group-hover:text-[rgba(250,165,183,0.96)]',
+    nepal: 'text-[rgba(120,172,240,0.92)] group-hover:text-[rgba(160,198,250,0.96)]',
+  },
+  'light-nav': {
+    techFor: 'text-[rgba(220,20,60,0.82)] group-hover:text-[rgba(220,20,60,0.95)]',
+    nepal: 'text-[rgba(0,56,147,0.8)] group-hover:text-[rgba(0,56,147,0.95)]',
+  },
+  'dark-nav': {
+    techFor: 'text-[color:var(--secondary)] group-hover:text-[rgba(220,20,60,0.92)]',
+    nepal: 'text-[color:var(--primary)] group-hover:text-[rgba(0,56,147,0.92)]',
+  },
+  // brand colors (standard, no opacity)
+  brand: {
+    techFor: 'text-red-500 group-hover:text-red-400',
+    nepal: 'text-blue-500 group-hover:text-blue-400',
+  },
+  // pure white (for dark backgrounds)
+  white: {
+    techFor: 'text-white group-hover:text-white/90',
+    nepal: 'text-white group-hover:text-white/90',
+  },
+} as const;
+
+export type LogoColorScheme = keyof typeof logoColorSchemes;

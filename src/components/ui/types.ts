@@ -3,6 +3,7 @@
  * All UI components should extend these base interfaces for consistency
  */
 
+import { type CSSProperties } from 'react';
 import { type ResponsiveTextSize } from '../../utils/responsive';
 
 /**
@@ -57,6 +58,7 @@ export interface TypographyComponentProps extends StyledComponentProps {
   weight?: FontWeight;
   align?: TextAlign;
   as?: React.ElementType;
+  style?: CSSProperties;
 }
 
 /**

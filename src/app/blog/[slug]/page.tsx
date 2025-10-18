@@ -43,7 +43,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <Stack spacing="xl">
               <header>
                 <Stack spacing="md">
-                  <GradientHeading as="h1" size="2xl">
+                  <GradientHeading as="h1" size="2xl" gradient="diagonal">
                     {String(post.frontmatter.title ?? slug)}
                   </GradientHeading>
 
