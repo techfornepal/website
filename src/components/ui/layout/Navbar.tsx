@@ -1,13 +1,17 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useRef } from 'react';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { Container } from './Container';
 import { MobileMenu } from '../navigation/MobileMenu';
+import { Logo } from '../branding/Logo';
+import { HamburgerButton } from '../navigation/HamburgerButton';
+import { NavLink } from '../navigation/NavLink';
 import { useNavigation } from '../../../hooks/useNavigation';
 import { useIsDesktop } from '../../../hooks/useMediaQuery';
 import { cn } from '@/utils/cn';
+import { navigationSizing } from '@/utils/responsive';
 import { isPathActive, isBlogPathActive } from '@/utils';
 
 export const Navbar: React.FC = () => {
@@ -18,6 +22,8 @@ export const Navbar: React.FC = () => {
   const { isScrolled, isVisible, isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } =
     useNavigation();
 
+  const menuTriggerRef = useRef<HTMLDivElement>(null);
+
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
@@ -25,106 +31,92 @@ export const Navbar: React.FC = () => {
     { href: '/contact', label: 'Contact' },
   ];
 
+  const useLightNavColors = isHomePage || isScrolled;
+  const isHeroOverlay = isHomePage && !isScrolled;
+
+  const logoColorScheme = isHeroOverlay
+    ? 'hero-overlay'
+    : useLightNavColors
+      ? 'light-nav'
+      : 'dark-nav';
+
+  const hamburgerVariant = isHeroOverlay ? 'hero-overlay' : useLightNavColors ? 'light' : 'dark';
+
+  const navLinkVariant = useLightNavColors ? 'desktop-light' : 'desktop-dark';
+
   return (
     <>
       <nav
         className={cn(
-          'fixed right-0 left-0 z-50 transition-all duration-300 ease-in-out',
-          'top-4',
+          'fixed right-0 left-0 transition-all duration-300 ease-in-out',
+          'top-0',
+          navigationSizing.navbarZIndex,
           isVisible ? 'translate-y-0' : '-translate-y-full',
-          isHomePage
-            ? isScrolled
-              ? 'bg-[color:var(--background)]/95 backdrop-blur-lg'
-              : 'bg-transparent'
-            : 'bg-[color:var(--background)]/95 backdrop-blur-lg'
+          isScrolled ? 'bg-black/20 backdrop-blur-lg' : 'bg-transparent'
         )}
       >
         <Container>
-          <div className="flex h-16 items-center justify-between">
-            <Link
-              href="/"
-              className="group flex items-center text-xl font-[var(--font-weight-semibold)] text-[color:var(--text-primary)] transition-all duration-300"
+          <div className={cn('flex items-center justify-between', navigationSizing.navbarHeight)}>
+            <motion.div
+              animate={{
+                opacity: !isDesktop && isMobileMenuOpen ? 0.3 : 1,
+              }}
+              transition={{ duration: 0.2 }}
             >
-              <span className="font-title font-[var(--font-weight-bold)] tracking-tight">
-                <span className="text-[color:var(--primary)] transition-colors duration-300 group-hover:text-[color:var(--secondary)]">
-                  Tech For
-                </span>{' '}
-                <span className="text-[color:var(--secondary)] transition-colors duration-300 group-hover:text-[color:var(--primary)]">
-                  Nepal
-                </span>
-              </span>
-            </Link>
+              <Logo
+                size="lg"
+                colorScheme={logoColorScheme}
+                enableHover
+                showDropShadow
+                animated={false}
+                href="/"
+              />
+            </motion.div>
 
             {isDesktop && (
-              <nav className="flex items-center space-x-8" aria-label="Main navigation">
+              <nav
+                className={cn('flex items-center', navigationSizing.desktopLinkSpacing)}
+                aria-label="Main navigation"
+              >
                 {navItems.map(({ href, label }) => {
                   const isActive =
                     href === '/blog' ? isBlogPathActive(pathname) : isPathActive(pathname, href);
 
                   return (
-                    <Link
+                    <NavLink
                       key={href}
                       href={href}
-                      className={cn(
-                        'text-base font-[var(--font-weight-medium)] transition-colors duration-300',
-                        'rounded-md px-2 py-1 focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none',
-                        isActive
-                          ? 'text-[color:var(--secondary)]'
-                          : 'text-[color:var(--text-secondary)] hover:text-[color:var(--primary)]'
-                      )}
-                      aria-current={isActive ? 'page' : undefined}
-                    >
-                      {label}
-                    </Link>
+                      label={label}
+                      isActive={isActive}
+                      variant={navLinkVariant as 'desktop-light' | 'desktop-dark'}
+                    />
                   );
                 })}
               </nav>
             )}
 
             {!isDesktop && (
-              <button
-                onClick={toggleMobileMenu}
-                className={cn(
-                  'rounded-md p-2',
-                  'text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]',
-                  'transition-colors duration-200 hover:bg-[color:var(--accent)]',
-                  'focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2'
-                )}
-                aria-label="Toggle mobile menu"
-                aria-expanded={isMobileMenuOpen}
-                aria-controls="mobile-menu"
-                type="button"
-              >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-                <span className="sr-only">
-                  {isMobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
-                </span>
-              </button>
+              <div ref={menuTriggerRef} className="relative">
+                <HamburgerButton
+                  isOpen={isMobileMenuOpen}
+                  onClick={toggleMobileMenu}
+                  variant={hamburgerVariant as 'light' | 'dark' | 'hero-overlay'}
+                />
+              </div>
             )}
           </div>
         </Container>
       </nav>
 
       <MobileMenu
-        isOpen={isMobileMenuOpen}
+        isOpen={!isDesktop && isMobileMenuOpen}
         onClose={closeMobileMenu}
         navItems={navItems}
         pathname={pathname}
         isPathActive={isPathActive}
         isBlogPathActive={isBlogPathActive}
+        anchorRef={menuTriggerRef as React.RefObject<HTMLElement>}
+        isHomePage={isHomePage}
       />
     </>
   );

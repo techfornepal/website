@@ -13,6 +13,7 @@ interface HeadingProps {
   size?: HeadingSize;
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   color?:
     | 'default'
     | 'muted'
@@ -79,6 +80,7 @@ export const Heading: React.FC<HeadingProps> = ({
   size,
   children,
   className,
+  style,
   color = 'default',
   weight = 'bold',
   align = 'left',
@@ -98,6 +100,7 @@ export const Heading: React.FC<HeadingProps> = ({
         alignClasses[align],
         className
       )}
+      style={{ fontFamily: 'var(--font-title)', ...style }}
     >
       {children}
     </Component>

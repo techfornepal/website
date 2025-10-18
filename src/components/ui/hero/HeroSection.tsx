@@ -4,21 +4,27 @@ import { Stack } from '../layout/Stack';
 import { HeroTitle } from './HeroTitle';
 import { HeroDescription } from './HeroDescription';
 import { HeroActions } from './HeroActions';
-import { HeroTagline } from './HeroTagline';
 
 export const HeroSection: React.FC = () => {
   return (
     <main
-      className="flex flex-1 items-center justify-center px-4"
-      style={{ minHeight: 'calc(100vh - 80px - 64px)' }}
+      className="relative flex flex-1 items-center justify-center px-4"
+      style={{
+        height: '100vh',
+        backgroundImage: 'url(/himalayas-background.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
     >
-      <Container size="lg" mobileSize="md">
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/55 to-slate-900/45 backdrop-blur-[2px]" />
+
+      <Container size="lg" mobileSize="md" className="relative z-10">
         <div className="text-center">
           <Stack spacing="3xl" align="center">
             <HeroTitle />
             <HeroDescription />
             <HeroActions />
-            <HeroTagline />
           </Stack>
         </div>
       </Container>

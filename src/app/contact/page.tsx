@@ -1,4 +1,12 @@
-import { Container, PageMain, GradientHeading, Text, Stack, Heading } from '@/components/ui';
+import {
+  Container,
+  PageMain,
+  GradientHeading,
+  Text,
+  Stack,
+  Heading,
+  LocaleDate,
+} from '@/components/ui';
 import Link from 'next/link';
 
 export default function Contact() {
@@ -10,6 +18,10 @@ export default function Contact() {
             Contact Us
           </GradientHeading>
           <Stack spacing="lg">
+            <Text size="sm" color="muted">
+              Last updated: October 18, 2025
+            </Text>
+            <LocaleDate prefix="Today's date:" size="sm" />
             <Text size="base">
               We are completely open source, and all we want to do is contribute to our country in
               the ways that we believe we can the best: through our skills and knowledge in the tech

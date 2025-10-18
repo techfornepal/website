@@ -5,7 +5,7 @@ export default function About() {
     <PageMain>
       <Container size="md">
         <Stack spacing="xl">
-          <GradientHeading as="h1" size="2xl" gradient="diagonal">
+          <GradientHeading as="h1" size="2xl" gradient="primary-secondary">
             About Tech For Nepal
           </GradientHeading>
           <Stack spacing="lg">

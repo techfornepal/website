@@ -1,20 +1,20 @@
 import React from 'react';
-import { Text } from '../typography/Text';
+import { cn } from '@/utils/cn';
 import { Container } from '../layout/Container';
+import { homepageTextSizes } from '@/utils/responsive';
 
 export const HeroDescription: React.FC = () => {
   return (
     <Container size="3xl" mobileSize="lg">
-      <Text
-        size="lg"
-        color="muted"
-        align="center"
-        weight="medium"
-        className="leading-[var(--line-height-relaxed)]"
+      <p
+        className={cn(
+          'mx-auto max-w-2xl text-center leading-relaxed font-light text-white/90',
+          homepageTextSizes.heroSubtitle
+        )}
+        style={{ fontFamily: 'var(--font-opensans)' }}
       >
-        A community-driven platform dedicated to showcasing Nepal&apos;s tech talent and fostering
-        innovation through collaboration.
-      </Text>
+        Thinkers and dreamers creating meaningful impact for Nepal through technology
+      </p>
     </Container>
   );
 };

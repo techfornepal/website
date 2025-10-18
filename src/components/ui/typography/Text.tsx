@@ -61,6 +61,7 @@ export const Text: React.FC<TextProps> = ({
   weight = 'normal',
   align = 'left',
   as: Component = 'p',
+  style,
 }) => {
   return (
     <Component
@@ -71,6 +72,7 @@ export const Text: React.FC<TextProps> = ({
         alignClasses[align],
         className
       )}
+      style={{ fontFamily: 'var(--font-opensans)', ...style }}
     >
       {children}
     </Component>
