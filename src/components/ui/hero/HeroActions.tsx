@@ -12,8 +12,8 @@ export const HeroActions: React.FC = () => {
         homepageLayout.heroGap
       )}
     >
-      <ResponsiveButton href="/contact" variant="hero-primary">
-        Share Your Skills
+      <ResponsiveButton href="/get-involved" variant="hero-primary">
+        Contribute
       </ResponsiveButton>
     </div>
   );
