@@ -22,7 +22,7 @@ export const Prose: React.FC<ProseProps> = ({ children, className }) => {
         'prose-h5:text-[color:var(--secondary)]',
         'prose-h6:text-[color:var(--secondary)]',
         'prose-p:text-[color:var(--text-primary)] prose-p:leading-[var(--line-height-relaxed)]',
-        'prose-a:text-[color:var(--primary)] prose-a:no-underline hover:prose-a:underline',
+        'prose-a:text-[color:var(--primary)] prose-a:no-underline prose-a:hover:underline',
         'prose-strong:text-[color:var(--text-primary)] prose-strong:font-[var(--font-weight-semibold)]',
         'prose-code:text-[color:var(--primary)] prose-code:bg-[color:var(--surface)] prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:font-[var(--font-weight-medium)]',
         'prose-pre:bg-[color:var(--surface)] prose-pre:border prose-pre:border-[color:var(--border)]',
