@@ -1,4 +1,5 @@
 import { getPostBySlug, listPosts } from '@/lib/mdx';
+import { getMDXComponents } from '@/lib/mdx-components';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import {
@@ -59,6 +60,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               <Prose>
                 <MDXRemote
                   source={post.content}
+                  components={getMDXComponents()}
                   options={{
                     mdxOptions: {
                       remarkPlugins: [remarkGfm],

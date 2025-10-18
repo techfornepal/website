@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import fg from 'fast-glob';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'blog');
+const PAGES_DIR = path.join(process.cwd(), 'content', 'pages');
 
 function calculateReadingTime(content: string): string {
   const wordsPerMinute = 200;
@@ -123,6 +124,31 @@ export async function getPostBySlug(slug: string) {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(`Error getting post by slug: ${slug}`, error);
+    return null;
+  }
+}
+
+export async function getPageBySlug(slug: string) {
+  try {
+    const candidates = [path.join(PAGES_DIR, `${slug}.md`), path.join(PAGES_DIR, `${slug}.mdx`)];
+
+    for (const filePath of candidates) {
+      try {
+        const raw = await fs.readFile(filePath, 'utf8');
+        const { content, data } = matter(raw);
+        return {
+          content,
+          frontmatter: data as Record<string, unknown>,
+        };
+      } catch {
+        // continue to next candidate
+      }
+    }
+
+    return null; // page not found
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Error getting page by slug: ${slug}`, error);
     return null;
   }
 }
