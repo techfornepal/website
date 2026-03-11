@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEntry, render } from 'astro:content';
+import { Container, PageMain, GradientHeading, Prose, Stack, LocaleDate } from '@/components/ui';
+import { getMDXComponents } from '@/lib/mdx-components';
+
+const page = await getEntry('pages', 'get-involved');
+if (!page) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(page);
+---
+
+<BaseLayout title={`${page.data.title} - Tech For Nepal`}>
+  <PageMain>
+    <Container size="md">
+      <Stack spacing="xl">
+        <Stack spacing="lg">
+          <GradientHeading as="h1" size="2xl" gradient="diagonal">
+            {page.data.title}
+          </GradientHeading>
+          {
+            page.data.lastUpdated && (
+              <LocaleDate
+                client:load
+                date={page.data.lastUpdated.toISOString()}
+                prefix="Last updated:"
+                size="sm"
+                color="muted"
+              />
+            )
+          }
+        </Stack>
+
+        <Prose>
+          <Content components={getMDXComponents()} />
+        </Prose>
+      </Stack>
+    </Container>
+  </PageMain>
+</BaseLayout>

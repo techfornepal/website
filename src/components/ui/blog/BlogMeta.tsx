@@ -1,8 +1,6 @@
-'use client';
-
 import React from 'react';
-import Image from 'next/image';
-import { Text, Stack } from '@/components/ui';
+import { Stack } from '../layout/Stack';
+import { Text } from '../typography/Text';
 import { Tag } from './Tag';
 
 interface Author {
@@ -42,7 +40,7 @@ export const BlogMeta: React.FC<BlogMetaProps> = ({
             {author.avatar && (
               <div className="h-10 w-10 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--secondary)] p-0.5">
                 <div className="relative h-full w-full">
-                  <Image
+                  <img
                     src={author.avatar}
                     alt={author.name}
                     width={40}

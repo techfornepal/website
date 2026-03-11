@@ -1,7 +1,4 @@
-'use client';
-
 import React from 'react';
-import Link from 'next/link';
 import { cn } from '@/utils/cn';
 
 interface TagProps {
@@ -33,7 +30,7 @@ export const Tag: React.FC<TagProps> = ({
   const slug = tag.toLowerCase().replace(/\s+/g, '-');
 
   return (
-    <Link
+    <a
       href={`/blog/tags/${slug}`}
       className={cn(
         variantClasses[variant],
@@ -51,6 +48,6 @@ export const Tag: React.FC<TagProps> = ({
           </span>
         )}
       </span>
-    </Link>
+    </a>
   );
 };

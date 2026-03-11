@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { navigationSizing, logoColorSchemes, type LogoColorScheme } from '@/utils/responsive';
@@ -96,7 +95,6 @@ export const Logo: React.FC<LogoProps> = ({
     </span>
   );
 
-  // wrapping logo content with animation if enabled
   const content = animated ? (
     <motion.span
       animate={{
@@ -112,9 +110,9 @@ export const Logo: React.FC<LogoProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={baseClasses} style={{ fontFamily: 'var(--font-title)' }}>
+      <a href={href} className={baseClasses} style={{ fontFamily: 'var(--font-title)' }}>
         {content}
-      </Link>
+      </a>
     );
   }
 

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Container, GradientHeading, Text, Stack, NavigationLink } from '@/components/ui';
+import React from 'react';
+import { ArrowLeft } from 'lucide-react';
+
+const arrowLeftIcon = React.createElement(ArrowLeft, { size: 16 });
+---
+
+<BaseLayout title="404 - Page Not Found">
+  <main
+    class="flex flex-1 items-center justify-center px-4"
+    style="min-height: calc(100vh - 80px - 64px);"
+  >
+    <Container size="md" className="text-center">
+      <Stack spacing="3xl" align="center">
+        <Stack spacing="xl" align="center">
+          <div
+            class="font-title text-8xl leading-none font-bold text-[color:var(--text-muted)]/30 select-none"
+          >
+            404
+          </div>
+          <Stack spacing="lg" align="center">
+            <GradientHeading as="h1" size="4xl"> Page Not Found </GradientHeading>
+            <Text size="base" color="muted" className="mx-auto">
+              The page you&apos;re looking for doesn&apos;t exist or has been moved.
+            </Text>
+          </Stack>
+        </Stack>
+
+        <NavigationLink href="/" icon={arrowLeftIcon} iconPosition="left"> Go Home </NavigationLink>
+      </Stack>
+    </Container>
+  </main>
+</BaseLayout>

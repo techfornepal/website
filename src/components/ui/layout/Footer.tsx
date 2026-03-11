@@ -1,13 +1,13 @@
-'use client';
-
 import React from 'react';
-import { usePathname } from 'next/navigation';
 import { Container } from './Container';
 import { cn } from '@/utils/cn';
 import { homepageTextSizes } from '@/utils/responsive';
 
-export const Footer: React.FC = () => {
-  const pathname = usePathname();
+interface FooterProps {
+  pathname: string;
+}
+
+export const Footer: React.FC<FooterProps> = ({ pathname }) => {
   const isHomePage = pathname === '/';
   const year = new Date().getFullYear();
 

@@ -1,19 +1,14 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 
 export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState<boolean>(false);
 
   useEffect(() => {
-    // checking if running on client
     if (typeof window === 'undefined') {
       return;
     }
 
     const mediaQuery = window.matchMedia(query);
-
-    // setting initial value
     setMatches(mediaQuery.matches);
 
     const handler = (event: MediaQueryListEvent) => {
@@ -21,8 +16,6 @@ export function useMediaQuery(query: string): boolean {
     };
 
     mediaQuery.addEventListener('change', handler);
-
-    // cleaning up
     return () => {
       mediaQuery.removeEventListener('change', handler);
     };
@@ -63,19 +56,16 @@ export const useIsLG = () => useMediaQuery(BREAKPOINTS.lg);
 export const useIsXL = () => useMediaQuery(BREAKPOINTS.xl);
 export const useIs2XL = () => useMediaQuery(BREAKPOINTS['2xl']);
 
-// Semantic breakpoint hooks (maintained for backward compatibility)
 export const useIsMobile = () => useMediaQuery(BREAKPOINTS.mobile);
 export const useIsTablet = () => useMediaQuery(BREAKPOINTS.tablet);
 export const useIsDesktop = () => useMediaQuery(BREAKPOINTS.desktop);
 
-// Progressive breakpoint hooks (min-width)
 export const useIsMobileUp = () => useMediaQuery(BREAKPOINTS['mobile-up']);
 export const useIsTabletUp = () => useMediaQuery(BREAKPOINTS['tablet-up']);
 export const useIsDesktopUp = () => useMediaQuery(BREAKPOINTS['desktop-up']);
 export const useIsLargeUp = () => useMediaQuery(BREAKPOINTS['large-up']);
 export const useIsXLargeUp = () => useMediaQuery(BREAKPOINTS['xlarge-up']);
 
-// System preference hooks
 export const useIsDarkMode = () => useMediaQuery('(prefers-color-scheme: dark)');
 export const useReducedMotion = () => useMediaQuery('(prefers-reduced-motion: reduce)');
 

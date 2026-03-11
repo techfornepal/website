@@ -1,4 +1,13 @@
 :root {
+  /* fontsource font families */
+  --font-geist-sans: "Geist Variable", sans-serif;
+  --font-geist-mono: "Geist Mono Variable", monospace;
+  --font-title: "Playfair Display", serif;
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
+  --font-fjalla: "Fjalla One", sans-serif;
+  --font-opensans: "Open Sans", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+
   /* Authentic 🇳🇵 flag colors */
   --nepal-red: #dc143c;
   --nepal-blue: #003893;
@@ -51,6 +60,7 @@
   --button-secondary-hover: #edf2f7;
   --navbar-bg: #ffffff;
   --navbar-border: #f7fafc;
+  --navbar-scroll-bg: rgba(0, 0, 0, 0.2);
   --footer-bg: #fafafa;
   --footer-border: #edf2f7;
 
@@ -74,6 +84,58 @@
   --divider: var(--border);
   --overlay: rgba(45, 55, 72, 0.4);
   --backdrop: rgba(255, 255, 255, 0.95);
+  --hero-overlay-start: rgba(15, 23, 42, 0.7);
+  --hero-overlay-middle: rgba(15, 23, 42, 0.55);
+  --hero-overlay-end: rgba(15, 23, 42, 0.45);
+  --menu-overlay-home: rgba(2, 6, 23, 0.45);
+  --menu-overlay-default: rgba(2, 6, 23, 0.35);
+  --menu-card-shadow: rgba(15, 23, 42, 0.4);
+  --menu-card-home-border: rgba(255, 255, 255, 0.25);
+  --menu-card-home-bg: rgba(255, 255, 255, 0.15);
+  --menu-card-border: rgba(226, 232, 240, 0.8);
+  --menu-card-bg: rgba(255, 255, 255, 0.96);
+  --menu-header-home-border: rgba(255, 255, 255, 0.2);
+  --menu-header-border: rgba(226, 232, 240, 0.7);
+  --menu-title-home: #ffffff;
+  --menu-title: #1e293b;
+  --menu-close-home: rgba(255, 255, 255, 0.9);
+  --menu-close-home-hover-bg: rgba(255, 255, 255, 0.2);
+  --menu-close-home-hover-text: #ffffff;
+  --menu-close: #475569;
+  --menu-close-hover-bg: #f1f5f9;
+  --menu-close-hover-text: #0f172a;
+  --nav-light-text: rgba(255, 255, 255, 0.8);
+  --nav-light-text-strong: #ffffff;
+  --nav-light-ring: rgba(255, 255, 255, 0.5);
+  --nav-light-mobile-text: rgba(255, 255, 255, 0.85);
+  --nav-light-mobile-hover-bg: rgba(255, 255, 255, 0.15);
+  --nav-light-mobile-active-bg: rgba(255, 255, 255, 0.25);
+  --nav-light-mobile-shadow: rgba(255, 255, 255, 0.3);
+  --nav-light-arrow: rgba(255, 255, 255, 0.7);
+  --nav-dark-mobile-active-bg: rgba(0, 56, 147, 0.1);
+  --nav-dark-mobile-shadow: rgba(0, 56, 147, 0.12);
+  --menu-link: #334155;
+  --menu-link-hover-bg: #f1f5f9;
+  --menu-link-hover-text: #0f172a;
+  --menu-arrow: #94a3b8;
+  --hero-button-border: rgba(255, 255, 255, 0.3);
+  --hero-button-bg: rgba(255, 255, 255, 0.2);
+  --hero-button-hover-bg: rgba(255, 255, 255, 0.3);
+  --hamburger-hero-text: rgba(255, 255, 255, 0.5);
+  --hamburger-hero-ring: rgba(255, 255, 255, 0.6);
+  --hamburger-light-shadow: rgba(15, 23, 42, 0.3);
+  --hamburger-light-hover-bg: rgba(255, 255, 255, 0.1);
+  --hamburger-light-ring: rgba(255, 255, 255, 0.4);
+  --logo-hero-tech: rgba(245, 112, 130, 0.92);
+  --logo-hero-tech-hover: rgba(250, 165, 183, 0.96);
+  --logo-hero-nepal: rgba(120, 172, 240, 0.92);
+  --logo-hero-nepal-hover: rgba(160, 198, 250, 0.96);
+  --logo-light-tech: rgba(220, 20, 60, 0.82);
+  --logo-light-tech-hover: rgba(220, 20, 60, 0.95);
+  --logo-light-nepal: rgba(0, 56, 147, 0.8);
+  --logo-light-nepal-hover: rgba(0, 56, 147, 0.95);
+  --logo-dark-tech-hover: rgba(220, 20, 60, 0.92);
+  --logo-dark-nepal-hover: rgba(0, 56, 147, 0.92);
 }
 
 /* light-focused design - disabling dark mode for now */
@@ -126,6 +188,7 @@
     --button-secondary-hover: #edf2f7;
     --navbar-bg: #ffffff;
     --navbar-border: #f7fafc;
+    --navbar-scroll-bg: rgba(0, 0, 0, 0.2);
     --footer-bg: #fafafa;
     --footer-border: #edf2f7;
 
@@ -149,5 +212,57 @@
     --divider: var(--border);
     --overlay: rgba(45, 55, 72, 0.4);
     --backdrop: rgba(255, 255, 255, 0.95);
+    --hero-overlay-start: rgba(15, 23, 42, 0.7);
+    --hero-overlay-middle: rgba(15, 23, 42, 0.55);
+    --hero-overlay-end: rgba(15, 23, 42, 0.45);
+    --menu-overlay-home: rgba(2, 6, 23, 0.45);
+    --menu-overlay-default: rgba(2, 6, 23, 0.35);
+    --menu-card-shadow: rgba(15, 23, 42, 0.4);
+    --menu-card-home-border: rgba(255, 255, 255, 0.25);
+    --menu-card-home-bg: rgba(255, 255, 255, 0.15);
+    --menu-card-border: rgba(226, 232, 240, 0.8);
+    --menu-card-bg: rgba(255, 255, 255, 0.96);
+    --menu-header-home-border: rgba(255, 255, 255, 0.2);
+    --menu-header-border: rgba(226, 232, 240, 0.7);
+    --menu-title-home: #ffffff;
+    --menu-close-home: rgba(255, 255, 255, 0.9);
+    --menu-close-home-hover-bg: rgba(255, 255, 255, 0.2);
+    --menu-close-home-hover-text: #ffffff;
+    --menu-title: #1e293b;
+    --menu-close: #475569;
+    --menu-close-hover-bg: #f1f5f9;
+    --menu-close-hover-text: #0f172a;
+    --nav-light-text: rgba(255, 255, 255, 0.8);
+    --nav-light-text-strong: #ffffff;
+    --nav-light-ring: rgba(255, 255, 255, 0.5);
+    --nav-light-mobile-text: rgba(255, 255, 255, 0.85);
+    --nav-light-mobile-hover-bg: rgba(255, 255, 255, 0.15);
+    --nav-light-mobile-active-bg: rgba(255, 255, 255, 0.25);
+    --nav-light-mobile-shadow: rgba(255, 255, 255, 0.3);
+    --nav-light-arrow: rgba(255, 255, 255, 0.7);
+    --nav-dark-mobile-active-bg: rgba(0, 56, 147, 0.1);
+    --nav-dark-mobile-shadow: rgba(0, 56, 147, 0.12);
+    --menu-link: #334155;
+    --menu-link-hover-bg: #f1f5f9;
+    --menu-link-hover-text: #0f172a;
+    --menu-arrow: #94a3b8;
+    --hero-button-border: rgba(255, 255, 255, 0.3);
+    --hero-button-bg: rgba(255, 255, 255, 0.2);
+    --hero-button-hover-bg: rgba(255, 255, 255, 0.3);
+    --hamburger-hero-text: rgba(255, 255, 255, 0.5);
+    --hamburger-hero-ring: rgba(255, 255, 255, 0.6);
+    --hamburger-light-shadow: rgba(15, 23, 42, 0.3);
+    --hamburger-light-hover-bg: rgba(255, 255, 255, 0.1);
+    --hamburger-light-ring: rgba(255, 255, 255, 0.4);
+    --logo-hero-tech: rgba(245, 112, 130, 0.92);
+    --logo-hero-tech-hover: rgba(250, 165, 183, 0.96);
+    --logo-hero-nepal: rgba(120, 172, 240, 0.92);
+    --logo-hero-nepal-hover: rgba(160, 198, 250, 0.96);
+    --logo-light-tech: rgba(220, 20, 60, 0.82);
+    --logo-light-tech-hover: rgba(220, 20, 60, 0.95);
+    --logo-light-nepal: rgba(0, 56, 147, 0.8);
+    --logo-light-nepal-hover: rgba(0, 56, 147, 0.95);
+    --logo-dark-tech-hover: rgba(220, 20, 60, 0.92);
+    --logo-dark-nepal-hover: rgba(0, 56, 147, 0.92);
   }
 }

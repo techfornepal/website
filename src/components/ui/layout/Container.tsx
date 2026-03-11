@@ -94,9 +94,6 @@ export const Container: React.FC<ContainerProps> = ({
       className={cn(
         'mx-auto',
         responsiveSizeClasses,
-        // please use new spacing system. please don't use legacy padding anymore.
-        // the legacy padding is a fallback for the old padding system only and is
-        // not recommended to use anymore.
         spacing !== 'none' ? spacingClasses[spacing] : padding && 'px-4 sm:px-6 lg:px-8',
         className
       )}

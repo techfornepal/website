@@ -1,0 +1,105 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import {
+  Container,
+  PageMain,
+  Heading,
+  Text,
+  Stack,
+  BlogPostCard,
+  NavigationLink,
+} from '@/components/ui';
+import React from 'react';
+import { ArrowLeft } from 'lucide-react';
+
+const arrowLeftIcon = React.createElement(ArrowLeft, { size: 16 });
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const tagMap = new Map<string, typeof posts>();
+
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      const slug = tag.toLowerCase().replace(/\s+/g, '-');
+      if (!tagMap.has(slug)) tagMap.set(slug, []);
+      tagMap.get(slug)!.push(post);
+    }
+  }
+
+  return Array.from(tagMap.entries()).map(([tagSlug, tagPosts]) => ({
+    params: { tag: tagSlug },
+    props: {
+      originalTag: tagPosts[0].data.tags.find(
+        (t: string) => t.toLowerCase().replace(/\s+/g, '-') === tagSlug
+      )!,
+      posts: tagPosts
+        .sort(
+          (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+            (b.data.publishDate?.getTime() ?? 0) - (a.data.publishDate?.getTime() ?? 0)
+        )
+        .map((post: CollectionEntry<'blog'>) => ({
+          slug: post.data.slug ?? post.id,
+          title: post.data.title,
+          excerpt: post.data.excerpt ?? '',
+          date: post.data.publishDate,
+          tags: post.data.tags,
+          author: post.data.author,
+        })),
+    },
+  }));
+}
+
+type BlogPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: Date | undefined;
+  tags: string[];
+  author: { name: string; avatar?: string } | undefined;
+};
+
+interface Props {
+  originalTag: string;
+  posts: BlogPost[];
+}
+
+const { originalTag, posts } = Astro.props as Props;
+---
+
+<BaseLayout title={`Posts tagged "${originalTag}" - Tech For Nepal`}>
+  <PageMain>
+    <Container size="md">
+      <Stack spacing="xl">
+        <header>
+          <Stack spacing="sm">
+            <Heading as="h1" size="xl">
+              Posts tagged with{' '}
+              <span class="text-[color:var(--primary)]">&ldquo;#{originalTag}&rdquo;</span>
+            </Heading>
+            <Text color="muted" size="sm">
+              {posts.length}
+              {' '}
+              {posts.length === 1 ? 'post' : 'posts'} found
+            </Text>
+          </Stack>
+        </header>
+
+        <Stack spacing="lg">
+          {
+            posts.map(post => (
+              <BlogPostCard post={post} showDivider={true} maxTags={4} activeTag={originalTag} />
+            ))
+          }
+        </Stack>
+
+        <div class="pt-8 text-center">
+          <NavigationLink href="/blog" icon={arrowLeftIcon} iconPosition="left">
+            Back to all posts
+          </NavigationLink>
+        </div>
+      </Stack>
+    </Container>
+  </PageMain>
+</BaseLayout>

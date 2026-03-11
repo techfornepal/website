@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, useCallback } from 'react';
 
 interface NavigationState {
@@ -27,10 +25,8 @@ export const useNavigation = (): UseNavigationReturn => {
     isMobileMenuOpen: false,
   });
 
-  // mobile menu controls
   const openMobileMenu = useCallback(() => {
     setState(prev => ({ ...prev, isMobileMenuOpen: true }));
-    // preventing body scroll when menu is open
     if (typeof window !== 'undefined') {
       document.body.style.overflow = 'hidden';
     }
@@ -38,7 +34,6 @@ export const useNavigation = (): UseNavigationReturn => {
 
   const closeMobileMenu = useCallback(() => {
     setState(prev => ({ ...prev, isMobileMenuOpen: false }));
-    // restoring body scroll
     if (typeof window !== 'undefined') {
       document.body.style.overflow = 'unset';
     }
@@ -46,13 +41,11 @@ export const useNavigation = (): UseNavigationReturn => {
 
   const toggleMobileMenu = useCallback(() => {
     setState(prev => ({ ...prev, isMobileMenuOpen: !prev.isMobileMenuOpen }));
-    // toggling body scroll based on menu state
     if (typeof window !== 'undefined') {
       document.body.style.overflow = state.isMobileMenuOpen ? 'unset' : 'hidden';
     }
   }, [state.isMobileMenuOpen]);
 
-  // scroll direction and navbar visibility logic
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -87,7 +80,6 @@ export const useNavigation = (): UseNavigationReturn => {
     return () => window.removeEventListener('scroll', onScroll);
   }, [state.lastScrollY]);
 
-  // closing mobile menu on escape key
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -103,7 +95,6 @@ export const useNavigation = (): UseNavigationReturn => {
     }
   }, [state.isMobileMenuOpen, closeMobileMenu]);
 
-  // cleaning up body overflow on unmount
   useEffect(() => {
     return () => {
       if (typeof window !== 'undefined') {
