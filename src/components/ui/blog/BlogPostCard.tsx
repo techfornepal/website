@@ -1,6 +1,10 @@
 import React from 'react';
-import { Heading, Text, Stack, Tag } from '@/components/ui';
+import { Stack } from '../layout/Stack';
+import { Heading } from '../typography/Heading';
+import { Text } from '../typography/Text';
 import { PostMeta } from './PostMeta';
+import { Tag } from './Tag';
+import { blogCardSizing } from '@/utils/responsive';
 
 type BlogPost = {
   slug: string;
@@ -38,7 +42,7 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
 
       <div className="relative z-10">
         <Stack spacing="sm">
-          <a href={`/blog/${post.slug}/`} className="block">
+          <a href={`/blog/${post.slug}`} className="block">
             <Stack spacing="xs">
               <Heading
                 as="h2"
@@ -58,7 +62,7 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
             </Stack>
           </a>
 
-          <div className="flex flex-col items-start gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
+          <div className={blogCardSizing.metaLayout}>
             <PostMeta author={post.author} date={post.date} />
 
             {post.tags && post.tags.length > 0 && (
@@ -68,7 +72,7 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
                     key={tag}
                     tag={tag}
                     variant="subtle"
-                    className={`text-xs sm:text-sm ${
+                    className={`${blogCardSizing.tagText} ${
                       activeTag === tag
                         ? 'font-[var(--font-weight-semibold)] text-[color:var(--primary)]'
                         : ''
@@ -79,7 +83,7 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
                   <Text
                     size="xs"
                     color="muted"
-                    className="text-xs text-[color:var(--text-muted)] sm:text-sm"
+                    className={`${blogCardSizing.tagText} text-[color:var(--text-muted)]`}
                   >
                     +{post.tags.length - maxTags}
                   </Text>

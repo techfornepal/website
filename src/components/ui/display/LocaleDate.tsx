@@ -27,6 +27,42 @@ const colorClasses: Record<ColorVariant, string> = {
   info: 'text-[color:var(--info)]',
 };
 
+const dateFormatOptions: Record<
+  NonNullable<LocaleDateProps['format']>,
+  Intl.DateTimeFormatOptions
+> = {
+  full: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
+  long: { year: 'numeric', month: 'long', day: 'numeric' },
+  medium: { year: 'numeric', month: 'short', day: 'numeric' },
+  short: { year: '2-digit', month: 'numeric', day: 'numeric' },
+};
+
+const timeFormatOptions: Record<
+  NonNullable<LocaleDateProps['timeFormat']>,
+  Intl.DateTimeFormatOptions
+> = {
+  short: { hour: 'numeric', minute: 'numeric' },
+  medium: { hour: 'numeric', minute: 'numeric', second: 'numeric' },
+  long: { hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' },
+};
+
+function getTargetDate(date?: Date | string) {
+  return date ? (typeof date === 'string' ? new Date(date) : date) : new Date();
+}
+
+function formatLocaleDate(
+  targetDate: Date,
+  format: NonNullable<LocaleDateProps['format']>,
+  showTime: boolean,
+  timeFormat: NonNullable<LocaleDateProps['timeFormat']>,
+  locale: string
+) {
+  return new Intl.DateTimeFormat(locale, {
+    ...dateFormatOptions[format],
+    ...(showTime ? timeFormatOptions[timeFormat] : {}),
+  }).format(targetDate);
+}
+
 /**
  * LocaleDate - Displays a date in user's locale
  *
@@ -48,42 +84,19 @@ export const LocaleDate: React.FC<LocaleDateProps> = ({
   size = 'sm',
   color = 'muted',
 }) => {
-  const [formattedDate, setFormattedDate] = useState<string>('');
-  const [dateTimeValue, setDateTimeValue] = useState<string>('');
-  const [mounted, setMounted] = useState(false);
+  const initialTargetDate = getTargetDate(date);
+  const initialLocale = locale || 'en-US';
+  const [formattedDate, setFormattedDate] = useState<string>(() =>
+    formatLocaleDate(initialTargetDate, format, showTime, timeFormat, initialLocale)
+  );
+  const [dateTimeValue, setDateTimeValue] = useState<string>(() => initialTargetDate.toISOString());
 
   useEffect(() => {
-    setMounted(true);
-
     const userLocale = locale || navigator.language || 'en-US';
-    const targetDate = date ? (typeof date === 'string' ? new Date(date) : date) : new Date();
+    const targetDate = getTargetDate(date);
     setDateTimeValue(targetDate.toISOString());
-
-    const dateFormatOptions: Record<string, Intl.DateTimeFormatOptions> = {
-      full: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
-      long: { year: 'numeric', month: 'long', day: 'numeric' },
-      medium: { year: 'numeric', month: 'short', day: 'numeric' },
-      short: { year: '2-digit', month: 'numeric', day: 'numeric' },
-    };
-
-    const timeFormatOptions: Record<string, Intl.DateTimeFormatOptions> = {
-      short: { hour: 'numeric', minute: 'numeric' },
-      medium: { hour: 'numeric', minute: 'numeric', second: 'numeric' },
-      long: { hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' },
-    };
-
-    const options: Intl.DateTimeFormatOptions = {
-      ...dateFormatOptions[format],
-      ...(showTime ? timeFormatOptions[timeFormat] : {}),
-    };
-
-    const formatted = new Intl.DateTimeFormat(userLocale, options).format(targetDate);
-    setFormattedDate(formatted);
+    setFormattedDate(formatLocaleDate(targetDate, format, showTime, timeFormat, userLocale));
   }, [date, format, showTime, timeFormat, locale]);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <span className={cn(responsiveTextSizes[size], colorClasses[color], className)}>

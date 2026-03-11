@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Stack } from '@/components/ui';
+import { Stack } from '../layout/Stack';
+import { Text } from '../typography/Text';
 import { Tag } from './Tag';
 
 interface Author {

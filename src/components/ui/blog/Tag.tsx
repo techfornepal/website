@@ -31,7 +31,7 @@ export const Tag: React.FC<TagProps> = ({
 
   return (
     <a
-      href={`/blog/tags/${slug}/`}
+      href={`/blog/tags/${slug}`}
       className={cn(
         variantClasses[variant],
         variant === 'subtle'
