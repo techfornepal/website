@@ -189,6 +189,8 @@ export const homepageButtonSpacing = {
 export const homepageLayout = {
   stackHorizontal: 'flex flex-col sm:flex-row',
   heroGap: 'gap-4',
+  heroOverlay:
+    'bg-[linear-gradient(to_bottom,var(--hero-overlay-start),var(--hero-overlay-middle),var(--hero-overlay-end))]',
 } as const;
 
 /**
@@ -207,6 +209,8 @@ export const navigationSizing = {
   desktopLinkPadding: 'px-3 py-2',
   desktopLinkSpacing: 'space-x-8',
   desktopLinkRadius: 'rounded-md',
+  desktopNavVisibility: 'hidden items-center lg:flex',
+  mobileTriggerVisibility: 'relative lg:hidden',
 
   hamburgerButtonSize: 'h-10 w-10',
   hamburgerIconContainer: 'h-5 w-6',
@@ -234,31 +238,40 @@ export const navigationSizing = {
   menuCardZIndex: 'z-50',
 } as const;
 
+export const blogCardSizing = {
+  metaLayout: 'flex flex-col items-start gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between',
+  tagText: 'text-xs sm:text-sm',
+} as const;
+
 /**
  * Logo color schemes for different contexts
  */
 export const logoColorSchemes = {
   'hero-overlay': {
-    techFor: 'text-[rgba(245,112,130,0.92)] group-hover:text-[rgba(250,165,183,0.96)]',
-    nepal: 'text-[rgba(120,172,240,0.92)] group-hover:text-[rgba(160,198,250,0.96)]',
+    techFor:
+      'text-[color:var(--logo-hero-tech)] group-hover:text-[color:var(--logo-hero-tech-hover)]',
+    nepal:
+      'text-[color:var(--logo-hero-nepal)] group-hover:text-[color:var(--logo-hero-nepal-hover)]',
   },
   'light-nav': {
-    techFor: 'text-[rgba(220,20,60,0.82)] group-hover:text-[rgba(220,20,60,0.95)]',
-    nepal: 'text-[rgba(0,56,147,0.8)] group-hover:text-[rgba(0,56,147,0.95)]',
+    techFor:
+      'text-[color:var(--logo-light-tech)] group-hover:text-[color:var(--logo-light-tech-hover)]',
+    nepal:
+      'text-[color:var(--logo-light-nepal)] group-hover:text-[color:var(--logo-light-nepal-hover)]',
   },
   'dark-nav': {
-    techFor: 'text-[color:var(--secondary)] group-hover:text-[rgba(220,20,60,0.92)]',
-    nepal: 'text-[color:var(--primary)] group-hover:text-[rgba(0,56,147,0.92)]',
+    techFor: 'text-[color:var(--secondary)] group-hover:text-[color:var(--logo-dark-tech-hover)]',
+    nepal: 'text-[color:var(--primary)] group-hover:text-[color:var(--logo-dark-nepal-hover)]',
   },
-  // brand colors (standard, no opacity)
   brand: {
-    techFor: 'text-red-500 group-hover:text-red-400',
-    nepal: 'text-blue-500 group-hover:text-blue-400',
+    techFor: 'text-[color:var(--secondary)] group-hover:text-[color:var(--secondary-hover)]',
+    nepal: 'text-[color:var(--primary)] group-hover:text-[color:var(--primary-hover)]',
   },
-  // pure white (for dark backgrounds)
   white: {
-    techFor: 'text-white group-hover:text-white/90',
-    nepal: 'text-white group-hover:text-white/90',
+    techFor:
+      'text-[color:var(--text-on-primary)] group-hover:text-[color:var(--nav-light-mobile-text)]',
+    nepal:
+      'text-[color:var(--text-on-primary)] group-hover:text-[color:var(--nav-light-mobile-text)]',
   },
 } as const;
 

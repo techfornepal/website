@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Container } from './Container';
 import { MobileMenu } from '../navigation/MobileMenu';
@@ -43,6 +43,12 @@ export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
 
   const navLinkVariant = useLightNavColors ? 'desktop-light' : 'desktop-dark';
 
+  useEffect(() => {
+    if (isDesktop && isMobileMenuOpen) {
+      closeMobileMenu();
+    }
+  }, [closeMobileMenu, isDesktop, isMobileMenuOpen]);
+
   return (
     <>
       <nav
@@ -51,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
           'top-0',
           navigationSizing.navbarZIndex,
           isVisible ? 'translate-y-0' : '-translate-y-full',
-          isScrolled ? 'bg-black/20 backdrop-blur-lg' : 'bg-transparent'
+          isScrolled ? 'bg-[color:var(--navbar-scroll-bg)] backdrop-blur-lg' : 'bg-transparent'
         )}
       >
         <Container>
@@ -72,37 +78,36 @@ export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
               />
             </motion.div>
 
-            {isDesktop && (
-              <nav
-                className={cn('flex items-center', navigationSizing.desktopLinkSpacing)}
-                aria-label="Main navigation"
-              >
-                {navItems.map(({ href, label }) => {
-                  const isActive =
-                    href === '/blog' ? isBlogPathActive(pathname) : isPathActive(pathname, href);
+            <nav
+              className={cn(
+                navigationSizing.desktopNavVisibility,
+                navigationSizing.desktopLinkSpacing
+              )}
+              aria-label="Main navigation"
+            >
+              {navItems.map(({ href, label }) => {
+                const isActive =
+                  href === '/blog' ? isBlogPathActive(pathname) : isPathActive(pathname, href);
 
-                  return (
-                    <NavLink
-                      key={href}
-                      href={href}
-                      label={label}
-                      isActive={isActive}
-                      variant={navLinkVariant as 'desktop-light' | 'desktop-dark'}
-                    />
-                  );
-                })}
-              </nav>
-            )}
+                return (
+                  <NavLink
+                    key={href}
+                    href={href}
+                    label={label}
+                    isActive={isActive}
+                    variant={navLinkVariant as 'desktop-light' | 'desktop-dark'}
+                  />
+                );
+              })}
+            </nav>
 
-            {!isDesktop && (
-              <div ref={menuTriggerRef} className="relative">
-                <HamburgerButton
-                  isOpen={isMobileMenuOpen}
-                  onClick={toggleMobileMenu}
-                  variant={hamburgerVariant as 'light' | 'dark' | 'hero-overlay'}
-                />
-              </div>
-            )}
+            <div ref={menuTriggerRef} className={navigationSizing.mobileTriggerVisibility}>
+              <HamburgerButton
+                isOpen={isMobileMenuOpen}
+                onClick={toggleMobileMenu}
+                variant={hamburgerVariant as 'light' | 'dark' | 'hero-overlay'}
+              />
+            </div>
           </div>
         </Container>
       </nav>

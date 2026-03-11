@@ -50,7 +50,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
             type="button"
             className={cn(
               'absolute inset-0 backdrop-blur-[6px]',
-              isHomePage ? 'bg-slate-950/45' : 'bg-slate-950/35'
+              isHomePage
+                ? 'bg-[color:var(--menu-overlay-home)]'
+                : 'bg-[color:var(--menu-overlay-default)]'
             )}
             onClick={onClose}
             initial={{ opacity: 0 }}
@@ -63,13 +65,13 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
           <motion.div
             ref={cardRef}
             className={cn(
-              'relative w-full shadow-[0_24px_72px_rgba(15,23,42,0.4)] backdrop-blur-xl',
+              'relative w-full shadow-[0_24px_72px_var(--menu-card-shadow)] backdrop-blur-xl',
               navigationSizing.menuCardZIndex,
               navigationSizing.mobileMenuMaxWidth,
               navigationSizing.mobileMenuRadius,
               isHomePage
-                ? 'border border-white/25 bg-white/15'
-                : 'border border-slate-200/80 bg-white/96'
+                ? 'border border-[color:var(--menu-card-home-border)] bg-[color:var(--menu-card-home-bg)]'
+                : 'border border-[color:var(--menu-card-border)] bg-[color:var(--menu-card-bg)]'
             )}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -82,14 +84,18 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
               className={cn(
                 'flex items-center justify-between',
                 navigationSizing.mobileMenuHeaderPadding,
-                isHomePage ? 'border-b border-white/20' : 'border-b border-slate-200/70'
+                isHomePage
+                  ? 'border-b border-[color:var(--menu-header-home-border)]'
+                  : 'border-b border-[color:var(--menu-header-border)]'
               )}
             >
               <h2
                 className={cn(
                   'font-semibold',
                   navigationSizing.mobileMenuTitleText,
-                  isHomePage ? 'text-white drop-shadow-sm' : 'text-slate-800'
+                  isHomePage
+                    ? 'text-[color:var(--menu-title-home)] drop-shadow-sm'
+                    : 'text-[color:var(--menu-title)]'
                 )}
                 style={{ fontFamily: 'var(--font-opensans)' }}
               >
@@ -103,8 +109,8 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                   navigationSizing.hamburgerButtonRadius,
                   'focus:outline-none',
                   isHomePage
-                    ? 'text-white/90 hover:bg-white/20 hover:text-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-0'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-[color:var(--primary)] focus-visible:ring-offset-2'
+                    ? 'text-[color:var(--menu-close-home)] hover:bg-[color:var(--menu-close-home-hover-bg)] hover:text-[color:var(--menu-close-home-hover-text)] focus-visible:ring-2 focus-visible:ring-[color:var(--nav-light-ring)] focus-visible:ring-offset-0'
+                    : 'text-[color:var(--menu-close)] hover:bg-[color:var(--menu-close-hover-bg)] hover:text-[color:var(--menu-close-hover-text)] focus-visible:ring-2 focus-visible:ring-[color:var(--primary)] focus-visible:ring-offset-2'
                 )}
                 aria-label="Close menu"
                 type="button"

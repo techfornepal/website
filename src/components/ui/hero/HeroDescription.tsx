@@ -8,7 +8,7 @@ export const HeroDescription: React.FC = () => {
     <Container size="3xl" mobileSize="lg">
       <p
         className={cn(
-          'mx-auto max-w-2xl text-center leading-relaxed font-light text-white/90',
+          'mx-auto max-w-2xl text-center leading-relaxed font-light text-[color:var(--nav-light-mobile-text)]',
           homepageTextSizes.heroSubtitle
         )}
         style={{ fontFamily: 'var(--font-opensans)' }}

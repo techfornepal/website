@@ -4,6 +4,7 @@ import { Stack } from '../layout/Stack';
 import { HeroTitle } from './HeroTitle';
 import { HeroDescription } from './HeroDescription';
 import { HeroActions } from './HeroActions';
+import { homepageLayout } from '@/utils/responsive';
 
 export const HeroSection: React.FC = () => {
   return (
@@ -17,7 +18,7 @@ export const HeroSection: React.FC = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/55 to-slate-900/45 backdrop-blur-[2px]" />
+      <div className={`absolute inset-0 ${homepageLayout.heroOverlay} backdrop-blur-[2px]`} />
 
       <Container size="lg" mobileSize="md" className="relative z-10">
         <div className="text-center">

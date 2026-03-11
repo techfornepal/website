@@ -49,9 +49,10 @@ export const HamburgerButton: React.FC<HamburgerButtonProps> = ({
   ariaLabel,
 }) => {
   const variantStyles = {
-    'hero-overlay': 'text-white/50 focus-visible:ring-white/60 focus-visible:ring-offset-0',
+    'hero-overlay':
+      'text-[color:var(--hamburger-hero-text)] focus-visible:ring-[color:var(--hamburger-hero-ring)] focus-visible:ring-offset-0',
     light:
-      'text-white shadow-[0_6px_18px_rgba(15,23,42,0.3)] hover:bg-white/10 hover:backdrop-blur-sm focus-visible:ring-white/40 focus-visible:ring-offset-0',
+      'text-[color:var(--text-on-primary)] shadow-[0_6px_18px_var(--hamburger-light-shadow)] hover:bg-[color:var(--hamburger-light-hover-bg)] hover:backdrop-blur-sm focus-visible:ring-[color:var(--hamburger-light-ring)] focus-visible:ring-offset-0',
     dark: 'text-[color:var(--text-secondary)] hover:bg-[color:var(--accent)] hover:text-[color:var(--text-primary)] focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2',
   };
 
@@ -81,7 +82,6 @@ export const HamburgerButton: React.FC<HamburgerButtonProps> = ({
         initial={false}
         animate={isOpen ? 'open' : 'closed'}
       >
-        {/* Top line */}
         <motion.span
           {...HAMBURGER_LINE_PROPS}
           variants={{
@@ -90,7 +90,6 @@ export const HamburgerButton: React.FC<HamburgerButtonProps> = ({
           }}
           transition={{ duration: 0.22, ease: 'easeInOut' }}
         />
-        {/* Middle line */}
         <motion.span
           {...HAMBURGER_LINE_PROPS}
           variants={{
@@ -99,7 +98,6 @@ export const HamburgerButton: React.FC<HamburgerButtonProps> = ({
           }}
           transition={{ duration: 0.18, ease: 'easeOut' }}
         />
-        {/* Bottom line */}
         <motion.span
           {...HAMBURGER_LINE_PROPS}
           variants={{

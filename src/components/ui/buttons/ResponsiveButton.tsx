@@ -29,17 +29,27 @@ export const ResponsiveButton: React.FC<ResponsiveButtonProps> = ({
 }) => {
   const variantStyles = {
     'hero-primary':
-      'rounded-lg border border-white/30 bg-white/20 font-medium text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/30',
+      'rounded-lg border border-[color:var(--hero-button-border)] bg-[color:var(--hero-button-bg)] font-medium text-[color:var(--text-on-primary)] backdrop-blur-sm transition-all duration-300 hover:bg-[color:var(--hero-button-hover-bg)]',
   };
 
-  const button = (
+  const classNameValue = cn(
+    variantStyles[variant],
+    homepageButtonSpacing.heroPadding,
+    homepageButtonSpacing.heroTextSize,
+    className
+  );
+
+  if (href) {
+    return (
+      <a href={href} className={classNameValue} style={{ fontFamily: 'var(--font-opensans)' }}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
     <button
-      className={cn(
-        variantStyles[variant],
-        homepageButtonSpacing.heroPadding,
-        homepageButtonSpacing.heroTextSize,
-        className
-      )}
+      className={classNameValue}
       style={{ fontFamily: 'var(--font-opensans)' }}
       onClick={onClick}
       type="button"
@@ -47,10 +57,4 @@ export const ResponsiveButton: React.FC<ResponsiveButtonProps> = ({
       {children}
     </button>
   );
-
-  if (href) {
-    return <a href={href}>{button}</a>;
-  }
-
-  return button;
 };

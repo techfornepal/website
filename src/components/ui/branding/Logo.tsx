@@ -95,7 +95,6 @@ export const Logo: React.FC<LogoProps> = ({
     </span>
   );
 
-  // wrapping logo content with animation if enabled
   const content = animated ? (
     <motion.span
       animate={{
