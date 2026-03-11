@@ -28,9 +28,9 @@ npm run validate
 
 This command runs our complete quality pipeline:
 
-- ✅ **TypeScript check** - Catches type errors
-- ✅ **ESLint check** - Finds code quality issues
-- ✅ **Format check** - Ensures consistent styling
+- **TypeScript check** - Catches type errors
+- **ESLint check** - Finds code quality issues
+- **Format check** - Ensures consistent styling
 
 ### If `npm run validate` Fails:
 
@@ -117,12 +117,12 @@ error highlighting**:
 
 ### **VS Code / Cursor**
 
-**✅ Already configured!** We've included `.vscode/settings.json` for:
+**Already configured!** We've included `.vscode/settings.json` for:
 
-- **Real-time ESLint errors** (red underlines)
-- **Format on save**
-- **TypeScript integration**
-- **Tailwind CSS IntelliSense**
+- Real-time ESLint errors (red underlines)
+- Format on save
+- TypeScript integration
+- Tailwind CSS IntelliSense
 
 **Install recommended extensions:**
 
@@ -205,15 +205,18 @@ git commit -m "Apply code standards formatting"
 - **Quotes:** Single quotes for JS/TS, double for JSX
 - **Indentation:** 2 spaces everywhere
 - **No Hardcoded Values:** Use design system utilities
+- **Import Boundaries:** `@/components/ui` is the public UI entrypoint for files
+  outside `src/components/ui`; internal UI modules should use direct relative
+  imports
 
 ## Contributing Rules
 
 ### **Before Creating Pull Requests:**
 
-1. ✅ `npm run validate` passes
-2. ✅ All changes follow [CODE_STANDARDS.md](./CODE_STANDARDS.md)
-3. ✅ No console statements in production code
-4. ✅ Use centralized utilities (no hardcoded responsive values)
+1. `npm run validate` passes
+2. All changes follow [CODE_STANDARDS.md](./CODE_STANDARDS.md)
+3. No console statements in production code
+4. Use centralized utilities (no hardcoded responsive values)
 
 ### **Pull Request Checklist:**
 
@@ -227,10 +230,10 @@ git commit -m "Apply code standards formatting"
 
 You're following our standards correctly when:
 
-- ✅ Commits go through without formatting conflicts
-- ✅ `npm run validate` always passes
-- ✅ Code reviews focus on logic, not formatting
-- ✅ No style discussions in PRs
+- Commits go through without formatting conflicts
+- `npm run validate` always passes
+- Code reviews focus on logic, not formatting
+- No style discussions in PRs
 
 ---
 

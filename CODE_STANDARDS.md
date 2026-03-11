@@ -1,7 +1,7 @@
 # Code Standards & Requirements
 
-**Version**: 0.1\
-**Last Updated**: 2025-09-13 \
+**Version**: 0.1.1\
+**Last Updated**: 2026-03-12 \
 **Status**: FOUNDATIONAL - All tooling decisions must reference this document
 
 ## Primary Goals
@@ -52,7 +52,7 @@
 
 Based on existing patterns in the codebase:
 
-1. **React & Next.js** imports first
+1. **Framework imports** first (`astro:*`, React, Astro integrations)
 2. **Third-party packages** (alphabetical)
 3. **Internal modules** (`@/...` alias, organized by type)
 4. **Relative imports** (`./...`)
@@ -65,12 +65,57 @@ import { cn } from '../../../utils/cn';
 import { type ButtonSize, type ButtonVariant } from '../types';
 ```
 
+#### **Barrel Import Boundaries**
+
+The root UI barrel at `src/components/ui/index.ts` is the public entrypoint for
+the UI library.
+
+- Use `@/components/ui` from pages, layouts, MDX integration files, and other
+  modules outside `src/components/ui`
+- Inside `src/components/ui`, prefer direct relative imports such as
+  `../layout/Stack` or `./Tag`
+- Do not import through a barrel from a module that is itself re-exported by
+  that barrel
+
+Reasoning:
+
+- Barrel imports keep external consumers clean
+- Internal barrel imports can create circular dependencies during bundling
+- Astro and Vite surface these cycles more directly than Next did
+
+Allowed:
+
+```tsx
+// src/pages/blog/index.astro
+import { BlogPostCard, Container, PageMain } from '@/components/ui';
+```
+
+```tsx
+// src/components/ui/blog/BlogPostCard.tsx
+import { Stack } from '../layout/Stack';
+import { Heading } from '../typography/Heading';
+import { Text } from '../typography/Text';
+```
+
+Avoid:
+
+```tsx
+// src/components/ui/blog/BlogPostCard.tsx
+import { Heading, Text, Stack, Tag } from '@/components/ui';
+```
+
+That pattern looks convenient, but it can route a component back through the
+same barrel that re-exports it and produce circular chunk warnings in production
+builds.
+
 ### **Architecture Compliance**
 
 Must align with existing design system principles:
 
-- **No hardcoded responsive breakpoints** - use `src/utils/responsive.ts`
-- **CSS custom properties only** - use `src/styles/variables.css`
+- **No hardcoded responsive breakpoint classes in component/page code** - use
+  `src/utils/responsive.ts`
+- **No hardcoded component/page colors** - use CSS custom properties from
+  `src/styles/variables.css` or centralized design utilities
 - **Centralized utilities** - follow existing patterns
 - **8pt grid system** - maintain mathematical consistency
 - **TypeScript strict mode** - already configured
@@ -95,7 +140,8 @@ Must align with existing design system principles:
 
 ### **Code Organization**
 
-- [ ] Barrel exports (`index.ts`) for clean imports
+- [ ] Barrel exports (`index.ts`) for clean external imports
+- [ ] Barrel exports are public package entrypoints, not internal import paths
 - [ ] Component interfaces extend base types from `src/components/ui/types.ts`
 - [ ] Atomic design principles (atoms → molecules → organisms)
 - [ ] Consistent prop naming and TypeScript interfaces
@@ -172,8 +218,8 @@ Clear, documented commands for all operations:
 
 ### **What We Will NOT Do**
 
-- [ ] **NO** hardcoded responsive breakpoints (`sm:`, `md:`, `lg:`)
-- [ ] **NO** hardcoded colors (must use CSS custom properties)
+- [ ] **NO** hardcoded responsive breakpoint classes in component/page code
+- [ ] **NO** hardcoded component/page colors
 - [ ] **NO** inconsistent import organization
 - [ ] **NO** bypassing TypeScript strict mode
 - [ ] **NO** console statements in production builds
