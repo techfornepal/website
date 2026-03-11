@@ -152,7 +152,7 @@ Initialized on 2026-03-12.
   route shape that matches the configured trailingSlash mode
 - first_seen: 2026-03-12
 - last_seen: 2026-03-12
-- occurrence_count: 2
+- occurrence_count: 3
 - evidence:
   - file:astro.config.mjs:10
   - file:src/components/ui/layout/Navbar.tsx:29
@@ -160,3 +160,4 @@ Initialized on 2026-03-12.
   - file:src/content/pages/get-involved.mdx:29
   - file:src/components/ui/blog/BlogPostCard.tsx:45
   - file:src/components/ui/blog/Tag.tsx:34
+  - file:src/layouts/BaseLayout.astro:47

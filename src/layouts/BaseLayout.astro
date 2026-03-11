@@ -44,7 +44,13 @@ const {
   description = "A community-driven platform dedicated to showcasing Nepal's tech talent and fostering innovation through collaboration.",
 } = Astro.props;
 
-const pathname = Astro.url.pathname;
+const rawPathname = Astro.url.pathname;
+const pathname =
+  rawPathname === '/index.html' || rawPathname === '/.html'
+    ? '/'
+    : rawPathname.endsWith('.html')
+      ? rawPathname.slice(0, -5)
+      : rawPathname;
 ---
 
 <!doctype html>
