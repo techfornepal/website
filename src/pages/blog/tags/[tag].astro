@@ -80,6 +80,7 @@ const { originalTag, posts } = Astro.props as Props;
             </Heading>
             <Text color="muted" size="sm">
               {posts.length}
+              {' '}
               {posts.length === 1 ? 'post' : 'posts'} found
             </Text>
           </Stack>
@@ -94,7 +95,7 @@ const { originalTag, posts } = Astro.props as Props;
         </Stack>
 
         <div class="pt-8 text-center">
-          <NavigationLink href="/blog/" icon={arrowLeftIcon} iconPosition="left">
+          <NavigationLink href="/blog" icon={arrowLeftIcon} iconPosition="left">
             Back to all posts
           </NavigationLink>
         </div>
