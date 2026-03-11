@@ -33,7 +33,7 @@ module.exports = {
   embeddedLanguageFormatting: 'auto',
 
   // plugin configuration - Tailwind only
-  plugins: ['prettier-plugin-tailwindcss'],
+  plugins: ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'],
 
   // file-specific overrides per documentation needs
   overrides: [

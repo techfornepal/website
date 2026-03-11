@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { cn } from '@/utils/cn';
 
 type NavigationLinkProps = {
@@ -29,7 +28,7 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
   };
 
   return (
-    <Link
+    <a
       href={href}
       className={cn(
         'inline-flex items-center space-x-2 transition-colors duration-300',
@@ -40,6 +39,6 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
       {icon && iconPosition === 'left' && <span className="h-4 w-4 flex-shrink-0">{icon}</span>}
       <span>{children}</span>
       {icon && iconPosition === 'right' && <span className="h-4 w-4 flex-shrink-0">{icon}</span>}
-    </Link>
+    </a>
   );
 };

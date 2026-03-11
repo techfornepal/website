@@ -1,4 +1,13 @@
 :root {
+  /* fontsource font families */
+  --font-geist-sans: "Geist Variable", sans-serif;
+  --font-geist-mono: "Geist Mono Variable", monospace;
+  --font-title: "Playfair Display", serif;
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
+  --font-fjalla: "Fjalla One", sans-serif;
+  --font-opensans: "Open Sans", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+
   /* Authentic 🇳🇵 flag colors */
   --nepal-red: #dc143c;
   --nepal-blue: #003893;

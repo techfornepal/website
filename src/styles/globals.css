@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@import "../styles/variables.css";
+@import "./variables.css";
 
 @theme inline {
   --color-background: var(--background);

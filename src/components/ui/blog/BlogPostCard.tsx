@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { Heading, Text, Stack, Tag } from '@/components/ui';
 import { PostMeta } from './PostMeta';
 
@@ -39,7 +38,7 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
 
       <div className="relative z-10">
         <Stack spacing="sm">
-          <Link href={`/blog/${post.slug}`} className="block">
+          <a href={`/blog/${post.slug}/`} className="block">
             <Stack spacing="xs">
               <Heading
                 as="h2"
@@ -57,7 +56,7 @@ export const BlogPostCard: React.FC<BlogPostCardProps> = ({
                 </Text>
               )}
             </Stack>
-          </Link>
+          </a>
 
           <div className="flex flex-col items-start gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
             <PostMeta author={post.author} date={post.date} />

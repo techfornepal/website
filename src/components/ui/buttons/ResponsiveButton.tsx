@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { cn } from '@/utils/cn';
 import { homepageButtonSpacing } from '@/utils/responsive';
 
@@ -50,7 +49,7 @@ export const ResponsiveButton: React.FC<ResponsiveButtonProps> = ({
   );
 
   if (href) {
-    return <Link href={href}>{button}</Link>;
+    return <a href={href}>{button}</a>;
   }
 
   return button;

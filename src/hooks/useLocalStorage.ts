@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 
 type UseLocalStorageReturn<T> = [T, (_value: T | ((_prev: T) => T)) => void];
@@ -18,7 +16,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): UseLocalStorag
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
       // if error also return initialValue
-      // eslint-disable-next-line no-console
+
       console.warn(`Error reading localStorage key "${key}":`, error);
       return initialValue;
     }
@@ -36,7 +34,6 @@ export function useLocalStorage<T>(key: string, initialValue: T): UseLocalStorag
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.warn(`Error setting localStorage key "${key}":`, error);
     }
   };

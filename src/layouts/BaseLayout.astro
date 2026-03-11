@@ -1,0 +1,93 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '@fontsource/playfair-display/400.css';
+import '@fontsource/playfair-display/500.css';
+import '@fontsource/playfair-display/600.css';
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/playfair-display/800.css';
+import '@fontsource/playfair-display/900.css';
+import '@fontsource/bricolage-grotesque/200.css';
+import '@fontsource/bricolage-grotesque/300.css';
+import '@fontsource/bricolage-grotesque/400.css';
+import '@fontsource/bricolage-grotesque/500.css';
+import '@fontsource/bricolage-grotesque/600.css';
+import '@fontsource/bricolage-grotesque/700.css';
+import '@fontsource/bricolage-grotesque/800.css';
+import '@fontsource/fjalla-one/400.css';
+import '@fontsource/open-sans/300.css';
+import '@fontsource/open-sans/400.css';
+import '@fontsource/open-sans/500.css';
+import '@fontsource/open-sans/600.css';
+import '@fontsource/open-sans/700.css';
+import '@fontsource/open-sans/800.css';
+import '@fontsource/poppins/100.css';
+import '@fontsource/poppins/200.css';
+import '@fontsource/poppins/300.css';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/poppins/800.css';
+import '@fontsource/poppins/900.css';
+import '../styles/globals.css';
+
+import { Navbar, Footer } from '@/components/ui';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Tech For Nepal',
+  description = "A community-driven platform dedicated to showcasing Nepal's tech talent and fostering innovation through collaboration.",
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Nepal, Technology, Innovation, Community, Developers, Tech" />
+    <meta name="author" content="Tech For Nepal" />
+
+    <meta property="og:title" content={title} />
+    <meta
+      property="og:description"
+      content="Empowering Nepal through Technology - A community-driven platform for tech innovation and collaboration."
+    />
+    <meta property="og:url" content="https://techfornepal.com" />
+    <meta property="og:site_name" content="Tech For Nepal" />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Tech For Nepal - Empowering Nepal through Technology" />
+    <meta property="og:locale" content="en-NP" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta
+      name="twitter:description"
+      content="Empowering Nepal through Technology - A community-driven platform for tech innovation."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+  </head>
+  <body class="min-h-screen font-sans antialiased">
+    <Navbar client:load pathname={pathname} />
+    <div class="relative flex-1">
+      <slot />
+    </div>
+    <Footer client:load pathname={pathname} />
+  </body>
+</html>

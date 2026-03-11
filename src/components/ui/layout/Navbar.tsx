@@ -1,7 +1,4 @@
-'use client';
-
 import React, { useRef } from 'react';
-import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Container } from './Container';
 import { MobileMenu } from '../navigation/MobileMenu';
@@ -14,8 +11,11 @@ import { cn } from '@/utils/cn';
 import { navigationSizing } from '@/utils/responsive';
 import { isPathActive, isBlogPathActive } from '@/utils';
 
-export const Navbar: React.FC = () => {
-  const pathname = usePathname();
+interface NavbarProps {
+  pathname: string;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
   const isHomePage = pathname === '/';
   const isDesktop = useIsDesktop();
 

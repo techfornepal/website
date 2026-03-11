@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
+    "dev": "astro dev",
+    "build": "astro build",
+    "start": "astro preview",
+    "typecheck": "astro check && tsc --noEmit && echo \"✅ TypeScript check passed - no type errors!\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix && echo \"✅ Linting passed - all issues fixed!\"",
     "lint:check": "eslint . --ext .js,.jsx,.ts,.tsx && echo \"✅ Linting passed - no issues found!\"",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md,mdx}\" && echo \"✅ Formatting complete - all files formatted!\"",
-    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md,mdx}\" && echo \"✅ Formatting passed - all files properly formatted!\"",
-    "typecheck": "tsc --noEmit && echo \"✅ TypeScript check passed - no type errors!\"",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md,mdx,astro}\" && echo \"✅ Formatting complete - all files formatted!\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md,mdx,astro}\" && echo \"✅ Formatting passed - all files properly formatted!\"",
     "validate": "npm run typecheck && npm run lint:check && npm run format:check && echo \"🎉 All quality checks passed! Ready to commit.\"",
     "prepare": "husky"
   },
@@ -20,40 +20,46 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{json,css,md,mdx}": [
+    "*.{json,css,md,mdx,astro}": [
       "prettier --write"
     ]
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/sitemap": "^3.3.1",
+    "@fontsource-variable/geist": "^5.1.1",
+    "@fontsource-variable/geist-mono": "^5.1.1",
+    "@fontsource/bricolage-grotesque": "^5.1.1",
+    "@fontsource/fjalla-one": "^5.1.1",
+    "@fontsource/open-sans": "^5.1.1",
+    "@fontsource/playfair-display": "^5.1.1",
+    "@fontsource/poppins": "^5.1.1",
     "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4",
+    "astro": "^5.7.10",
     "clsx": "^2.1.1",
-    "fast-glob": "^3.3.3",
     "framer-motion": "^11.15.0",
-    "gray-matter": "^4.0.3",
     "lucide-react": "^0.543.0",
-    "next": "15.5.2",
-    "next-mdx-remote": "^5.0.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "rehype-autolink-headings": "^7.1.0",
-    "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.7",
     "@cloudflare/workers-types": "^4.20250909.0",
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
+    "@eslint/js": "^9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.5.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^8.57.0"
   }
 }

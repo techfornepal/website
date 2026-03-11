@@ -1,4 +1,3 @@
-import { type MDXComponents } from 'mdx/types';
 import * as UI from '@/components/ui';
 
 /**
@@ -13,7 +12,7 @@ import * as UI from '@/components/ui';
  * </Stack>
  * ```
  */
-export function getMDXComponents(): MDXComponents {
+export function getMDXComponents(): Record<string, unknown> {
   return {
     // Layout components
     Container: UI.Container,

@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { Container, PageMain, GradientHeading, Text, Stack, BlogPostCard } from '@/components/ui';
+
+type BlogPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: Date | undefined;
+  tags: string[];
+  author: { name: string; avatar?: string } | undefined;
+};
+
+const allPosts = await getCollection('blog');
+const posts: BlogPost[] = allPosts
+  .sort(
+    (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+      (b.data.publishDate?.getTime() ?? 0) - (a.data.publishDate?.getTime() ?? 0)
+  )
+  .map((post: CollectionEntry<'blog'>) => ({
+    slug: post.data.slug ?? post.id,
+    title: post.data.title,
+    excerpt: post.data.excerpt ?? '',
+    date: post.data.publishDate,
+    tags: post.data.tags,
+    author: post.data.author,
+  }));
+---
+
+<BaseLayout title="Blog - Tech For Nepal">
+  <PageMain>
+    <Container size="md">
+      <Stack spacing="xl">
+        <GradientHeading as="h1" size="2xl"> Blog </GradientHeading>
+
+        {
+          posts.length === 0 ? (
+            <Text color="muted" size="base">
+              No posts yet. Coming soon.
+            </Text>
+          ) : (
+            <Stack spacing="lg">
+              {posts.map(post => (
+                <BlogPostCard post={post} showDivider={true} maxTags={4} />
+              ))}
+            </Stack>
+          )
+        }
+      </Stack>
+    </Container>
+  </PageMain>
+</BaseLayout>

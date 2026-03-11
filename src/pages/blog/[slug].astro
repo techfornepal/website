@@ -1,0 +1,85 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import {
+  Container,
+  PageMain,
+  GradientHeading,
+  Prose,
+  Stack,
+  BlogMeta,
+  NavigationLink,
+} from '@/components/ui';
+import { getMDXComponents } from '@/lib/mdx-components';
+import React from 'react';
+import { ArrowLeft } from 'lucide-react';
+
+const arrowLeftIcon = React.createElement(ArrowLeft, { size: 16 });
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post: CollectionEntry<'blog'>) => ({
+    params: { slug: post.data.slug ?? post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props as Props;
+const { Content } = await render(post);
+
+function calculateReadingTime(body: string): string {
+  const wordsPerMinute = 200;
+  const words = body.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return `${minutes} min read`;
+}
+
+const readingTime = calculateReadingTime(post.body ?? '');
+---
+
+<BaseLayout title={`${post.data.title} - Tech For Nepal`}>
+  <PageMain>
+    <Container size="md">
+      <Stack spacing="xl">
+        <NavigationLink
+          href="/blog/"
+          icon={arrowLeftIcon}
+          iconPosition="left"
+          variant="secondary"
+          className="text-sm font-[var(--font-weight-medium)] tracking-wide uppercase"
+        >
+          Back to the main blog
+        </NavigationLink>
+
+        <article>
+          <Stack spacing="xl">
+            <header>
+              <Stack spacing="md">
+                <GradientHeading as="h1" size="2xl" gradient="diagonal">
+                  {post.data.title}
+                </GradientHeading>
+
+                <BlogMeta
+                  client:load
+                  author={post.data.author}
+                  publishDate={post.data.publishDate?.toISOString()}
+                  readingTime={readingTime}
+                  tags={post.data.tags}
+                />
+              </Stack>
+            </header>
+
+            <Prose>
+              <Content components={getMDXComponents()} />
+            </Prose>
+          </Stack>
+        </article>
+      </Stack>
+    </Container>
+  </PageMain>
+</BaseLayout>

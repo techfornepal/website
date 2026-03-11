@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { navigationSizing } from '@/utils/responsive';
@@ -126,7 +125,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
   );
 
   const linkContent = (
-    <Link
+    <a
       href={href}
       onClick={onClick}
       className={cn(linkStyles, className)}
@@ -135,7 +134,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
     >
       <span className={cn(isMobile && isLightTheme && 'drop-shadow-sm')}>{label}</span>
       {arrowIcon}
-    </Link>
+    </a>
   );
 
   // wrapping mobile links with animation
