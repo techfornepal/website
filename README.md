@@ -7,6 +7,8 @@ collaboration.
 
 ## Repository Quickstart
 
+Requires Node.js `>=22.12.0`.
+
 ```bash
 git clone https://github.com/techfornepal/website.git
 cd website

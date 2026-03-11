@@ -6,6 +6,8 @@
 
 ## Quick Start
 
+Node.js `>=22.12.0` is required for Astro 6 and CI parity.
+
 ### Initial Setup
 
 ```bash
