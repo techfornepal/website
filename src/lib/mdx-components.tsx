@@ -14,6 +14,7 @@ import * as UI from '@/components/ui';
  */
 export function getMDXComponents(): Record<string, unknown> {
   return {
+    a: UI.Link,
     Container: UI.Container,
     Stack: UI.Stack,
     Section: UI.Section,
