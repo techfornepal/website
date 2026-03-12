@@ -1,74 +1,76 @@
 ---
 title: 'Get Involved'
-lastUpdated: 2026-03-12
+lastUpdated: 2026-03-13
 ---
 
-We are completely open source, and all we want to do is contribute to our
-country in the ways that we believe we can the best: through our skills and
-knowledge in the tech and research fields. If you, just like us, share common
-sentiments and have a deep love for our country, we'd love to hear from you,
-whether you're interested in contributing, have questions, or want to get
-involved in our community.
+We are completely open source, and all we want to do is contribute to our country in the ways that
+we believe we can the best: through our skills and knowledge in the tech and research fields. If
+you, just like us, share common sentiments and have a deep love for our country, we'd love to hear
+from you, whether you're interested in contributing, have questions, or want to get involved in our
+community.
 
-We don't yet have social media outside of GitHub, so for any inquiries,
-suggestions, or general feedback, please reach out to us via email at
+We don't yet have social media outside of GitHub, so for any inquiries, suggestions, or general
+feedback, please reach out to us via email at
 [namaste@techfornepal.com](mailto:namaste@techfornepal.com).
 
 ### Contributing via Writing
 
-If you want to send us your writing for the blog, you can do one of the
-following:
+If you want to send us your writing for the blog, you can do one of the following:
 
-- Read our
-  [CONTRIBUTING.md](https://github.com/techfornepal/website/blob/main/CONTRIBUTING.md)
-  file on our GitHub repository and follow the instructions.
-- Send us your writing via email (alongside with your name, email, and your
-  photo if you're comfortable with that). We can do the uploading for you. The
-  blog posts will look something like [this](/blog/gen-z).
+- Read our [CONTRIBUTING.md](https://github.com/techfornepal/website/blob/main/CONTRIBUTING.md) file
+  on our GitHub repository and follow the instructions.
+- Send us your writing via email (alongside with your name, email, and your photo if you're
+  comfortable with that). We can do the uploading for you. The blog posts will look something like
+  [this](/blog/gen-z).
 
 ### Contributing via Tech & Research
 
-At the moment, it's just me doing this alone, but I believe we have some
-exceedingly difficult but (what we consider) important projects that we need to
-work on. I'm someone who's quite focused on AI Research and Development, and
-therefore, this is me showing my dedication to our country in ways that I think
-I can be most useful in.
+At the moment, it's just me doing this alone, but I believe we have some exceedingly difficult but
+(what we consider) important projects that we need to work on. I'm focused on AI Research and
+Development, and this is me showing my dedication to our country in ways that I think I can be most
+useful in.
 
-Here are a couple of projects that I am planning to work on, with the help of a
-few more skilled helping hands:
+Here are the research directions we're actively exploring:
 
-- Development of an open-source language model for the Nepali language. I have
-  been doing my own research on if we have any existing models, and it seems
-  like the ones we have are not good enough. OpenAI's newest GPT-5 is pretty
-  okay at it, but I see some potential in using some open-source models to make
-  them better, perhaps. But there's a whole issue with the amount of data we
-  have to train on, how we're going to generate that data (since we must not use
-  synthetic data due to the fear of cultural context getting lost), whether
-  using an open-source model is even worth it given that Nepali is a
-  low-resource language, and so on. So many exciting things to research and work
-  on.
-- Creation of datasets of different types of local languages that are endangered
-  for their preservation. This is something even more challenging since the data
-  for these languages are even more scarce. But it's something that I believe we
-  must do. Languages in our country are dying out, and it makes me very sad.
-- Research on effective tokenization techniques, model fine-tuning,
-  quantization, and so on.
-- Reading lots of papers on Machine Learning and its applications in our
-  country, and then writing about them in a way that is easy to understand for
-  the general public.
-- And all kinds of projects that we can think of that can help our country via
-  research and development in the tech field.
+- Tokenization: Most tokenizers fragment Nepali text into far more tokens than English (sometimes
+  2-3x more), which inflates cost and shrinks effective context. We want to train and benchmark a
+  dedicated Nepali tokenizer and compare it against existing approaches.
+- Data curation and corpus engineering: Nepali is a low-resource language, and the data we do have
+  is heavily skewed toward news. We need to assemble a deduplicated, high-quality corpus, audit it
+  for domain coverage, and figure out the right mix of native Nepali, Hindi, and English data for
+  training.
+- Translationese detection: A lot of available Nepali text is translated from English, and
+  translated text has systematic quirks (unnatural word order, overuse of pronouns, calques) that
+  can degrade model quality. Building tools to detect and manage translationese in training data is
+  an open problem.
+- Synthetic data generation: Carefully generated synthetic data can help fill gaps in domains where
+  native Nepali text is scarce. The challenge is doing this without degrading naturalness, grounding
+  generation in Nepali sources rather than translating from English, and maintaining a healthy mix
+  of real and synthetic data.
+- Evaluation and benchmarks: Nepali lacks a unified benchmark for language generation. We want to
+  build evaluation tools like instruction-following benchmarks, cultural adequacy tests for register
+  and honorifics, and bilingual retention suites that check whether a model still works well in
+  English after learning Nepali.
+- Nepali language model development: The research directions above all feed into what we consider
+  one of the primary goals, which is building our own series of open-source Nepali language models.
+  Whether that's extending an existing model with Nepali vocabulary and continued pretraining, or
+  training a smaller model from scratch on a carefully curated Nepali-Hindi-English corpus, we want
+  to get there. Tons of exciting directions to be taken.
+- Endangered language preservation: Languages in our country are dying out, and that makes me very
+  sad. Creating datasets for endangered local languages is even harder than for Nepali, but it's
+  something we believe we must do. For this, I've already found some fellow researchers at
+  [Sabdakunja](https://sabdakunja.diyo.ai/) too; do check them out!
+- Accessible research writing: Reading papers on machine learning and its applications in our
+  country, and then writing about them in a way that is easy to understand for the general public.
 
-We might also need some core members who are good at development, design, and so
-on. If you think you have something to contribute on the tech side, please open
-a discussion on our
+We might also need some core members who are good at development, design, and so on. If you think
+you have something to contribute on the tech side, please open a discussion on our
 [GitHub](https://github.com/techfornepal/techfornepal/discussions).
 
 ### Grants & Computational Resources
 
-We are also in need of computational resources to help us with our projects. If
-you think you can help us out with that, please reach out to us via email at
-[namaste@techfornepal.com](mailto:namaste@techfornepal.com).
+We need computational resources to do this work. If you can help with that, please reach out to us
+via email at [namaste@techfornepal.com](mailto:namaste@techfornepal.com).
 
-If you want to get in touch with me personally, you can do so via email at
+If you want to get in touch with me personally, you can do so at
 [sumit@sumit.ml](mailto:sumit@sumit.ml).

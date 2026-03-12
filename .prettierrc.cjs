@@ -41,7 +41,7 @@ module.exports = {
     {
       files: ['*.md', '*.mdx'],
       options: {
-        printWidth: 80, // Narrower for markdown readability
+        printWidth: 100,
         proseWrap: 'always', // Wrap prose in markdown
       },
     },
