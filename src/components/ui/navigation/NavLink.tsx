@@ -7,77 +7,35 @@ export interface NavLinkProps {
   href: string;
   label: string;
   isActive: boolean;
-  variant?: 'desktop-light' | 'desktop-dark' | 'mobile-light' | 'mobile-dark';
+  variant?: 'desktop-dark' | 'mobile-dark';
   onClick?: () => void;
   animationIndex?: number;
   showArrow?: boolean;
   className?: string;
 }
 
-/**
- * NavLink - Centralized navigation link component
- *
- * A unified link component that handles both desktop and mobile navigation
- * with proper styling, animations, and accessibility.
- *
- * Features:
- * - Multiple variants for different contexts
- * - Staggered animations for mobile menu
- * - Active state styling
- * - Centralized sizing from responsive utilities
- * - Full accessibility with aria-current
- *
- * @example
- * // Desktop usage
- * <NavLink
- *   href="/about"
- *   label="About"
- *   isActive={pathname === '/about'}
- *   variant="desktop-light"
- * />
- *
- * @example
- * // Mobile usage with animation
- * <NavLink
- *   href="/blog"
- *   label="Blog"
- *   isActive={pathname === '/blog'}
- *   variant="mobile-light"
- *   onClick={closeMobileMenu}
- *   animationIndex={0}
- *   showArrow
- * />
- */
 export const NavLink: React.FC<NavLinkProps> = ({
   href,
   label,
   isActive,
-  variant = 'desktop-light',
+  variant = 'desktop-dark',
   onClick,
   animationIndex,
   showArrow = false,
   className,
 }) => {
-  const isDesktop = variant.startsWith('desktop');
-  const isMobile = variant.startsWith('mobile');
-  const isLightTheme = variant.endsWith('light');
+  const isDesktop = variant === 'desktop-dark';
+  const isMobile = variant === 'mobile-dark';
 
   const desktopStyles = cn(
     'font-medium transition-colors duration-300',
     navigationSizing.desktopLinkText,
     navigationSizing.desktopLinkPadding,
     navigationSizing.desktopLinkRadius,
-    'focus-visible:ring-2 focus-visible:outline-none',
-    isLightTheme
-      ? 'focus-visible:ring-[color:var(--nav-light-ring)] focus-visible:ring-offset-2'
-      : 'focus-visible:ring-[color:var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-white',
+    'focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-[color:var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-white',
     isActive
-      ? isLightTheme
-        ? 'text-[color:var(--nav-light-text-strong)]'
-        : 'text-[color:var(--primary)]'
-      : isLightTheme
-        ? 'text-[color:var(--nav-light-text)] hover:text-[color:var(--nav-light-text-strong)]'
-        : 'text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]'
+      ? 'text-[color:var(--text-primary)]'
+      : 'text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]'
   );
 
   const mobileStyles = cn(
@@ -85,17 +43,10 @@ export const NavLink: React.FC<NavLinkProps> = ({
     navigationSizing.mobileMenuLinkPadding,
     navigationSizing.mobileMenuLinkRadius,
     navigationSizing.mobileMenuLinkText,
-    'transition-all duration-200 focus:outline-none',
-    isLightTheme
-      ? 'focus-visible:ring-2 focus-visible:ring-[color:var(--nav-light-ring)] focus-visible:ring-offset-0'
-      : 'focus-visible:ring-2 focus-visible:ring-[color:var(--primary)] focus-visible:ring-offset-2',
+    'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--primary)] focus-visible:ring-offset-2',
     isActive
-      ? isLightTheme
-        ? 'bg-[color:var(--nav-light-mobile-active-bg)] font-semibold text-[color:var(--nav-light-text-strong)] shadow-[0_0_0_1px_var(--nav-light-mobile-shadow)]'
-        : 'bg-[color:var(--nav-dark-mobile-active-bg)] font-semibold text-[color:var(--primary)] shadow-[0_0_0_1px_var(--nav-dark-mobile-shadow)]'
-      : isLightTheme
-        ? 'text-[color:var(--nav-light-mobile-text)] hover:bg-[color:var(--nav-light-mobile-hover-bg)] hover:text-[color:var(--nav-light-text-strong)]'
-        : 'text-[color:var(--menu-link)] hover:bg-[color:var(--menu-link-hover-bg)] hover:text-[color:var(--menu-link-hover-text)]'
+      ? 'bg-[color:var(--nav-dark-mobile-active-bg)] font-semibold text-[color:var(--text-primary)] shadow-[0_0_0_1px_var(--nav-dark-mobile-shadow)]'
+      : 'text-[color:var(--menu-link)] hover:bg-[color:var(--menu-link-hover-bg)] hover:text-[color:var(--menu-link-hover-text)]'
   );
 
   const linkStyles = isDesktop ? desktopStyles : mobileStyles;
@@ -105,14 +56,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
       className={cn(
         'transition-colors',
         navigationSizing.arrowIconSize,
-        isLightTheme && 'drop-shadow-sm',
-        isActive
-          ? isLightTheme
-            ? 'text-[color:var(--nav-light-text-strong)]'
-            : 'text-[color:var(--primary)]'
-          : isLightTheme
-            ? 'text-[color:var(--nav-light-arrow)]'
-            : 'text-[color:var(--menu-arrow)]'
+        isActive ? 'text-[color:var(--text-primary)]' : 'text-[color:var(--menu-arrow)]'
       )}
       viewBox="0 0 24 24"
       fill="none"
@@ -129,10 +73,10 @@ export const NavLink: React.FC<NavLinkProps> = ({
       href={href}
       onClick={onClick}
       className={cn(linkStyles, className)}
-      style={{ fontFamily: 'var(--font-opensans)' }}
+      style={{ fontFamily: 'var(--font-title)' }}
       aria-current={isActive ? 'page' : undefined}
     >
-      <span className={cn(isMobile && isLightTheme && 'drop-shadow-sm')}>{label}</span>
+      <span>{label}</span>
       {arrowIcon}
     </a>
   );

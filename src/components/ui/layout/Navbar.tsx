@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { Container } from './Container';
 import { MobileMenu } from '../navigation/MobileMenu';
 import { Logo } from '../branding/Logo';
 import { HamburgerButton } from '../navigation/HamburgerButton';
 import { NavLink } from '../navigation/NavLink';
-import { useNavigation } from '../../../hooks/useNavigation';
-import { useIsDesktop } from '../../../hooks/useMediaQuery';
+import { useNavigation } from '@/hooks/useNavigation';
+import { useIsDesktop } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/cn';
 import { navigationSizing } from '@/utils/responsive';
 import { isPathActive, isBlogPathActive } from '@/utils';
@@ -16,7 +15,6 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
-  const isHomePage = pathname === '/';
   const isDesktop = useIsDesktop();
 
   const { isScrolled, isVisible, isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } =
@@ -30,19 +28,6 @@ export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
     { href: '/get-involved', label: 'Get Involved' },
   ];
 
-  const useLightNavColors = isHomePage || isScrolled;
-  const isHeroOverlay = isHomePage && !isScrolled;
-
-  const logoColorScheme = isHeroOverlay
-    ? 'hero-overlay'
-    : useLightNavColors
-      ? 'light-nav'
-      : 'dark-nav';
-
-  const hamburgerVariant = isHeroOverlay ? 'hero-overlay' : useLightNavColors ? 'light' : 'dark';
-
-  const navLinkVariant = useLightNavColors ? 'desktop-light' : 'desktop-dark';
-
   useEffect(() => {
     if (isDesktop && isMobileMenuOpen) {
       closeMobileMenu();
@@ -53,30 +38,18 @@ export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
     <>
       <nav
         className={cn(
-          'fixed right-0 left-0 transition-all duration-300 ease-in-out',
+          'fixed right-0 left-0 transition-[transform,background-color] duration-300 ease-in-out',
           'top-0',
           navigationSizing.navbarZIndex,
           isVisible ? 'translate-y-0' : '-translate-y-full',
-          isScrolled ? 'bg-[color:var(--navbar-scroll-bg)] backdrop-blur-lg' : 'bg-transparent'
+          isScrolled ? 'bg-[color:var(--navbar-scroll-bg)] backdrop-blur-md' : 'bg-transparent'
         )}
       >
         <Container>
           <div className={cn('flex items-center justify-between', navigationSizing.navbarHeight)}>
-            <motion.div
-              animate={{
-                opacity: !isDesktop && isMobileMenuOpen ? 0.3 : 1,
-              }}
-              transition={{ duration: 0.2 }}
-            >
-              <Logo
-                size="lg"
-                colorScheme={logoColorScheme}
-                enableHover
-                showDropShadow
-                animated={false}
-                href="/"
-              />
-            </motion.div>
+            <div className={pathname === '/' ? 'invisible' : undefined}>
+              <Logo size="lg" colorScheme="dark-nav" enableHover showDropShadow={false} href="/" />
+            </div>
 
             <nav
               className={cn(
@@ -95,17 +68,23 @@ export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
                     href={href}
                     label={label}
                     isActive={isActive}
-                    variant={navLinkVariant as 'desktop-light' | 'desktop-dark'}
+                    variant="desktop-dark"
                   />
                 );
               })}
             </nav>
 
-            <div ref={menuTriggerRef} className={navigationSizing.mobileTriggerVisibility}>
+            <div
+              ref={menuTriggerRef}
+              className={cn(
+                navigationSizing.mobileTriggerVisibility,
+                pathname === '/' && 'invisible'
+              )}
+            >
               <HamburgerButton
                 isOpen={isMobileMenuOpen}
                 onClick={toggleMobileMenu}
-                variant={hamburgerVariant as 'light' | 'dark' | 'hero-overlay'}
+                variant="dark"
               />
             </div>
           </div>
@@ -119,8 +98,6 @@ export const Navbar: React.FC<NavbarProps> = ({ pathname }) => {
         pathname={pathname}
         isPathActive={isPathActive}
         isBlogPathActive={isBlogPathActive}
-        anchorRef={menuTriggerRef as React.RefObject<HTMLElement>}
-        isHomePage={isHomePage}
       />
     </>
   );
