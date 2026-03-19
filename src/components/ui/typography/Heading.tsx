@@ -100,7 +100,7 @@ export const Heading: React.FC<HeadingProps> = ({
         alignClasses[align],
         className
       )}
-      style={{ fontFamily: 'var(--font-title)', ...style }}
+      style={{ fontFamily: 'var(--font-title)', fontVariationSettings: "'SOFT' 50", ...style }}
     >
       {children}
     </Component>

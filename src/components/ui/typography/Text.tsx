@@ -72,7 +72,7 @@ export const Text: React.FC<TextProps> = ({
         alignClasses[align],
         className
       )}
-      style={{ fontFamily: 'var(--font-opensans)', ...style }}
+      style={{ fontFamily: 'var(--font-body)', ...style }}
     >
       {children}
     </Component>
