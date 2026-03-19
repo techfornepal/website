@@ -1,8 +1,72 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { HeroSection } from '@/components/ui';
+import SubtleLink from '@/components/ui/navigation/SubtleLink.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const latestPosts = allPosts
+  .sort(
+    (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+      (b.data.publishDate?.getTime() ?? 0) - (a.data.publishDate?.getTime() ?? 0)
+  )
+  .slice(0, 3)
+  .map((post: CollectionEntry<'blog'>) => ({
+    slug: post.data.slug ?? post.id,
+    title: post.data.title,
+    date: post.data.publishDate,
+  }));
 ---
 
 <BaseLayout title="Tech For Nepal">
-  <HeroSection />
+  <main class="flex flex-1 items-center justify-center px-6 sm:px-8">
+    <div class="w-full max-w-2xl text-center">
+      <h1
+        class="text-3xl font-semibold tracking-[0.12em] uppercase sm:text-4xl md:text-5xl"
+        style="font-family: var(--font-title);"
+      >
+        <span class="text-[color:var(--nepal-red)]">Tech For</span>
+        <span class="text-[color:var(--nepal-blue)]">Nepal</span>
+      </h1>
+      <p class="mx-auto mt-5 text-base text-[color:var(--text-secondary)] sm:text-lg">
+        Researching and building open-source language technology for Nepal
+      </p>
+      <div class="mt-6 flex items-center justify-center gap-3 sm:hidden">
+        <SubtleLink href="/get-involved">Get Involved</SubtleLink>
+        <span class="text-[color:var(--border)]">/</span>
+        <SubtleLink href="/blog">Blog</SubtleLink>
+      </div>
+
+      {/* Desktop: inline grid of latest posts */}
+      {
+        latestPosts.length > 0 && (
+          <div class="mx-auto mt-14 hidden sm:inline-grid sm:grid-cols-[auto_auto_1fr] sm:items-baseline sm:gap-x-3 sm:gap-y-2">
+            {latestPosts.map(post => (
+              <>
+                <time
+                  class="text-right text-sm text-[color:var(--text-secondary)] tabular-nums"
+                  style="font-family: var(--font-title);"
+                  datetime={post.date?.toISOString()}
+                >
+                  {post.date?.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </time>
+                <span class="text-sm text-[color:var(--text-secondary)]">&middot;</span>
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="text-left text-base font-medium text-[color:var(--text-primary)] underline decoration-transparent decoration-1 underline-offset-4 transition-all duration-200 hover:text-[color:var(--secondary)] hover:decoration-[color:var(--secondary)]"
+                  style="font-family: var(--font-title);"
+                >
+                  {post.title}
+                </a>
+              </>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </main>
 </BaseLayout>

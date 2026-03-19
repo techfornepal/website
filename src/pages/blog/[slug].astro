@@ -2,20 +2,9 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
-import {
-  Container,
-  PageMain,
-  GradientHeading,
-  Prose,
-  Stack,
-  BlogMeta,
-  NavigationLink,
-} from '@/components/ui';
+import { BlogMeta, Prose } from '@/components/ui';
+import SubtleLink from '@/components/ui/navigation/SubtleLink.astro';
 import { getMDXComponents } from '@/lib/mdx-components';
-import React from 'react';
-import { ArrowLeft } from 'lucide-react';
-
-const arrowLeftIcon = React.createElement(ArrowLeft, { size: 16 });
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -43,43 +32,35 @@ const readingTime = calculateReadingTime(post.body ?? '');
 ---
 
 <BaseLayout title={`${post.data.title} - Tech For Nepal`}>
-  <PageMain>
-    <Container size="md">
-      <Stack spacing="xl">
-        <NavigationLink
-          href="/blog"
-          icon={arrowLeftIcon}
-          iconPosition="left"
-          variant="secondary"
-          className="text-sm font-[var(--font-weight-medium)] tracking-wide uppercase"
-        >
-          Back to the main blog
-        </NavigationLink>
+  <main class="flex-1 pt-24 pb-16">
+    <div class="mx-auto max-w-3xl px-4">
+      <SubtleLink href="/blog">&larr; BACK TO BLOG</SubtleLink>
 
-        <article>
-          <Stack spacing="xl">
-            <header>
-              <Stack spacing="md">
-                <GradientHeading as="h1" size="2xl" gradient="diagonal">
-                  {post.data.title}
-                </GradientHeading>
+      <article class="mt-6 sm:mt-10">
+        <header>
+          <h1
+            class="text-2xl font-semibold tracking-tight sm:text-4xl"
+            style="font-family: var(--font-title);"
+          >
+            {post.data.title}
+          </h1>
 
-                <BlogMeta
-                  client:load
-                  author={post.data.author}
-                  publishDate={post.data.publishDate?.toISOString()}
-                  readingTime={readingTime}
-                  tags={post.data.tags}
-                />
-              </Stack>
-            </header>
+          <div class="mt-4 sm:mt-6">
+            <BlogMeta
+              author={post.data.author}
+              date={post.data.publishDate?.toISOString()}
+              readingTime={readingTime}
+              tags={post.data.tags}
+            />
+          </div>
+        </header>
 
-            <Prose>
-              <Content components={getMDXComponents()} />
-            </Prose>
-          </Stack>
-        </article>
-      </Stack>
-    </Container>
-  </PageMain>
+        <div class="mt-6 sm:mt-10">
+          <Prose>
+            <Content components={getMDXComponents()} />
+          </Prose>
+        </div>
+      </article>
+    </div>
+  </main>
 </BaseLayout>
