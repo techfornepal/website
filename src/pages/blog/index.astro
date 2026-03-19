@@ -2,19 +2,9 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { Container, PageMain, GradientHeading, Text, Stack, BlogPostCard } from '@/components/ui';
-
-type BlogPost = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: Date | undefined;
-  tags: string[];
-  author: { name: string; avatar?: string } | undefined;
-};
 
 const allPosts = await getCollection('blog');
-const posts: BlogPost[] = allPosts
+const posts = allPosts
   .sort(
     (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
       (b.data.publishDate?.getTime() ?? 0) - (a.data.publishDate?.getTime() ?? 0)
@@ -24,31 +14,79 @@ const posts: BlogPost[] = allPosts
     title: post.data.title,
     excerpt: post.data.excerpt ?? '',
     date: post.data.publishDate,
-    tags: post.data.tags,
-    author: post.data.author,
+    tags: post.data.tags ?? [],
   }));
 ---
 
 <BaseLayout title="Blog - Tech For Nepal">
-  <PageMain>
-    <Container size="md">
-      <Stack spacing="xl">
-        <GradientHeading as="h1" size="2xl"> Blog </GradientHeading>
+  <main class="flex-1 pt-24 pb-16">
+    <div class="mx-auto max-w-3xl px-4">
+      <h1
+        class="mb-6 text-3xl font-semibold tracking-tight sm:mb-10 sm:text-4xl"
+        style="font-family: var(--font-title);"
+      >
+        Blog
+      </h1>
 
-        {
-          posts.length === 0 ? (
-            <Text color="muted" size="base">
-              No posts yet. Coming soon.
-            </Text>
-          ) : (
-            <Stack spacing="lg">
-              {posts.map(post => (
-                <BlogPostCard post={post} showDivider={true} maxTags={4} />
-              ))}
-            </Stack>
-          )
-        }
-      </Stack>
-    </Container>
-  </PageMain>
+      {
+        posts.length === 0 ? (
+          <p class="text-[color:var(--text-secondary)]">No posts yet. Coming soon.</p>
+        ) : (
+          <div>
+            {posts.map((post, i) => (
+              <div
+                class:list={[
+                  'py-6',
+                  i < posts.length - 1 && 'border-b border-[color:var(--border-light)]',
+                ]}
+              >
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="group grid grid-cols-1 gap-1 sm:grid-cols-[140px_1fr] sm:gap-6"
+                >
+                  <time
+                    class="text-sm text-[color:var(--text-secondary)] tabular-nums sm:pt-0.5"
+                    style="font-family: var(--font-title);"
+                    datetime={post.date?.toISOString()}
+                  >
+                    {post.date?.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  <div>
+                    <h2
+                      class="text-base font-medium text-[color:var(--text-primary)] transition-colors duration-200 group-hover:text-[color:var(--secondary)] sm:text-lg"
+                      style="font-family: var(--font-title);"
+                    >
+                      {post.title}
+                    </h2>
+                    {post.excerpt && (
+                      <p class="mt-1 text-sm leading-relaxed text-[color:var(--text-primary)]/70">
+                        {post.excerpt}
+                      </p>
+                    )}
+                  </div>
+                </a>
+                {post.tags.length > 0 && (
+                  <div class="mt-2.5 flex flex-wrap gap-1.5 sm:ml-[164px]">
+                    {post.tags.map((tag: string) => (
+                      <a
+                        href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                        class="relative z-10 text-sm text-[color:var(--text-secondary)] transition-colors duration-200 hover:text-[color:var(--secondary)]"
+                        style="font-family: var(--font-title);"
+                      >
+                        #{tag}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </main>
 </BaseLayout>

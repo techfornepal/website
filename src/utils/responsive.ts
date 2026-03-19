@@ -173,27 +173,6 @@ export const responsiveAlignments = {
 export type ResponsiveAlignment = keyof typeof responsiveAlignments;
 
 /**
- * Homepage-specific responsive text utilities
- */
-export const homepageTextSizes = {
-  heroTitle: 'text-4xl md:text-5xl lg:text-6xl xl:text-7xl',
-  heroSubtitle: 'text-base md:text-lg lg:text-xl',
-  footerText: 'text-xs sm:text-sm',
-} as const;
-
-export const homepageButtonSpacing = {
-  heroPadding: 'px-4 py-2 sm:px-6 sm:py-2.5 md:px-8 md:py-3',
-  heroTextSize: 'text-sm sm:text-base',
-} as const;
-
-export const homepageLayout = {
-  stackHorizontal: 'flex flex-col sm:flex-row',
-  heroGap: 'gap-4',
-  heroOverlay:
-    'bg-[linear-gradient(to_bottom,var(--hero-overlay-start),var(--hero-overlay-middle),var(--hero-overlay-end))]',
-} as const;
-
-/**
  * Navigation component sizing utilities
  */
 export const navigationSizing = {
@@ -201,7 +180,7 @@ export const navigationSizing = {
   logoSizes: {
     sm: 'text-base',
     md: 'text-lg',
-    lg: 'text-xl',
+    lg: 'text-lg sm:text-xl',
     xl: 'text-2xl',
   },
 
@@ -232,7 +211,7 @@ export const navigationSizing = {
   closeIconSize: 'h-5 w-5',
   arrowIconSize: 'h-4 w-4',
 
-  navbarZIndex: 'z-50',
+  navbarZIndex: 'z-[60]',
   hamburgerZIndex: 'z-[60]',
   menuBackdropZIndex: 'z-40',
   menuCardZIndex: 'z-50',
@@ -247,31 +226,17 @@ export const blogCardSizing = {
  * Logo color schemes for different contexts
  */
 export const logoColorSchemes = {
-  'hero-overlay': {
-    techFor:
-      'text-[color:var(--logo-hero-tech)] group-hover:text-[color:var(--logo-hero-tech-hover)]',
-    nepal:
-      'text-[color:var(--logo-hero-nepal)] group-hover:text-[color:var(--logo-hero-nepal-hover)]',
-  },
-  'light-nav': {
-    techFor:
-      'text-[color:var(--logo-light-tech)] group-hover:text-[color:var(--logo-light-tech-hover)]',
-    nepal:
-      'text-[color:var(--logo-light-nepal)] group-hover:text-[color:var(--logo-light-nepal-hover)]',
-  },
   'dark-nav': {
-    techFor: 'text-[color:var(--secondary)] group-hover:text-[color:var(--logo-dark-tech-hover)]',
-    nepal: 'text-[color:var(--primary)] group-hover:text-[color:var(--logo-dark-nepal-hover)]',
+    techFor: 'text-[color:var(--logo-tech)] group-hover:text-[color:var(--logo-tech-hover)]',
+    nepal: 'text-[color:var(--logo-nepal)] group-hover:text-[color:var(--logo-nepal-hover)]',
   },
   brand: {
-    techFor: 'text-[color:var(--secondary)] group-hover:text-[color:var(--secondary-hover)]',
-    nepal: 'text-[color:var(--primary)] group-hover:text-[color:var(--primary-hover)]',
+    techFor: 'text-[color:var(--logo-tech)] group-hover:text-[color:var(--logo-tech-hover)]',
+    nepal: 'text-[color:var(--logo-nepal)] group-hover:text-[color:var(--logo-nepal-hover)]',
   },
   white: {
-    techFor:
-      'text-[color:var(--text-on-primary)] group-hover:text-[color:var(--nav-light-mobile-text)]',
-    nepal:
-      'text-[color:var(--text-on-primary)] group-hover:text-[color:var(--nav-light-mobile-text)]',
+    techFor: 'text-[color:var(--text-on-primary)]',
+    nepal: 'text-[color:var(--text-on-primary)]',
   },
 } as const;
 

@@ -6,14 +6,11 @@ import { navigationSizing } from '@/utils/responsive';
 export interface HamburgerButtonProps {
   isOpen: boolean;
   onClick: () => void;
-  variant?: 'light' | 'dark' | 'hero-overlay';
+  variant?: 'light' | 'dark';
   className?: string;
   ariaLabel?: string;
 }
 
-/**
- * Animated hamburger menu button line properties
- */
 const HAMBURGER_LINE_PROPS = {
   className: cn(
     'absolute left-0 top-1/2 block -translate-y-1/2 rounded bg-current',
@@ -22,37 +19,16 @@ const HAMBURGER_LINE_PROPS = {
   ),
 };
 
-/**
- * HamburgerButton - Animated hamburger menu button component
- *
- * A centralized, reusable animated hamburger button with different
- * style variants for different contexts (hero overlay, light nav, dark nav).
- *
- * Features:
- * - Smooth animation between hamburger and X states
- * - Multiple style variants for different backgrounds
- * - Centralized sizing from responsive utilities
- * - Fully accessible with ARIA attributes
- *
- * @example
- * <HamburgerButton
- *   isOpen={isMobileMenuOpen}
- *   onClick={toggleMobileMenu}
- *   variant="hero-overlay"
- * />
- */
 export const HamburgerButton: React.FC<HamburgerButtonProps> = ({
   isOpen,
   onClick,
-  variant = 'light',
+  variant = 'dark',
   className,
   ariaLabel,
 }) => {
   const variantStyles = {
-    'hero-overlay':
-      'text-[color:var(--hamburger-hero-text)] focus-visible:ring-[color:var(--hamburger-hero-ring)] focus-visible:ring-offset-0',
     light:
-      'text-[color:var(--text-on-primary)] shadow-[0_6px_18px_var(--hamburger-light-shadow)] hover:bg-[color:var(--hamburger-light-hover-bg)] hover:backdrop-blur-sm focus-visible:ring-[color:var(--hamburger-light-ring)] focus-visible:ring-offset-0',
+      'text-[color:var(--text-on-primary)] hover:bg-[color:var(--surface-hover)] focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-0',
     dark: 'text-[color:var(--text-secondary)] hover:bg-[color:var(--accent)] hover:text-[color:var(--text-primary)] focus-visible:ring-[color:var(--focus-ring)] focus-visible:ring-offset-2',
   };
 
@@ -72,10 +48,6 @@ export const HamburgerButton: React.FC<HamburgerButtonProps> = ({
       aria-controls="mobile-menu-panel"
       type="button"
       whileTap={{ scale: 0.9 }}
-      animate={{
-        opacity: isOpen ? 0 : 1,
-        pointerEvents: isOpen ? 'none' : 'auto',
-      }}
     >
       <motion.span
         className={cn('relative block', navigationSizing.hamburgerIconContainer)}

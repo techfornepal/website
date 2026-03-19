@@ -1,10 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Container, GradientHeading, Text, Stack, NavigationLink } from '@/components/ui';
-import React from 'react';
-import { ArrowLeft } from 'lucide-react';
-
-const arrowLeftIcon = React.createElement(ArrowLeft, { size: 16 });
 ---
 
 <BaseLayout title="404 - Page Not Found">
@@ -12,24 +7,29 @@ const arrowLeftIcon = React.createElement(ArrowLeft, { size: 16 });
     class="flex flex-1 items-center justify-center px-4"
     style="min-height: calc(100vh - 80px - 64px);"
   >
-    <Container size="md" className="text-center">
-      <Stack spacing="3xl" align="center">
-        <Stack spacing="xl" align="center">
-          <div
-            class="font-title text-8xl leading-none font-bold text-[color:var(--text-muted)]/30 select-none"
-          >
-            404
-          </div>
-          <Stack spacing="lg" align="center">
-            <GradientHeading as="h1" size="4xl"> Page Not Found </GradientHeading>
-            <Text size="base" color="muted" className="mx-auto">
-              The page you&apos;re looking for doesn&apos;t exist or has been moved.
-            </Text>
-          </Stack>
-        </Stack>
-
-        <NavigationLink href="/" icon={arrowLeftIcon} iconPosition="left"> Go Home </NavigationLink>
-      </Stack>
-    </Container>
+    <div class="mx-auto max-w-md text-center">
+      <div
+        class="text-8xl leading-none font-bold text-[color:var(--text-muted)]/20 select-none"
+        style="font-family: var(--font-title);"
+      >
+        404
+      </div>
+      <h1
+        class="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl"
+        style="font-family: var(--font-title);"
+      >
+        Page Not Found
+      </h1>
+      <p class="mt-4 text-[color:var(--text-muted)]">
+        The page you&rsquo;re looking for doesn&rsquo;t exist or has been moved.
+      </p>
+      <a
+        href="/"
+        class="mt-8 inline-flex items-center gap-1.5 text-sm text-[color:var(--text-secondary)] transition-colors hover:text-[color:var(--text-primary)]"
+        style="font-family: var(--font-title);"
+      >
+        &larr; Go Home
+      </a>
+    </div>
   </main>
 </BaseLayout>

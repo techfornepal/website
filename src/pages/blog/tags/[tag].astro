@@ -1,20 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SubtleLink from '@/components/ui/navigation/SubtleLink.astro';
 import { getCollection } from 'astro:content';
-import {
-  Container,
-  PageMain,
-  Heading,
-  Text,
-  Stack,
-  BlogPostCard,
-  NavigationLink,
-} from '@/components/ui';
-import React from 'react';
-import { ArrowLeft } from 'lucide-react';
-
-const arrowLeftIcon = React.createElement(ArrowLeft, { size: 16 });
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -44,8 +32,7 @@ export async function getStaticPaths() {
           title: post.data.title,
           excerpt: post.data.excerpt ?? '',
           date: post.data.publishDate,
-          tags: post.data.tags,
-          author: post.data.author,
+          tags: post.data.tags ?? [],
         })),
     },
   }));
@@ -57,7 +44,6 @@ type BlogPost = {
   excerpt: string;
   date: Date | undefined;
   tags: string[];
-  author: { name: string; avatar?: string } | undefined;
 };
 
 interface Props {
@@ -69,37 +55,89 @@ const { originalTag, posts } = Astro.props as Props;
 ---
 
 <BaseLayout title={`Posts tagged "${originalTag}" - Tech For Nepal`}>
-  <PageMain>
-    <Container size="md">
-      <Stack spacing="xl">
-        <header>
-          <Stack spacing="sm">
-            <Heading as="h1" size="xl">
-              Posts tagged with{' '}
-              <span class="text-[color:var(--primary)]">&ldquo;#{originalTag}&rdquo;</span>
-            </Heading>
-            <Text color="muted" size="sm">
-              {posts.length}
-              {' '}
-              {posts.length === 1 ? 'post' : 'posts'} found
-            </Text>
-          </Stack>
-        </header>
+  <main class="flex-1 pt-24 pb-16">
+    <div class="mx-auto max-w-3xl px-4">
+      <header class="mb-4 sm:mb-10">
+        <h1
+          class="text-3xl font-semibold tracking-tight sm:text-4xl"
+          style="font-family: var(--font-title);"
+        >
+          Blog
+        </h1>
+        <p class="mt-4 text-base text-[color:var(--text-primary)]/70 sm:text-lg">
+          Filtered by <span
+            class="font-medium text-[color:var(--nepal-blue)]"
+            style="font-family: var(--font-title);">#{originalTag}</span
+          >
+          <span class="ml-1.5 text-sm text-[color:var(--text-secondary)]">({posts.length})</span>
+        </p>
+        <SubtleLink href="/blog" class="mt-4 inline-block">&larr; ALL POSTS</SubtleLink>
+      </header>
 
-        <Stack spacing="lg">
-          {
-            posts.map(post => (
-              <BlogPostCard post={post} showDivider={true} maxTags={4} activeTag={originalTag} />
-            ))
-          }
-        </Stack>
-
-        <div class="pt-8 text-center">
-          <NavigationLink href="/blog" icon={arrowLeftIcon} iconPosition="left">
-            Back to all posts
-          </NavigationLink>
-        </div>
-      </Stack>
-    </Container>
-  </PageMain>
+      <div>
+        {
+          posts.map((post, i) => (
+            <div
+              class:list={[
+                'py-6',
+                i < posts.length - 1 && 'border-b border-[color:var(--border-light)]',
+              ]}
+            >
+              <a
+                href={`/blog/${post.slug}`}
+                class="group grid grid-cols-1 gap-1 sm:grid-cols-[140px_1fr] sm:gap-6"
+              >
+                <time
+                  class="text-sm text-[color:var(--text-secondary)] tabular-nums sm:pt-0.5"
+                  style="font-family: var(--font-title);"
+                  datetime={post.date?.toISOString()}
+                >
+                  {post.date?.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </time>
+                <div>
+                  <h2
+                    class="text-base font-medium text-[color:var(--text-primary)] transition-colors duration-200 group-hover:text-[color:var(--secondary)] sm:text-lg"
+                    style="font-family: var(--font-title);"
+                  >
+                    {post.title}
+                  </h2>
+                  {post.excerpt && (
+                    <p class="mt-1 text-sm leading-relaxed text-[color:var(--text-primary)]/70">
+                      {post.excerpt}
+                    </p>
+                  )}
+                </div>
+              </a>
+              {post.tags.length > 0 && (
+                <div class="mt-2 flex flex-wrap gap-1.5 sm:ml-[164px]">
+                  {post.tags.map((tag: string) =>
+                    tag === originalTag ? (
+                      <span
+                        class="text-sm font-semibold text-[color:var(--nepal-blue)]"
+                        style="font-family: var(--font-title);"
+                      >
+                        #{tag}
+                      </span>
+                    ) : (
+                      <a
+                        href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                        class="text-sm text-[color:var(--text-secondary)] transition-colors duration-200 hover:text-[color:var(--secondary)]"
+                        style="font-family: var(--font-title);"
+                      >
+                        #{tag}
+                      </a>
+                    )
+                  )}
+                </div>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </main>
 </BaseLayout>

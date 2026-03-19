@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getEntry, render } from 'astro:content';
-import { Container, PageMain, GradientHeading, Prose, Stack, LocaleDate } from '@/components/ui';
+import { Prose, BlogMeta } from '@/components/ui';
 import { getMDXComponents } from '@/lib/mdx-components';
 
 const page = await getEntry('pages', 'get-involved');
@@ -13,30 +13,27 @@ const { Content } = await render(page);
 ---
 
 <BaseLayout title={`${page.data.title} - Tech For Nepal`}>
-  <PageMain>
-    <Container size="md">
-      <Stack spacing="xl">
-        <Stack spacing="lg">
-          <GradientHeading as="h1" size="2xl" gradient="diagonal">
-            {page.data.title}
-          </GradientHeading>
-          {
-            page.data.lastUpdated && (
-              <LocaleDate
-                client:load
-                date={page.data.lastUpdated.toISOString()}
-                prefix="Last updated:"
-                size="sm"
-                color="muted"
-              />
-            )
-          }
-        </Stack>
+  <main class="flex-1 pt-24 pb-16">
+    <div class="mx-auto max-w-3xl px-4">
+      <header class="mb-6 sm:mb-10">
+        <h1
+          class="text-3xl font-semibold tracking-tight sm:text-4xl"
+          style="font-family: var(--font-title);"
+        >
+          {page.data.title}
+        </h1>
+        {
+          page.data.lastUpdated && (
+            <div class="mt-3">
+              <BlogMeta date={page.data.lastUpdated.toISOString()} label="Last updated" />
+            </div>
+          )
+        }
+      </header>
 
-        <Prose>
-          <Content components={getMDXComponents()} />
-        </Prose>
-      </Stack>
-    </Container>
-  </PageMain>
+      <Prose>
+        <Content components={getMDXComponents()} />
+      </Prose>
+    </div>
+  </main>
 </BaseLayout>
