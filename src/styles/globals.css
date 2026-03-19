@@ -5,7 +5,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-opensans);
+  --font-sans: var(--font-title);
+  --font-serif: var(--font-body);
   --font-mono: var(--font-geist-mono);
   --font-title: var(--font-title);
 }
@@ -13,11 +14,7 @@
 body {
   background: var(--background);
   color: var(--text-primary);
-  font-family:
-    var(--font-opensans),
-    ui-sans-serif,
-    system-ui,
-    -apple-system;
+  font-family: var(--font-body), ui-serif, Georgia, serif;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
@@ -35,12 +32,25 @@ body {
 .prose h5,
 .prose h6 {
   color: var(--text-primary);
+  font-family: var(--font-title);
 }
 
 .prose a {
-  color: var(--primary);
+  color: var(--nepal-blue);
 }
 
 .prose a:hover {
-  color: var(--primary-hover);
+  color: var(--nepal-red);
+}
+
+.prose blockquote {
+  border-left: 3px dashed var(--nepal-red);
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.prose blockquote p::before,
+.prose blockquote p::after {
+  content: none;
 }
